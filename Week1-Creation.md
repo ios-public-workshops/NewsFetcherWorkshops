@@ -1,1 +1,21 @@
 Week 1 - Creation
+ - App that synchronously shows a UITableView of fake news articles
+ 
+ - Fork the git repo and clone it onto your machine
+ - Open Xcode
+ - Create new Project as Single View App
+ - Run it
+ - Add a label with your name in it in Storyboard
+ - Run it -> Your name is in the app!
+ - Now add the data fetcher file + data struct to xcode project
+ - Add label to the ViewController file
+ - Make the label show the first entry from the data fetcher
+ - Run it -> it doesn't show the first entry from the data fetcher. :_(
+ - Connect the label to the IBOutlet
+ - Run it -> it shows the first news article!
+ - Replace label with a UITableView in Storyboard
+ - Add a UITableViewDataSource
+ -- Connect the data source to data fetcher (number of items, empty cells)
+ - Run it -> It shows the right number of cells!
+ - Populate the cell with info from data fetcher
+ - Run it -> It shows the data in a table view. :tada:
