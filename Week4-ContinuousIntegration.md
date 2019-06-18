@@ -1,0 +1,3 @@
+Week 4 - Continuous Integration
+
+Setup their github project to use Travis CI (or similar) so that every change will be pushed to....
