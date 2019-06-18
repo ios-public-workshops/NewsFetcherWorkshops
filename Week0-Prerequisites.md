@@ -6,3 +6,6 @@ Required
 
 Recommended
 - MacBook with Xcode installed
+
+Nice to have
+- iPhone, iPad or iPod Touch
