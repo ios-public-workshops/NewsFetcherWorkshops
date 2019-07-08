@@ -1,9 +1,10 @@
-Week 1 - Creation
- - App that synchronously shows a UITableView of fake news articles
+# Week 1 - Creation
 
 Today we're going to create our very own news viewing app! :tada: Don't worry, we'll be guided through each step, and we've pre-written some of the more complicated code so we can get our app up and running in just one session.
 
-Let's get to it! :work:
+Let's get to it! :hammer:
+
+## 1. Running an app
 
 1. Find Xcode on your machine and launch it
     <img src="Week1/images/1.png" title="Open Xcode" alt="alt text">
@@ -41,6 +42,8 @@ Let's get to it! :work:
 1. Now run the app again by hitting the play button. We can see our label on the Simulator. We're now mid-level iOS Developers!! :star:
 
     <img src="Week1/images/8.png" height="600" title="Our label is showing!" alt="alt text">
+
+## 2. Customizing an app
 
 1. Next we're going to add some dynamic data to our app. This is typically done by connecting to an API so we can get real time data from the Internet. We'll come back to this network code in a later workshop, but for now_....here's one we prepared earlier!_ Download this file: <Link to DataSource file>
 
@@ -103,6 +106,8 @@ Let's get to it! :work:
 1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Woohoo!! We're now senior iOS Developers!! :trophy:
 
     <img src="Week1/images/13.png" height="600" title="Now it looks pretty!" alt="alt text">
+
+## 3. Showing different data
 
 1. Showing a single headline is a bit dull. Let's make this app truly great and show a whole scrolling table of headlines!! To do this we need a `UITableView` rather than a `UILabel`. A `UITableView` is what we see a lot in iOS apps. It's a scrolling list of repetitive information. In our case, we will show a scrolling list of `NewsItems`.
 
