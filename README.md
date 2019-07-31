@@ -2,7 +2,7 @@
 
 Series of workshops designed to teach an iOS beginner how to create an app that downloads news articles.
 
-##Prerequisites
+## Prerequisites
 
 Required
 - Knows basic coding types & structures (Int, String, Bool, Array)
