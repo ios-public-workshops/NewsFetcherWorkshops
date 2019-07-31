@@ -7,10 +7,10 @@ Let's get to it! :hammer:
 ## 1. Running an app
 
 1. Find Xcode on your machine and launch it
-    <img src="Week1/images/1.png" title="Open Xcode" alt="alt text">
+    <img src="images/1.png" title="Open Xcode" alt="alt text">
 
 1. Create a new project using the option `Single View App`
-    <img src="Week1/images/2.png" title="Select Single View App" alt="alt text">
+    <img src="images/2.png" title="Select Single View App" alt="alt text">
 
 1. Update the following fields:
     1. **Product name:** Something like 'bestest-news-reader'
@@ -21,19 +21,19 @@ Let's get to it! :hammer:
     1. **Use Core Data:** Leave this unchecked
     1. **Include Unit Tests:** Uncheck this
     1. **Include UI Tests:** Uncheck this
-    <img src="Week1/images/3.png" title="Fill in the fields according to instructions" alt="alt text">
+    <img src=/3.png" title="Fill in the fields according to instructions" alt="alt text">
 
 1. Run the project by hitting the `Play` button up top
 
-    <img src="Week1/images/4.png" title="Press the Play button" alt="alt text">
+    <img src="images/4.png" title="Press the Play button" alt="alt text">
 
 1. Another application will start - the `Simulator`. This application lets us see how our iOS app looks without needing a physical device. Given that we haven't made any changes, we should see an empty white screen. Amazing - we're now iOS developers!! :heart:
 
-    <img src="Week1/images/5.png" height="600" title="Simulator running" alt="alt text">
+    <img src="images/5.png" height="600" title="Simulator running" alt="alt text">
 
 1. Now, open up the file `Main.storyboard`. This is the file where we represent the layout of our app. It's a great tool to use because it lets us easily visualise our app.
 
-    <img src="Week1/images/6.png" title="Open Storyboard file" alt="alt text">
+    <img src="images/6.png" title="Open Storyboard file" alt="alt text">
 
 1. A label is used to display non-interactive text. That is, our users can't change the text in this label, but we can. :thumbsup: Create a label in the `Main.storyboard` file and write the word Codebar inside.
 
@@ -41,7 +41,7 @@ Let's get to it! :hammer:
 
 1. Now run the app again by hitting the play button. We can see our label on the Simulator. We're now mid-level iOS Developers!! :star:
 
-    <img src="Week1/images/8.png" height="600" title="Our label is showing!" alt="alt text">
+    <img src="images/8.png" height="600" title="Our label is showing!" alt="alt text">
 
 ## 2. Customizing an app
 
@@ -97,7 +97,7 @@ Let's get to it! :hammer:
 
 1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Oops, the text is getting cropped!
 
-    <img src="Week1/images/11.png" height="600" title="Our label is showing, but it does not look pretty :(" alt="alt text">
+    <img src="images/11.png" height="600" title="Our label is showing, but it does not look pretty :(" alt="alt text">
 
 1. We need to add some constraints to make the label size larger.
 
@@ -105,7 +105,7 @@ Let's get to it! :hammer:
 
 1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Woohoo!! We're now senior iOS Developers!! :trophy:
 
-    <img src="Week1/images/13.png" height="600" title="Now it looks pretty!" alt="alt text">
+    <img src="images/13.png" height="600" title="Now it looks pretty!" alt="alt text">
 
 ## 3. Showing different data
 
@@ -188,7 +188,7 @@ Let's get to it! :hammer:
     
 1. Run the app by hitting the play button. We will need to wait while data is fetched, then we should see a scrollable table of items. The table is beautiful....but the rows are empty.
 
-    <img src="Week1/images/16.png" height="600" title="The rows are empty" alt="alt text">
+    <img src="images/16.png" height="600" title="The rows are empty" alt="alt text">
 
 1. We need to use the data from `articles` to populate each row. This is done by configuring our `UITableViewCells` in the `cellForRow:` method:
 
@@ -202,6 +202,6 @@ Let's get to it! :hammer:
     
 1. Now one more time, hit that play button and run the app. After the data is fetched, we should see a scrollable table of `NewsItems`. :tada:
 
-    <img src="Week1/images/17.png" height="600" title="TLook at all those articles :3" alt="alt text">
+    <img src="images/17.png" height="600" title="TLook at all those articles :3" alt="alt text">
 
 1. The last step is to form a startup and become app billionaires!! :money_mouth_face: :money_mouth_face: :money_mouth_face:
