@@ -79,8 +79,8 @@ Let's get to it! :hammer:
             fetcher.getLatestArticles { [weak self] (result: Result<[NewsItem], NewsFetcherError>) in
                 switch result {
                 case .success(let articles):
-                    // If fetching was successful, update content to show first headline
-                    self?.content.text = articles.first?.headline
+                    // If fetching was successful, update content to show first title
+                    self?.content.text = articles.first?.title
                 case .failure(let error):
                     // If fetching failed, update content to show the error
                     self?.content.text = "\(error)"
@@ -95,7 +95,7 @@ Let's get to it! :hammer:
 
     ![Alt Text](images/10.gif)
 
-1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Oops, the text is getting cropped!
+1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real title. Oops, the text is getting cropped!
 
     <img src="images/11.png" height="600" title="Our label is showing, but it does not look pretty :(" alt="alt text">
 
@@ -103,13 +103,13 @@ Let's get to it! :hammer:
 
     ![Alt Text](images/12.gif)
 
-1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Woohoo!! We're now senior iOS Developers!! :trophy:
+1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real title. Woohoo!! We're now senior iOS Developers!! :trophy:
 
     <img src="images/13.png" height="600" title="Now it looks pretty!" alt="alt text">
 
 ## 3. Showing different data
 
-1. Showing a single headline is a bit dull. Let's make this app truly great and show a whole scrolling table of headlines!! To do this we need a `UITableView` rather than a `UILabel`. A `UITableView` is what we see a lot in iOS apps. It's a scrolling list of repetitive information. In our case, we will show a scrolling list of `NewsItems`.
+1. Showing a single title is a bit dull. Let's make this app truly great and show a whole scrolling table of titles!! To do this we need a `UITableView` rather than a `UILabel`. A `UITableView` is what we see a lot in iOS apps. It's a scrolling list of repetitive information. In our case, we will show a scrolling list of `NewsItems`.
 
 1. Open `Main.storyboard` and delete the content label you created earlier. Now drag in a UITableView.
 
@@ -195,7 +195,7 @@ Let's get to it! :hammer:
     ```swift
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
-      cell.textLabel?.text = articles[indexPath.row].headline
+      cell.textLabel?.text = articles[indexPath.row].title
       return cell
     }
     ```

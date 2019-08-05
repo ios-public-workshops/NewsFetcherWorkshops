@@ -54,7 +54,7 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
-        cell.textLabel?.text = articles[indexPath.row].headline
+        cell.textLabel?.text = articles[indexPath.row].title
         return cell
     }
 }
