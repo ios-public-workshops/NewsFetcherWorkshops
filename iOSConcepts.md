@@ -1,0 +1,11 @@
+- Decodable
+- Optionals
+- autolayout + Constraints
+- Closures + Completions
+- Structs + Classes
+  - Coffee cup or apples
+- self
+- Tables & cells
+- Cell reuse
+  - Sheets of paper using a pencil & eraser
+- swift function naming
