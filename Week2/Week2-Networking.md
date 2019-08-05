@@ -11,24 +11,24 @@ Today we are going to make our app _really_ talk to the internet! We are going t
 1. Update the label content to read `Data from newsapi.org`
 1. Now let's actually download the data from newsapi.org. Navigate to `NewsFetching.swift`. Remember this was a stubbed file we dropped in to fetch data from "The Internet".
 1. Delete the contents of `func getLatestArticles()`
-```swift
+    ```swift
     class NewsFetcher {
         func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
         }
     }
-```
+    ```
 1. Even though _we're_ all perfect programmers, unfortunately sometimes things can go wrong. It's best practice in iOS to pass errors up to the highest level. We will now add some possible errors to our code above `func getLatestArticles()`:
-```swift
+    ```swift
     enum NewsFetcherError: Error {
         case someError
         case invalidURL
         case invalidData
         case cannotParseData
     }
-```
+    ```
 1. Now we will use iOS system functionality to download the real articles. For this we need an `NSURL`, an `NSURLSession` and a `dataTask`
  and instead use an `NSURLSession` `dataTask` to get real articles!
-```swift
+    ```swift
     class NewsFetcher {
         private let session = URLSession.shared
 
@@ -43,33 +43,33 @@ Today we are going to make our app _really_ talk to the internet! We are going t
             }
         }
     }
-```
+    ```
 1. Great - we're getting the articles now, but we can't see them! Let's dump the data to make sure that `newsapi.org` is really working. And remember our errors? We're going to use some more of them now!
-```swift
-        func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-            guard let url = URL(string: "https://newsapi.org/v2/top-headlines") else {
-                completion(.failure(.invalidURL))
+    ```swift
+    func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
+        guard let url = URL(string: "https://newsapi.org/v2/top-headlines") else {
+            completion(.failure(.invalidURL))
+            return
+        }
+
+        session.dataTask(with: url) { data, response, error in
+            guard error != nil else {
+                completion(.failure(.someError))
                 return
             }
 
-            session.dataTask(with: url) { data, response, error in
-                guard error != nil else {
-                    completion(.failure(.someError))
-                    return
-                }
-
-                guard let data = data else {
-                    completion(.failure(.invalidData))
-                    return
-                }
-
-                dump(data)
+            guard let data = data else {
+                completion(.failure(.invalidData))
+                return
             }
+
+            dump(data)
         }
-```
+    }
+    ```
 ## 2. Showing downloaded dataTask
 1. We're able to dump the raw data from `newsapi.org`, but the point of our iOS app is to make it pretty!! :rose: So let's start by converting the response to `NewsItems`:
-```swift
+    ```swift
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
         guard let url = URL(string: "https://newsapi.org/v2/top-headlines") else {
             completion(.failure(.invalidURL))
@@ -95,7 +95,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
             }
         }
     }
-```
+    ```
 
 
 
