@@ -9,3 +9,6 @@
 - Cell reuse
   - Sheets of paper using a pencil & eraser
 - swift function naming
+- UI updating on main thread
+- URL Query Items
+- Stringly typed
