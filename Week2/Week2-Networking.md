@@ -84,7 +84,6 @@ Now we need to make swift objects that match the data sent from the API. They wi
 
     struct NewsItem: Decodable {
         let title: String
-        let description: String
     }
     ```
 1. Now we can update `getLatestArticles` to get our articles.
@@ -229,24 +228,33 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         return queryItems
     }
     ```
-1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code.
+1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code. <image showing the app running>
 
 
 ## 3. Interacting with articles
-1. Adjust decodable data to include description of article & display
+1. Seeing the title of an article is a little bland. Let's also show the associated description. First we need to fetch the description from the backend. This really is as simple as adding a new field to our `NewsItem` struct:
+    ```swift
+    struct NewsItem: Decodable {
+        let title: String
+        let description: String
+    }
+    ```
+1. In order to show both the title and the description in our list of articles, we need to customise our `UITableViewCell`. The simplest way to do this is using a prototype cell. Open `Main.storyboard` and add a cell then set its `style` to `subtitle`: <gif of adding prototype cell>
 
-1. Explain that we can now remove this line of code because the storyboard does it for us once we have a prototype cell!
+1. Since we're using a prototype cell, we no longer need to register our `UITableViewCell` in code. The storyboard does this for us automatically. Nice! So we can remove this code:
     ```swift
     override func viewDidLoad() {
         super.viewDidLoad()
         // We don't need to manually register the reuse identifier for the cell anymore
-        // because the Storyboard does that now. So we can just comment or erase the line bellow
+        // because the Storyboard does that now. So we can just comment or erase the line below!
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ArticleCell")
         ...
     }
     ```
-
-1. Then we can set the title and subtitle in the cell
+1. Let's run the app again and see how it looks: <image of crash...>
+1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too: <image of storyboard with reuseIdentifier set correctly>
+1. Let's check that the app works _now_ :sweat:
+1. OK, now we need to actually show the `article.description` as our cell subtitle. We'll clean up the code a little as we go. Also remember that setting a `UILabel.numberOfLines = 0` means the label will always grow to fit all the content:
     ```swift
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
@@ -260,7 +268,66 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
 
         return cell
     }
+    ```
+1. Let's fire up the app and see how it's looking now: <image of app showing article titles AND subtitles>
+1. Fantastic - we can now give our users some context for each news article. A fairly standard pattern in iOS is to show a summary list, then let the user choose an item and see more detail. Let's do that by fetching the `url` from `newsapi.org`:
     ```swift
+    struct NewsItem: Decodable {
+        let title: String
+        let description: String
+        let url: URL
+    }
+    ```
+1. iOS is easy, huh? :joy: When the user taps on the cell, we are informed by the `delegation` pattern. This effectively means the `UITableView` is saying "Hey! The user interacted with me! Do something about it, NOW!!". We should make our `ViewController` the delegate:
+    ```swift
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Configure the TableView to use our class as the Delegate
+        tableView.delegate = self
+        // Configure the TableView to use our class as the Data Source
+        tableView.dataSource = self
+        ...
+   }
 
-1. Adjust Decodable data to include link to article
-1. Open content in a safari web view controller
+    ```
+1. The compiler complains now because `ViewController` does not currently know how to be a `UITableViewDelegate`. Let's show it how:
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            // Get the selected article using the tapped row
+            let selectedArticle = articles[indexPath.row]
+            print("Selected \(selectedArticle.title)")
+        }
+    }
+    ```
+1. Run the app and you will see that when you tap on a cell (ie click with the mouse), the log shows you which cell was tapped. :ok:
+1. The final step is to show the article at the `url` we downloaded above. To do this we can use an `SFSafariViewController`. This class is effectively a mini web browser we can use in our app to show web content.
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            // Get the selected article using the tapped row
+            let selectedArticle = articles[indexPath.row]
+
+            // Create a new screen for loading Web Content using SFSafariViewController
+            let articleViewController = SFSafariViewController(url: selectedArticle.url)
+        }
+    }
+    ```
+1. Run the app and let's see what happens now when we tap a cell.
+1. Nothing. :\_( The issue is that we're creating the SFSafariWebViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy: <gif of embedding navigation controller>
+1. Let's also set a title for the `ViewController` so the user knows where they are within the app
+1. The compiler complains now because `ViewController` does not currently know how to be a `UITableViewDelegate`. Let's show it how:
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            // Get the selected article using the tapped row
+            let selectedArticle = articles[indexPath.row]
+
+            // Create a new screen for loading Web Content using SFSafariViewController
+            let articleViewController = SFSafariViewController(url: selectedArticle.url)
+
+            // Present the screen on the Navigation Controller
+            navigationController?.present(articleViewController, animated: true, completion: nil)
+        }
+    }
+    ```
