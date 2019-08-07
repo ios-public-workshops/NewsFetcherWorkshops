@@ -315,8 +315,17 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     ```
 1. Run the app and let's see what happens now when we tap a cell.
 1. Nothing. :\_( The issue is that we're creating the SFSafariWebViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy: <gif of embedding navigation controller>
-1. Let's also set a title for the `ViewController` so the user knows where they are within the app
-1. The compiler complains now because `ViewController` does not currently know how to be a `UITableViewDelegate`. Let's show it how:
+1. Let's also set a title for the `ViewController` so the user knows where they are within the app:
+    ```swift
+    override func viewDidLoad() {
+            super.viewDidLoad()
+            // Sets a title the current screen
+            title = "News Fetcher"
+            ...
+    }
+    ```
+1. If we run the app now, we can see that there's a navigation bar at the top of the screen containing "News Fetcher". <image of app with navigation bar>
+1. Now comes the final step - showing the `SFSafariViewController` when the user taps on a cell. We do this by asking the navigationController (this is the `UINavigationController` we added in the storyboard) to present the new screen:
     ```swift
     extension ViewController: UITableViewDelegate {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -331,3 +340,5 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         }
     }
     ```
+1. Run the app and tap on one of the cells. Notice how we get the back button without doing any customisation? This is nice. <image of web view detail screen>
+1. All done - please pat yourself on the back before closing your laptop. :bow:
