@@ -239,7 +239,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         let description: String
     }
     ```
-1. In order to show both the title and the description in our list of articles, we need to customise our `UITableViewCell`. The simplest way to do this is using a prototype cell. Open `Main.storyboard` and add a cell then set its `style` to `subtitle`: <gif of adding prototype cell>
+1. In order to show both the title and the description in our list of articles, we need to customise our `UITableViewCell`. The simplest way to do this is using a prototype cell. Open `Main.storyboard` and add a cell then set its `style` to `subtitle`:
+
+    ![Alt Text](images/prototype_cell.gif)
 
 1. Since we're using a prototype cell, we no longer need to register our `UITableViewCell` in code. The storyboard does this for us automatically. Nice! So we can remove this code:
     ```swift
@@ -252,7 +254,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Let's run the app again and see how it looks: <image of crash...>
-1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too: <image of storyboard with reuseIdentifier set correctly>
+1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too:
+    <img src="images/cell_reuse_identifier.png" title="Press the Play button" alt="alt text">
+
 1. Let's check that the app works _now_ :sweat:
 1. OK, now we need to actually show the `article.description` as our cell subtitle. We'll clean up the code a little as we go. Also remember that setting a `UILabel.numberOfLines = 0` means the label will always grow to fit all the content:
     ```swift
@@ -314,7 +318,10 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Run the app and let's see what happens now when we tap a cell.
-1. Nothing. :\_( The issue is that we're creating the SFSafariWebViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy: <gif of embedding navigation controller>
+1. Nothing. :\_( The issue is that we're creating the SFSafariWebViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy:
+
+    ![Alt Text](images/navigation_controller.gif)
+
 1. Let's also set a title for the `ViewController` so the user knows where they are within the app:
     ```swift
     override func viewDidLoad() {
