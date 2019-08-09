@@ -1,5 +1,18 @@
 import Foundation
 
+#if swift(>=5.0)
+#else
+/// Result is a native language feature of Swift 5.0.
+/// We're manually adding it here to make our code example compatible with older versions of Xcode and Swift 4.0.
+public enum Result<Success, Failure: Error> {
+    /// A success, storing a `Success` value.
+    case success(Success)
+    
+    /// A failure, storing a `Failure` value.
+    case failure(Failure)
+}
+#endif
+
 enum NewsFetcherError: Error {
     case someError
     case invalidURL
