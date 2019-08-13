@@ -241,7 +241,8 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         return queryItems
     }
     ```
-1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code. <image showing the app running>
+1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code.
+<img src="images/real_articles_refactored_url.png" height=600 title="Real data after refactoring URL" alt="alt text">
 
 
 ## 3. Interacting with articles
@@ -261,17 +262,18 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     override func viewDidLoad() {
         super.viewDidLoad()
         // We don't need to manually register the reuse identifier for the cell anymore
-        // because the Storyboard does that now. So we can just comment or erase the line below!
+        // because the Storyboard does that now. So we can just erase the line below!
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ArticleCell")
         ...
     }
     ```
-1. Let's run the app again and see how it looks: <image of crash...>
+1. Let's run the app again and see how it looks:
+    <img src="images/reuse_identifier_crash.png" title="Reuse identifier was not set correctly" alt="alt text">
 1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too:
     <img src="images/cell_reuse_identifier.png" title="Set the cell reuse identifier" alt="alt text">
 
-1. Let's check that the app works _now_ :sweat:
-1. OK, now we need to actually show the `article.description` as our cell subtitle. We'll clean up the code a little as we go. Also remember that setting a `UILabel.numberOfLines = 0` means the label will always grow to fit all the content:
+1. Let's check that the app works _now_. It should work fine. :sweat:
+1. OK, we need to actually show the `article.description` as our cell subtitle. We'll clean up the code a little as we go. Also remember that setting a `UILabel.numberOfLines = 0` means the label will always grow to fit all the content:
     ```swift
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
@@ -286,7 +288,8 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         return cell
     }
     ```
-1. Let's fire up the app and see how it's looking now: <image of app showing article titles AND subtitles>
+1. Let's fire up the app and see how it's looking now:
+    <img src="images/real_articles_with_description.png" height=600 title="Real articles with descriptions" alt="alt text">
 1. Fantastic - we can now give our users some context for each news article. A fairly standard pattern in iOS is to show a summary list, then let the user choose an item and see more detail. Let's do that by fetching the `url` from `newsapi.org`:
     ```swift
     struct NewsItem: Decodable {
