@@ -7,8 +7,10 @@ Today we are going to make our app _really_ talk to the internet! We are going t
 ## 1. Using a real API
 1. Register a new API key at [newsapi.org](https://newsapi.org/register/). This key gives us permission to download news articles from the API. <image of newsapi.org form filled out>
 1. Part of the conditions of using `newsapi.org` data is that we have to attribute the website in our app. Let's add a header to our table that shows where we are fetching data from.
-1. Go to the `Main.storyboard` file and add a `UILabel` to the `UITableViewFooter` <animation of adding the UILabel>
-1. Update the label content to read `Data from newsapi.org`
+1. Go to the `Main.storyboard` file and add a `UILabel` to the `UITableViewHeader`
+    <img src="images/select_a_label.png" title="Add a new UILabel" alt="alt text">
+
+1. Update the label content to read `Data from newsapi.org` and use center alignment
 1. Now let's actually download the data from `newsapi.org`. Navigate to `NewsFetching.swift`. Remember this was a stubbed file we dropped in to fetch data from "The Internet".
 1. Delete the contents of `func getLatestArticles()`
     ```swift
@@ -255,7 +257,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     ```
 1. Let's run the app again and see how it looks: <image of crash...>
 1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too:
-    <img src="images/cell_reuse_identifier.png" title="Press the Play button" alt="alt text">
+    <img src="images/cell_reuse_identifier.png" title="Set the cell reuse identifier" alt="alt text">
 
 1. Let's check that the app works _now_ :sweat:
 1. OK, now we need to actually show the `article.description` as our cell subtitle. We'll clean up the code a little as we go. Also remember that setting a `UILabel.numberOfLines = 0` means the label will always grow to fit all the content:
