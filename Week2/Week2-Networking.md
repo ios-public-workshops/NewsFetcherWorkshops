@@ -321,8 +321,13 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Run the app and you will see that when you tap on a cell (ie click with the mouse), the log shows you which cell was tapped. :ok:
+    <img src="images/printing_titles_in_console.png" title="Printing article titles in the console" alt="alt text">
+
 1. The final step is to show the article at the `url` we downloaded above. To do this we can use an `SFSafariViewController`. This class is effectively a mini web browser we can use in our app to show web content.
     ```swift
+    import UIKit
+    import SafariServices
+    ...
     extension ViewController: UITableViewDelegate {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             // Get the selected article using the tapped row
@@ -334,7 +339,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Run the app and let's see what happens now when we tap a cell.
-1. Nothing. :\_( The issue is that we're creating the SFSafariWebViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy:
+1. Nothing. :\_( The issue is that we're creating the SFSafariViewController, but we're not displaying it. In order to display it, we need to first embed our `ViewController` into a `UINavigationController`. This is not a screen itself, but a container for other screens. It gives us functionality like drilling down into detail, then tapping the back button to go back to the summary. With storyboards, it's easy:
 
     ![Alt Text](images/navigation_controller.gif)
 
@@ -347,7 +352,8 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
             ...
     }
     ```
-1. If we run the app now, we can see that there's a navigation bar at the top of the screen containing "News Fetcher". <image of app with navigation bar>
+1. If we run the app now, we can see that there's a navigation bar at the top of the screen containing "News Fetcher".
+    <img src="images/real_articles_with_screen_title.png" height=600 title="Real articles with screen title" alt="alt text">
 1. Now comes the final step - showing the `SFSafariViewController` when the user taps on a cell. We do this by asking the navigationController (this is the `UINavigationController` we added in the storyboard) to present the new screen:
     ```swift
     extension ViewController: UITableViewDelegate {
@@ -363,5 +369,6 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         }
     }
     ```
-1. Run the app and tap on one of the cells. Notice how we get the back button without doing any customisation? This is nice. <image of web view detail screen>
+1. Run the app and tap on one of the cells. Notice how we get the back button without doing any customisation? This is nice.
+    <img src="images/article_inside_safari.png" height=600 title="Article detail inside a SFSafariViewController" alt="alt text">
 1. All done - please pat yourself on the back before closing your laptop. :bow:
