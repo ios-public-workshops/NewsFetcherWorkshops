@@ -288,7 +288,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         return cell
     }
     ```
-1. Let's fire up the app and see how it's looking now:
+1. Let's fire up the app and see how it's looking now. Pay attention to the title *and* description:
     <img src="images/real_articles_with_description.png" height=600 title="Real articles with descriptions" alt="alt text">
 1. Fantastic - we can now give our users some context for each news article. A fairly standard pattern in iOS is to show a summary list, then let the user choose an item and see more detail. Let's do that by fetching the `url` from `newsapi.org`:
     ```swift
