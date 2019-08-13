@@ -37,7 +37,7 @@ Let's get to it! :hammer:
 
 1. A label is used to display non-interactive text. That is, our users can't change the text in this label, but we can. :thumbsup: Create a label in the `Main.storyboard` file and write the word Codebar inside.
 
-    ![Alt Text](Week1/images/7.gif)
+    ![Alt Text](images/7.gif)
 
 1. Now run the app again by hitting the play button. We can see our label on the Simulator. We're now mid-level iOS Developers!! :star:
 
@@ -49,7 +49,7 @@ Let's get to it! :hammer:
 
 1. Drag the downloaded file `NewsFetching.swift` into the Project Navigator section of your app
 
-    ![Alt Text](Week1/images/9.gif)
+    ![Alt Text](images/9.gif)
 
 1. This file contains 2 objects:
     1. **NewsFetcher:** A class for fetching news articles from [newsapi.org](https://newsapi.org/)
@@ -93,7 +93,7 @@ Let's get to it! :hammer:
 
 1. Whoops - we forget to connect our label between our source file (`ViewController.swift`) and our storyboard (`Main.storyboard`). Carefully follow the steps here to open the assistant editor and connect the label from the storyboard to the label in code.
 
-    ![Alt Text](Week1/images/10.gif)
+    ![Alt Text](images/10.gif)
 
 1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Oops, the text is getting cropped!
 
@@ -101,7 +101,7 @@ Let's get to it! :hammer:
 
 1. We need to add some constraints to make the label size larger.
 
-    ![Alt Text](Week1/images/12.gif)
+    ![Alt Text](images/12.gif)
 
 1. Run the app again by hitting the play button. We will need to wait while data is fetched, but then we should see `content` label being updated to show a real headline. Woohoo!! We're now senior iOS Developers!! :trophy:
 
@@ -113,7 +113,7 @@ Let's get to it! :hammer:
 
 1. Open `Main.storyboard` and delete the content label you created earlier. Now drag in a UITableView.
 
-    ![Alt Text](Week1/images/14.gif)
+    ![Alt Text](images/14.gif)
 
 1. Now we need to change the label declaration to a`UITableView` declaration:
 
@@ -125,7 +125,7 @@ Let's get to it! :hammer:
 
 1. Don't forget to connect the outlet on the `UITableView` in the Storyboard.
 
-    ![Alt Text](Week1/images/15.gif)
+    ![Alt Text](images/15.gif)
 
 1. A `UITableView` needs a `UITableViewDataSource` to tell it what information to show. At minimum, a `UITableViewDataSource` provides this information:
     1. **numberOfSections:** How many sections the table contains (a section is a group of items)
