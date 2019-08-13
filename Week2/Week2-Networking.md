@@ -6,10 +6,13 @@ Today we are going to make our app _really_ talk to the internet! We are going t
 
 ## 1. Using a real API
 1. Register a new API key at [newsapi.org](https://newsapi.org/register/). This key gives us permission to download news articles from the API.
+
     <img src="images/newsapi_register.png" title="Register for newsapi key" alt="alt text">
+
 1. You will be sent an email with your unique API key for accessing this free service that provides news headlines.
 1. Part of the conditions of using `newsapi.org` data is that we have to attribute the website in our app. Let's add a header to our table that shows where we are fetching data from.
 1. Go to the `Main.storyboard` file and add a `UILabel` to the `UITableViewHeader`
+
     <img src="images/select_a_label.png" title="Add a new UILabel" alt="alt text">
 
 1. Configure the label using:
@@ -17,7 +20,9 @@ Today we are going to make our app _really_ talk to the internet! We are going t
      - Color: `White Color`
      - Alignment: `Center`
      - Background: `Light Gray Color`
+
     <img src="images/set_table_header_label.png" title="Configure the label" alt="alt text">
+
 1. Now let's actually download the data from `newsapi.org`. Navigate to `NewsFetching.swift`. Remember this was a stubbed file we dropped in to fetch data from "The Internet".
 1. Delete the contents of `func getLatestArticles()`
     ```swift
@@ -76,6 +81,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
     }
     ```
 1. Run the app to see our data being dumped to the console in Xcode. So exciting!! :star:
+
     <img src="images/dump_newsapi_data.png" title="Dump news.api data" alt="alt text">
 
 ## 2. Showing downloaded titles
@@ -127,7 +133,9 @@ Now we need to make swift objects that match the data sent from the API. They wi
     ```
 1. OK - let's run the app to see our real article titles coming from `newsapi.org`.  
 Uh-oh?
+
     <img src="images/main_thread_crash.png" title="It crashed" alt="alt text">
+
 1. :confused: That didn't work so well.  
 Remember in `week1` we talked about completion blocks? The issue here is that we tried to update UI on a **background thread**. Let's fix this by updating our `ViewController` to reload the UI on the **main thread**:
     ```swift
@@ -152,7 +160,8 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. *Now* let's run the app to see our real articles coming from `newsapi.org`. :tada:
-     <img src="images/real_articles_from_api.png" height="600" title="Real articles from The Internet" alt="alt text">
+
+    <img src="images/real_articles_from_api.png" height="600" title="Real articles from The Internet" alt="alt text">
 
 1. There are some improvements we can make to our code quality before going further. Let's make our URL creation a bit more flexible:
     ```swift
@@ -202,9 +211,13 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
    }
    <Add a breakpoint at this line>
    ```
-   <img src="images/add_a_breakpoint.png" title="Add a breakpoint" alt="alt text">
+
+    <img src="images/add_a_breakpoint.png" title="Add a breakpoint" alt="alt text">
+
 1. Now run the app and use `po url` in the `console` panel of Xcode to see what the created URL looks like. Copy the URL and paste it into a browser. The error explains the issue:
+
     <img src="images/missing_api_key.png" title="API key is missing" alt="alt text">
+
 1. :flushed: We forgot about the URL query parameters, including the `apiKey`. Whoops. Let's add them now:
     ```swift
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
@@ -242,8 +255,8 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code.
-<img src="images/real_articles_refactored_url.png" height=600 title="Real data after refactoring URL" alt="alt text">
 
+    <img src="images/real_articles_refactored_url.png" height=600 title="Real data after refactoring URL" alt="alt text">
 
 ## 3. Interacting with articles
 1. Seeing the title of an article is a little bland. Let's also show the associated description. First we need to fetch the description from the backend. This really is as simple as adding a new field to our `NewsItem` struct:
@@ -268,8 +281,11 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Let's run the app again and see how it looks:
+
     <img src="images/reuse_identifier_crash.png" title="Reuse identifier was not set correctly" alt="alt text">
+
 1. We screwed up....again. When we were registering the `UITableViewCell` in code, we used a `reuseIdentifier` of "ArticleCell". Now that we're using the storyboard to define our `UITableViewCell`, we also need to define our `reuseIdentifier` there too:
+
     <img src="images/cell_reuse_identifier.png" title="Set the cell reuse identifier" alt="alt text">
 
 1. Let's check that the app works _now_. It should work fine. :sweat:
@@ -289,7 +305,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Let's fire up the app and see how it's looking now. Pay attention to the title *and* description:
+
     <img src="images/real_articles_with_description.png" height=600 title="Real articles with descriptions" alt="alt text">
+
 1. Fantastic - we can now give our users some context for each news article. A fairly standard pattern in iOS is to show a summary list, then let the user choose an item and see more detail. Let's do that by fetching the `url` from `newsapi.org`:
     ```swift
     struct NewsItem: Decodable {
@@ -321,6 +339,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Run the app and you will see that when you tap on a cell (ie click with the mouse), the log shows you which cell was tapped. :ok:
+
     <img src="images/printing_titles_in_console.png" title="Printing article titles in the console" alt="alt text">
 
 1. The final step is to show the article at the `url` we downloaded above. To do this we can use an `SFSafariViewController`. This class is effectively a mini web browser we can use in our app to show web content.
@@ -353,7 +372,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. If we run the app now, we can see that there's a navigation bar at the top of the screen containing "News Fetcher".
+
     <img src="images/real_articles_with_screen_title.png" height=600 title="Real articles with screen title" alt="alt text">
+
 1. Now comes the final step - showing the `SFSafariViewController` when the user taps on a cell. We do this by asking the navigationController (this is the `UINavigationController` we added in the storyboard) to present the new screen:
     ```swift
     extension ViewController: UITableViewDelegate {
@@ -370,5 +391,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Run the app and tap on one of the cells. Notice how we get the back button without doing any customisation? This is nice.
+
     <img src="images/article_inside_safari.png" height=600 title="Article detail inside a SFSafariViewController" alt="alt text">
+
 1. All done - please pat yourself on the back before closing your laptop. :bow:
