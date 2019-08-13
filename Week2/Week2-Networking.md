@@ -126,7 +126,8 @@ Now we need to make swift objects that match the data sent from the API. They wi
     }
     ```
 1. OK - let's run the app to see our real article titles coming from `newsapi.org`.  
-Uh-oh? <image of crash>
+Uh-oh?
+    <img src="images/main_thread_crash.png" title="It crashed" alt="alt text">
 1. :confused: That didn't work so well.  
 Remember in `week1` we talked about completion blocks? The issue here is that we tried to update UI on a **background thread**. Let's fix this by updating our `ViewController` to reload the UI on the **main thread**:
     ```swift
@@ -150,7 +151,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
         }
     }
     ```
-1. *Now* let's run the app to see our real articles coming from `newsapi.org`. :tada: <image of real titles coming from the internet>
+1. *Now* let's run the app to see our real articles coming from `newsapi.org`. :tada:
+     <img src="images/real_articles_from_api.png" height="600" title="Real articles from The Internet" alt="alt text">
+
 1. There's some improvements we can make to our code quality before going further. Let's make our URL creation a bit more flexible:
     ```swift
     class NewsFetcher {
