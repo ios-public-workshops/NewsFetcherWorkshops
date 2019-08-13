@@ -154,7 +154,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
 1. *Now* let's run the app to see our real articles coming from `newsapi.org`. :tada:
      <img src="images/real_articles_from_api.png" height="600" title="Real articles from The Internet" alt="alt text">
 
-1. There's some improvements we can make to our code quality before going further. Let's make our URL creation a bit more flexible:
+1. There are some improvements we can make to our code quality before going further. Let's make our URL creation a bit more flexible:
     ```swift
     class NewsFetcher {
         private let baseURL = "https://newsapi.org"
@@ -194,7 +194,7 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
     }
     ```
 1. Great - let's try out our neater code to check it still works! Run the app please.
-1. Uh-oh. How can we check our URL? Add a breakpoint just after the `guard` statement:
+1. Uh-oh. We're not getting any data now. :cry: We must have broken something with our new `createURL()` method. How can we check what it's doing? Add a breakpoint just after the `guard` statement in `getLatestArticles()`:
    ```swift
    guard let url = createURL(baseURL: baseURL, endpoint: endpoint) else {   
        completion(.failure(.invalidURL))
@@ -202,8 +202,9 @@ Remember in `week1` we talked about completion blocks? The issue here is that we
    }
    <Add a breakpoint at this line>
    ```
-1. Now run the app and use `po url` in the `console` panel to see what the created URL looks like. Copy the URL and paste it into a browser. The error explains the issue:
-<image of apiKey missing in Chrome/Safari>
+   <img src="images/add_a_breakpoint.png" title="Add a breakpoint" alt="alt text">
+1. Now run the app and use `po url` in the `console` panel of Xcode to see what the created URL looks like. Copy the URL and paste it into a browser. The error explains the issue:
+    <img src="images/missing_api_key.png" title="API key is missing" alt="alt text">
 1. :flushed: We forgot about the URL query parameters, including the `apiKey`. Whoops. Let's add them now:
     ```swift
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
