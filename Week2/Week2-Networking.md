@@ -13,10 +13,10 @@ Today we are going to make our app _really_ talk to the internet! We are going t
     <img src="images/select_a_label.png" title="Add a new UILabel" alt="alt text">
 
 1. Configure the label using:
- 1. Text: `Data from newsapi.org`
- 1. Color: `White Color`
- 1. Alignment: `Center`
- 1. Background: `Light Gray Color`
+     - Text: `Data from newsapi.org`
+     - Color: `White Color`
+     - Alignment: `Center`
+     - Background: `Light Gray Color`
     <img src="images/set_table_header_label.png" title="Configure the label" alt="alt text">
 1. Now let's actually download the data from `newsapi.org`. Navigate to `NewsFetching.swift`. Remember this was a stubbed file we dropped in to fetch data from "The Internet".
 1. Delete the contents of `func getLatestArticles()`
@@ -35,13 +35,13 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         case cannotParseData
     }
     ```
-1. Now we will use iOS system functionality to download the real articles. For this we need an `NSURL`, an `NSURLSession` and a `dataTask`:
+1. Now we will use iOS system functionality to download the real articles. For this we need an `NSURL`, an `NSURLSession` and a `dataTask`. And note that you should replace `<YOUR_API_KEY_HERE>` with the key sent to your email from `support@newsapi.org`.
     ```swift
     class NewsFetcher {
         private let session = URLSession.shared
 
         func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-            guard let url = URL(string: "https://newsapi.org/v2/top-headlines") else {
+          guard let url = URL(string: "https://newsapi.org/v2/top-headlines?q=apple&apiKey=<YOUR_API_KEY_HERE>") else {
                 completion(.failure(.invalidURL))
                 return
             }
@@ -49,7 +49,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
             session.dataTask(with: url) { data, response, error in
 
             }
-        }
+        }.resume()
     }
     ```
 1. We're fetching the articles from "The Internet" now, but we can't yet see them! Let's dump the data to make sure that `newsapi.org` is really working. And remember our errors? We're going to use some more of them now!
@@ -61,7 +61,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         }
 
         session.dataTask(with: url) { data, response, error in
-            guard error != nil else {
+            guard error == nil else {
                 completion(.failure(.someError))
                 return
             }
@@ -72,10 +72,11 @@ Today we are going to make our app _really_ talk to the internet! We are going t
             }
 
             dump(data)
-        }
+        }.resume()
     }
     ```
-<Image to show what expected dumped data should look like>
+1. Run the app to see our data being dumped to the console in Xcode. So exciting!! :star:
+    <img src="images/dump_newsapi_data.png" title="Dump news.api data" alt="alt text">
 
 ## 2. Showing downloaded titles
 1. We're able to dump the raw data from `newsapi.org`, but the point of our iOS app is to make it pretty!! :rose:  
