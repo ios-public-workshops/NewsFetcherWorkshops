@@ -5,12 +5,19 @@ Today we are going to make our app _really_ talk to the internet! We are going t
 - Complete the [week 1 tutorial](../Week1/Week1-Creation.md)!
 
 ## 1. Using a real API
-1. Register a new API key at [newsapi.org](https://newsapi.org/register/). This key gives us permission to download news articles from the API. <image of newsapi.org form filled out>
+1. Register a new API key at [newsapi.org](https://newsapi.org/register/). This key gives us permission to download news articles from the API.
+    <img src="images/newsapi_register.png" title="Register for newsapi key" alt="alt text">
+1. You will be sent an email with your unique API key for accessing this free service that provides news headlines.
 1. Part of the conditions of using `newsapi.org` data is that we have to attribute the website in our app. Let's add a header to our table that shows where we are fetching data from.
 1. Go to the `Main.storyboard` file and add a `UILabel` to the `UITableViewHeader`
     <img src="images/select_a_label.png" title="Add a new UILabel" alt="alt text">
 
-1. Update the label content to read `Data from newsapi.org` and use center alignment
+1. Configure the label using:
+ 1. Text: `Data from newsapi.org`
+ 1. Color: `White Color`
+ 1. Alignment: `Center`
+ 1. Background: `Light Gray Color`
+    <img src="images/set_table_header_label.png" title="Configure the label" alt="alt text">
 1. Now let's actually download the data from `newsapi.org`. Navigate to `NewsFetching.swift`. Remember this was a stubbed file we dropped in to fetch data from "The Internet".
 1. Delete the contents of `func getLatestArticles()`
     ```swift
@@ -19,7 +26,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         }
     }
     ```
-1. Even though _we're_ all perfect programmers, unfortunately sometimes things can go wrong. It's best practice in iOS to pass errors up to the highest level. We will now add some possible errors to our code above `func getLatestArticles()`:
+1. Even though _we're_ all perfect programmers, sometimes things can go wrong. It's best practice in iOS to pass errors up to the highest level. We will now add some possible errors to our code above `func getLatestArticles()`:
     ```swift
     enum NewsFetcherError: Error {
         case someError
@@ -28,8 +35,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         case cannotParseData
     }
     ```
-1. Now we will use iOS system functionality to download the real articles. For this we need an `NSURL`, an `NSURLSession` and a `dataTask`
- and instead use an `NSURLSession` `dataTask` to get real articles!
+1. Now we will use iOS system functionality to download the real articles. For this we need an `NSURL`, an `NSURLSession` and a `dataTask`:
     ```swift
     class NewsFetcher {
         private let session = URLSession.shared
@@ -46,7 +52,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         }
     }
     ```
-1. Great - we're getting the articles now, but we can't see them! Let's dump the data to make sure that `newsapi.org` is really working. And remember our errors? We're going to use some more of them now!
+1. We're fetching the articles from "The Internet" now, but we can't yet see them! Let's dump the data to make sure that `newsapi.org` is really working. And remember our errors? We're going to use some more of them now!
     ```swift
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
         guard let url = URL(string: "https://newsapi.org/v2/top-headlines?q=apple&apiKey=<YOUR_API_KEY_HERE>") else {
