@@ -15,77 +15,39 @@ public enum Result<Success, Failure: Error> {
 
 enum NewsFetcherError: Error {
     case someError
-    case invalidURL
-    case invalidData
-    case cannotParseData
-}
-
-struct NewsResponse: Decodable {
-    let status: String
-    let totalResults: Int
-    let articles: [NewsItem]
-}
-
-struct NewsItem: Decodable {
-    let title: String
-    let description: String
-    let url: URL
 }
 
 class NewsFetcher {
-    private let baseURL = "https://newsapi.org"
-    private let apiKey = "e4d7e17e4ef84dea885ef1e8f4f5bda9"
-    private let session = URLSession.shared
-    
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-        let endpoint = "/v2/top-headlines"
-        let parameters = ["q":"apple"]
+        let articles = [
+            NewsItem(title: "Apple won't offer a Netflix-like quantity of TV shows"),
+            NewsItem(title: "How to Make Store-Bought Barbecue Sauce Taste Better"),
+            NewsItem(title: "What to Do If Your Mac Won't Update to Windows 10 Version 1903"),
+            NewsItem(title: "Bullet's captioned snippets make podcasts a lot more shareable"),
+            NewsItem(title: "Xiaomi subtly clones Apple's Memoji with 'Mimoji'"),
+            NewsItem(title: "There’s only one important question to ask about Apple’s future"),
+            NewsItem(title: "EV startup Rivian has poached dozens from Ford, McLaren, Tesla, and Faraday Future"),
+            NewsItem(title: "FCC filing is latest evidence that Apple will soon update its most affordable MacBook Pro"),
+            NewsItem(title: "Apple Sans Ive"),
+            NewsItem(title: "Disrupt SF 4-day flash sale: save an additional $300 off passes"),
+            NewsItem(title: "U.S. retail group offers to help antitrust investigators in going after Amazon and Google"),
+            NewsItem(title: "Apple TV+ Might Just Fuck After All"),
+            NewsItem(title: "Apple's Project Titan Dreamed Up a Car With Retractable Bumpers"),
+            NewsItem(title: "He’s Spent Just One Night on His Private Island. He’s Had Enough."),
+            NewsItem(title: "New details have emerged about Jony Ive leaving Apple"),
+            NewsItem(title: "Apple MacBook, Fire TV Recast, Nespresso Essenza Mini, Echo Dot, and more deals for July 2"),
+            NewsItem(title: "Samsung sets a date for its big Galaxy Note 10 reveal"),
+            NewsItem(title: "Let's set some ground rules to safely build, test, and drive robo-cars"),
+            NewsItem(title: "Retailers all but beg FTC to take action against Google, Amazon"),
+            NewsItem(title: "Xiaomi blatantly ripped off Apple's Memoji and created 'Mimoji'")
+        ]
         
-        guard let url = createURL(baseURL: baseURL, endpoint: endpoint, parameters: parameters) else {
-            completion(.failure(.invalidURL))
-            return
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            completion(.success(articles))
         }
-        session.dataTask(with: url) { data, response, error in
-            guard error == nil else {
-                completion(.failure(.someError))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(.invalidData))
-                return
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(NewsResponse.self, from: data)
-                let articles = response.articles
-                completion(.success(articles))
-            } catch {
-                completion(.failure(.cannotParseData))
-            }
-            }.resume()
     }
-    
-    private func createURL(baseURL: String, endpoint: String, parameters: [String: String]) -> URL? {
-        guard let endpointUrl = URL(string: baseURL)?.appendingPathComponent(endpoint) else { return nil }
-        guard var urlComponents = URLComponents(url: endpointUrl, resolvingAgainstBaseURL: false) else { return nil }
-        
-        urlComponents.queryItems = createQueryItems(parameters: parameters)
-        
-        return urlComponents.url
-    }
-    
-    private func createQueryItems(parameters: [String: String]) -> [URLQueryItem] {
-        var queryItems = [URLQueryItem]()
-        
-        let apiKeyQueryItems = URLQueryItem(name: "apiKey", value: apiKey)
-        queryItems.append(apiKeyQueryItems)
-        
-        for (queryKey, queryValue) in parameters {
-            let newQueryItem = URLQueryItem(name: queryKey, value: queryValue)
-            queryItems.append(newQueryItem)
-        }
-        
-        return queryItems
-    }
+}
+
+struct NewsItem {
+    let title: String
 }
