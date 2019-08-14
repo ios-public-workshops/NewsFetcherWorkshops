@@ -1,4 +1,4 @@
-# Week 1 - Creation
+# Workshop 1 - Creation
 
 Today we're going to create our very own news viewing app! :tada: Don't worry, we'll be guided through each step, and we've pre-written some of the more complicated code so we can get our app up and running in just one session.
 

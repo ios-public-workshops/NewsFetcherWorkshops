@@ -1,4 +1,4 @@
-Week 4 - Delightful
+Workshop 4 - Delightful
 
 - Add UIAnimations that animate
 - Add EffectViews

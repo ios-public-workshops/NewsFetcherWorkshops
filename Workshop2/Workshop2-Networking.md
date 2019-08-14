@@ -1,8 +1,8 @@
-# Week 2 - Networking
+# Workshop 2 - Networking
 Today we are going to make our app _really_ talk to the internet! We are going to add networking functionality and retrieve data from the public `newsapi.org` service.
 
 ### Prerequisites:
-- Complete the [week 1 tutorial](../Week1/Week1-Creation.md)!
+- Complete the [workshop 1 tutorial](../Workshop1/Workshop1-Creation.md)!
 
 ## 1. Using a real API
 1. Register a new API key at [newsapi.org](https://newsapi.org/register/). This key gives us permission to download news articles from the API.
@@ -137,7 +137,7 @@ Uh-oh?
     <img src="images/main_thread_crash.png" title="It crashed" alt="alt text">
 
 1. :confused: That didn't work so well.  
-Remember in `week1` we talked about completion blocks? The issue here is that we tried to update UI on a **background thread**. Let's fix this by updating our `ViewController` to reload the UI on the **main thread**:
+Remember in `Workshop1` we talked about completion blocks? The issue here is that we tried to update UI on a **background thread**. Let's fix this by updating our `ViewController` to reload the UI on the **main thread**:
     ```swift
     override func viewDidLoad() {
         ...

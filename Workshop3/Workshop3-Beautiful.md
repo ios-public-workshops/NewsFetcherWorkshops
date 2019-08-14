@@ -1,5 +1,5 @@
 
-Week 3 - Beautiful
+Workshop 3 - Beautiful
 
 Add details that make the app beautiful:
 
