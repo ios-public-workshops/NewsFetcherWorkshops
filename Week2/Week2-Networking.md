@@ -53,8 +53,8 @@ Today we are going to make our app _really_ talk to the internet! We are going t
 
             session.dataTask(with: url) { data, response, error in
 
-            }
-        }.resume()
+            }.resume()
+        }
     }
     ```
 1. We're fetching the articles from "The Internet" now, but we can't yet see them! Let's dump the data to make sure that `newsapi.org` is really working. And remember our errors? We're going to use some more of them now!
@@ -66,7 +66,7 @@ Today we are going to make our app _really_ talk to the internet! We are going t
         }
 
         session.dataTask(with: url) { data, response, error in
-            guard error == nil else {
+            guard error != nil else {
                 completion(.failure(.someError))
                 return
             }
