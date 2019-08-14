@@ -125,7 +125,8 @@ Now we need to make swift objects that match the data sent from the API. They wi
                 let response = try JSONDecoder().decode(NewsResponse.self, from: data)
                 let articles = response.articles
                 completion(.success(articles))
-            } catch {
+            } catch let error {
+                dump(error)
                 completion(.failure(.cannotParseData))
             }
         }.resume()
