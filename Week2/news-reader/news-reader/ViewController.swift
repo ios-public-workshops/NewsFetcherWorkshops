@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -15,9 +16,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Configure the TableView to reuse cells based on an identifier
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ArticleCell")
+        // Sets a title the current screen
+        title = "News Fetcher"
         
+        // Configure the TableView to use our class as the Delegate
+        tableView.delegate = self
         // Configure the TableView to use our class as the Data Source
         tableView.dataSource = self
         
@@ -33,8 +36,11 @@ class ViewController: UIViewController {
                 // If fetching was successful, set the articles variable from ViewController with new articles
                 self?.articles = newArticles
                 
-                // The tell the tableView it should reload its data
-                self?.tableView.reloadData()
+                // Then tell the tableView it should reload its data
+                // Remember to call reloadData() from the main thread
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             case .failure(let error):
                 // If fetching failed, print the error
                 print(error.localizedDescription)
@@ -54,7 +60,27 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
-        cell.textLabel?.text = articles[indexPath.row].title
+        let article = articles[indexPath.row]
+        
+        cell.textLabel?.text = article.title
+        cell.textLabel?.numberOfLines = 0
+        
+        cell.detailTextLabel?.text = article.description
+        cell.detailTextLabel?.numberOfLines = 0
+        
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get the selected article using the tapped row
+        let selectedArticle = articles[indexPath.row]
+        
+        // Create a new screen for loading Web Content using SFSafariViewController
+        let articleViewController = SFSafariViewController(url: selectedArticle.url)
+        
+        // Present the screen on the Navigation Controller
+        navigationController?.present(articleViewController, animated: true, completion: nil)
     }
 }
