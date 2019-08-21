@@ -13,6 +13,8 @@ It's a platform that enables developers to fetch data over the network, receive 
 - [Apple’s comprehensive introduction to Swift programming langauge](https://docs.swift.org/swift-book/index.html)
   
 - [StackOverflow](https://stackoverflow.com/) - resource for asking programming questions. Search here first as someone has probably already answered your question! :thumbsup:
+
+- [Swift for complete beginners](https://www.hackingwithswift.com/read/0/overview)
   
 - [Stanford's iOS Course (iOS 9)](https://www.youtube.com/channel/UCYVp6suz7ztKAKY8jpfACXA/videos) - 2016 videos on YouTube
 - [Stanford's iOS Course (iOS 11)](https://itunes.apple.com/us/course/developing-ios-11-apps-with-swift/id1309275316)  - 2018 course on iTunes University
