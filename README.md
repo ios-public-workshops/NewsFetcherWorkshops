@@ -5,11 +5,11 @@ Series of workshops designed to teach an iOS beginner how to create an app that 
 ## Prerequisites
 
 Required
-- Knows basic coding types & structures (Int, String, Bool, Array)
+- Knows basic coding types & structures (Int, String, Bool, Array, for loop, switch statement)
 
 Recommended
 - Knows how to use Git AND has an account
-- MacBook with Xcode 10.2 installed (Swift 5.0 supported)
+- MacBook with Xcode 10 or later installed
 
 Nice to have
 - iPhone, iPad or iPod Touch
