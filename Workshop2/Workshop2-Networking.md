@@ -164,101 +164,6 @@ Remember in `Workshop1` we talked about completion blocks? The issue here is tha
 
     <img src="images/real_articles_from_api.png" height="600" title="Real articles from The Internet" alt="alt text">
 
-1. There are some improvements we can make to our code quality before going further. Let's make our URL creation a bit more flexible:
-    ```swift
-    class NewsFetcher {
-        private let baseURL = "https://newsapi.org"
-        private let apiKey = "<YOUR_API_KEY>"
-        private let session = URLSession.shared
-
-        func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-            let endpoint = "/v2/top-headlines"
-            let queryParameters = "q=apple&apiKey=\(apiKey)"
-
-            guard let url = URL(string: "\(baseURL)\(endpoint)?\(queryParameters)") else {
-                completion(.failure(.invalidURL))
-                return
-            }
-            ...
-        }
-    }
-    ```
-1. That code is a little neater. We're not hardcoding values in our url anymore. But we're still using a string. This is what we call `Stringly Typed`. We can do better using `NSURLComponents`:
-    ```swift
-    func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-        let endpoint = "/v2/top-headlines"
-        let queryParameters = "q=apple&apiKey=\(apiKey)"
-
-        guard let url = createURL(baseURL: baseURL, endpoint: endpoint) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        ...
-    }
-
-    private func createURL(baseURL: String, endpoint: String) -> URL? {
-        guard let endpointUrl = URL(string: baseURL)?.appendingPathComponent(endpoint) else { return nil }
-        guard var urlComponents = URLComponents(url: endpointUrl, resolvingAgainstBaseURL: false) else { return nil }
-
-        return urlComponents.url
-    }
-    ```
-1. Great - let's try out our neater code to check it still works! Run the app please.
-1. Uh-oh. We're not getting any data now. :cry: We must have broken something with our new `createURL()` method. How can we check what it's doing? Add a breakpoint just after the `guard` statement in `getLatestArticles()`:
-   ```swift
-   guard let url = createURL(baseURL: baseURL, endpoint: endpoint) else {   
-       completion(.failure(.invalidURL))
-       return
-   }
-   <Add a breakpoint at this line>
-   ```
-
-    <img src="images/add_a_breakpoint.png" title="Add a breakpoint" alt="alt text">
-
-1. Now run the app and use `po url` in the `console` panel of Xcode to see what the created URL looks like. Copy the URL and paste it into a browser. The error explains the issue:
-
-    <img src="images/missing_api_key.png" title="API key is missing" alt="alt text">
-
-1. :flushed: We forgot about the URL query parameters, including the `apiKey`. Whoops. Let's add them now:
-    ```swift
-    func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
-        let endpoint = "/v2/top-headlines"
-        let parameters = ["q":"apple"]
-
-        guard let url = createURL(baseURL: baseURL, endpoint: endpoint, parameters: parameters) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        ...
-    }
-
-    private func createURL(baseURL: String, endpoint: String, parameters: [String: String]) -> URL? {
-        guard let endpointUrl = URL(string: baseURL)?.appendingPathComponent(endpoint) else { return nil }
-        guard var urlComponents = URLComponents(url: endpointUrl, resolvingAgainstBaseURL: false) else { return nil }
-
-        urlComponents.queryItems = createQueryItems(parameters: parameters)
-
-        return urlComponents.url
-    }
-
-    private func createQueryItems(parameters: [String: String]) -> [URLQueryItem] {
-        var queryItems = [URLQueryItem]()
-
-        let apiKeyQueryItems = URLQueryItem(name: "apiKey", value: apiKey)
-        queryItems.append(apiKeyQueryItems)
-
-        for (queryKey, queryValue) in parameters {
-            let newQueryItem = URLQueryItem(name: queryKey, value: queryValue)
-            queryItems.append(newQueryItem)
-        }
-
-        return queryItems
-    }
-    ```
-1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code.
-
-    <img src="images/real_articles_refactored_url.png" height=600 title="Real data after refactoring URL" alt="alt text">
-
 ## 3. Interacting with articles
 1. Seeing the title of an article is a little bland. Let's also show the associated description. First we need to fetch the description from the backend. This really is as simple as adding a new field to our `NewsItem` struct:
     ```swift
@@ -396,3 +301,104 @@ Remember in `Workshop1` we talked about completion blocks? The issue here is tha
     <img src="images/article_inside_safari.png" height=600 title="Article detail inside a SFSafariViewController" alt="alt text">
 
 1. All done - please pat yourself on the back before closing your laptop. :bow:
+
+---
+
+### Optional Extension - Cleaning Up
+
+1. This is an extension for those looking to code a bit more between workshops. Next workshop will skip over these improvements to the code. This extension does not add new functionality, but rather make the URL handling neater.
+
+1. When we created our code to fetch articles from the news api, we didn't make our URL creation very reusable, or type safe. Let's take some time to make our URL creation more flexible. Update NewsFetcher to look like:
+    ```swift
+    class NewsFetcher {
+        private let baseURL = "https://newsapi.org"
+        private let apiKey = "<YOUR_API_KEY>"
+        private let session = URLSession.shared
+
+        func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
+            let endpoint = "/v2/top-headlines"
+            let queryParameters = "q=apple&apiKey=\(apiKey)"
+
+            guard let url = URL(string: "\(baseURL)\(endpoint)?\(queryParameters)") else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            ...
+        }
+    }
+    ```
+1. That code is a little neater. We're not hardcoding values in our url anymore. But we're still using a string. This is what we call `Stringly Typed`. We can do better using `NSURLComponents`:
+    ```swift
+    func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
+        let endpoint = "/v2/top-headlines"
+        let queryParameters = "q=apple&apiKey=\(apiKey)"
+
+        guard let url = createURL(baseURL: baseURL, endpoint: endpoint) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        ...
+    }
+
+    private func createURL(baseURL: String, endpoint: String) -> URL? {
+        guard let endpointUrl = URL(string: baseURL)?.appendingPathComponent(endpoint) else { return nil }
+        guard var urlComponents = URLComponents(url: endpointUrl, resolvingAgainstBaseURL: false) else { return nil }
+
+        return urlComponents.url
+    }
+    ```
+1. Great - let's try out our neater code to check it still works! Run the app please.
+1. Uh-oh. We're not getting any data now. :cry: We must have broken something with our new `createURL()` method. How can we check what it's doing? Add a breakpoint just after the `guard` statement in `getLatestArticles()`:
+   ```swift
+   guard let url = createURL(baseURL: baseURL, endpoint: endpoint) else {   
+       completion(.failure(.invalidURL))
+       return
+   }
+   <Add a breakpoint at this line>
+   ```
+
+    <img src="images/add_a_breakpoint.png" title="Add a breakpoint" alt="alt text">
+
+1. Now run the app and use `po url` in the `console` panel of Xcode to see what the created URL looks like. Copy the URL and paste it into a browser. The error explains the issue:
+
+    <img src="images/missing_api_key.png" title="API key is missing" alt="alt text">
+
+1. :flushed: We forgot about the URL query parameters, including the `apiKey`. Whoops. Let's add them now:
+    ```swift
+    func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
+        let endpoint = "/v2/top-headlines"
+        let parameters = ["q":"apple"]
+
+        guard let url = createURL(baseURL: baseURL, endpoint: endpoint, parameters: parameters) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        ...
+    }
+
+    private func createURL(baseURL: String, endpoint: String, parameters: [String: String]) -> URL? {
+        guard let endpointUrl = URL(string: baseURL)?.appendingPathComponent(endpoint) else { return nil }
+        guard var urlComponents = URLComponents(url: endpointUrl, resolvingAgainstBaseURL: false) else { return nil }
+
+        urlComponents.queryItems = createQueryItems(parameters: parameters)
+
+        return urlComponents.url
+    }
+
+    private func createQueryItems(parameters: [String: String]) -> [URLQueryItem] {
+        var queryItems = [URLQueryItem]()
+
+        let apiKeyQueryItems = URLQueryItem(name: "apiKey", value: apiKey)
+        queryItems.append(apiKeyQueryItems)
+
+        for (queryKey, queryValue) in parameters {
+            let newQueryItem = URLQueryItem(name: queryKey, value: queryValue)
+            queryItems.append(newQueryItem)
+        }
+
+        return queryItems
+    }
+    ```
+1. OK - let's fire up the app and try that out. Now we have a simple app, and clean, bug-free code.
+
+    <img src="images/real_articles_refactored_url.png" height=600 title="Real data after refactoring URL" alt="alt text">
