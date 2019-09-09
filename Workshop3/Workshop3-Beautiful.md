@@ -67,10 +67,10 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     ```
     
 1. OK - what is the connection between `ArticleCell.xib` and `UINib(nibName: "ArticleCell", bundle: nil)`?!?
- - NIB stands for `NeXtStep Interface Builder`
- - XIB stands for `XML Interface Builder`
- - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code
- - When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle
+    - NIB stands for `NeXtStep Interface Builder`
+    - XIB stands for `XML Interface Builder`
+    - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code
+    - When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle
 
 1. Enough theory! Fire up the app, make sure it's working, and then let's get back to the fun stuff.
 
@@ -163,9 +163,9 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     <img src="images/stack_view_without_spacing.png" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
 
 1. See how white space can really affect the look of an app? We can tweak a few fields on the `UIStackView` inside `ArticleCell.xib` to give it more white space:
-  - Set `Spacing` property to `5`
-  - Set the `Trailing` & `Leading` constraint constants to `15`
-  - Set the `Bottom` & `Top` constraint constants to `8`
+    - Set `Spacing` property to `5`
+    - Set the `Trailing` & `Leading` constraint constants to `15`
+    - Set the `Bottom` & `Top` constraint constants to `8`
 
       <img src="images/update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
 
@@ -174,8 +174,8 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     <img src="images/stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
 
 1. Now let's add a `UIImageView` to the stack view between `title` and `subtitle`. Ensure the UIImageView is configured as:
-  - Set `Image` property to `placeholder-image`
-  - Set `Content Mode` to `Aspect Fill`
+    - Set `Image` property to `placeholder-image`
+    - Set `Content Mode` to `Aspect Fill`
 
     <img src="images/image_added_to_stackview.png" title="UIStackView with a configured UIImageView" alt="UIStackView with a configured UIImageView">
     
@@ -210,7 +210,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/simulator_image_with_rounded_corners.png" title="Cell showing image with rounded corners" alt="Cell showing image with rounded corners">
 
-## 2. Downloading an Image
+## 3. Downloading an Image
 
 1. Showing a placeholder image is a good start, but now let's download the image associated with each article from the `newsapi.org`. Like we did in `workshop 2`, we need to add the name of the field exactly as per the api. Here's a snippet from the `https://newsapi.org/` home page:
 
