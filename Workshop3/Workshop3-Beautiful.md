@@ -187,6 +187,30 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/xcode_add_image_constraint.png" title="Add a height constraint to UIImageView" alt="Add a height constraint to UIImageView">
 
+1. It's also easy to round the corners of our image, so let's do that for a more polished look. First we need to connect the image to an `IBOutet` in `ArticleCell.swift`.
+
+1. Next we set the `cornerRadius` property on the view's `layer`:
+
+
+    ```swift
+    class ArticleCell: UITableViewCell {
+
+        @IBOutlet weak var articleTitle: UILabel!
+        @IBOutlet weak var articleImage: UIImageView! {
+            didSet {
+                articleImage.layer.cornerRadius = 12.0
+            }
+        }
+        @IBOutlet weak var articleDescription: UILabel!
+        ...
+    }
+    ```
+
+1. Run the app now to see each article with our beautiful placeholder image!!
+
+    <img src="images/simulator_image_with_rounded_corners.png" title="Cell showing image with rounded corners" alt="Cell showing image with rounded corners">
+
+
 - Add image
   - Adding a static UIImageView to our custom cell using autolayout
     - Show the placeholder image for each cell (vertical alignment)

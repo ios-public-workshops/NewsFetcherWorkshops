@@ -11,6 +11,11 @@ import UIKit
 class ArticleCell: UITableViewCell {
 
     @IBOutlet weak var articleTitle: UILabel!
+    @IBOutlet weak var articleImage: UIImageView! {
+        didSet {
+            articleImage.layer.cornerRadius = 12.0
+        }
+    }
     @IBOutlet weak var articleDescription: UILabel!
     
     override var textLabel: UILabel? {

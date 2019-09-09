@@ -29,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="dxc-8K-4Db">
-                                <rect key="frame" x="0.0" y="32" width="290.00000000000011" height="100"/>
+                                <rect key="frame" x="0.0" y="32" width="290" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="s9Q-Hi-GUr"/>
                                 </constraints>
@@ -53,6 +53,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="articleDescription" destination="Gd1-dW-M5b" id="SVU-Lk-F1e"/>
+                <outlet property="articleImage" destination="dxc-8K-4Db" id="AKc-A8-IJ7"/>
                 <outlet property="articleTitle" destination="tDX-UZ-Ekr" id="M1G-U5-UoN"/>
             </connections>
             <point key="canvasLocation" x="47.826086956521742" y="105.13392857142857"/>
