@@ -10,6 +10,17 @@ import UIKit
 
 class ArticleCell: UITableViewCell {
 
+    @IBOutlet weak var articleTitle: UILabel!
+    @IBOutlet weak var articleDescription: UILabel!
+    
+    override var textLabel: UILabel? {
+        return articleTitle
+    }
+    
+    override var detailTextLabel: UILabel? {
+        return articleDescription
+    }
+    
     override func prepareForReuse() {
         self.backgroundColor = .white
     }

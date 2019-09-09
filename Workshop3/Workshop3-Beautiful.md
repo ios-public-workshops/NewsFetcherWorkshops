@@ -121,6 +121,59 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/add_static_image.gif)
 
+1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. But when we do this, we lose our `Title` and `Subtitle` labels!! :(
+
+1. This means we need to recreate our view piece by piece. Let's do this by adding a vertical `UIStackView` filling our entire cell:
+
+    ![Animation showing a vertical UIStackView being added to our custom cell, and constrained to each edge](images/add_vertical_stack_view.gif)
+
+1. Next we can re-add title and subtitle `UIlabels` to the stack view. The `UIStackView` takes care of all our layout automatically! :-D
+
+    ![Animation showing addition of two UILabels to a UIStackView](images/add_labels.gif)
+
+1. Run the app to see how things look using a UIStackView.
+
+    <img src="images/stack_view_without_outlets.png" title="UIStackView showing UILabels without IBOutlets set" alt="UIStackView showing UILabels without IBOutlets set">
+
+1. We're not quite there yet. We forgot to hook up our new labels as `IBOutlets`. We can also override the methods that return `textLabel` & `detailTextLabel` so that we don't need to change the code in `ViewController`. :nice:
+
+    ```swift
+    class ArticleCell: UITableViewCell {
+
+        @IBOutlet weak var articleTitle: UILabel!
+        @IBOutlet weak var articleDescription: UILabel!
+    
+        override var textLabel: UILabel? {
+            return articleTitle
+        }
+    
+        override var detailTextLabel: UILabel? {
+            return articleDescription
+        }
+    
+        override func prepareForReuse() {
+            self.backgroundColor = .white
+        }
+        ...
+    }
+    ```
+
+1. Let's run the app and see how it looks now!
+
+    <img src="images/stack_view_without_spacing.png" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
+
+1. See how white space can really affect the look of an app? We can tweak a few fields on the `UIStackView` inside `ArticleCell.xib` to give it more white space:
+  - Set `Spacing` property to `5`
+  - Set the `Trailing` & `Leading` constraint constants to `15`
+  - Set the `Bottom` & `Top` constraint constants to `8`
+
+      <img src="images/update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
+
+1. Let's check how that looks:
+
+    <img src="images/stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
+
+1. 
 
 - Add image
   - Adding a static UIImageView to our custom cell using autolayout
