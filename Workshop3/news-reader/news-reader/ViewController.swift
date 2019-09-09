@@ -23,6 +23,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         // Configure the TableView to use our class as the Data Source
         tableView.dataSource = self
+        // Register the cell we wish to use so that the system can reuse cells for memory efficiency
+        // Since we're using a custom cell with custom .xib file, we need to register the cell with a nib
+        let cellNib = UINib(nibName: "ArticleCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "ArticleCell")
         
         // Create a new instance of NewsFetcher to do our fetching
         let fetcher = NewsFetcher()

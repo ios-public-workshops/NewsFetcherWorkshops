@@ -18,11 +18,11 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/new_cell_files.png" title="ArticleCell.swift & ArticleCell.xib" alt="ArticleCell.swift & ArticleCell.xib">
 
-1. The first thing we should do is set the `Identifier` & `Style` inside `ArticleCell.xib` to match the prototype cell in `Main.storyboard`.
+1. All we need to do is set the `Identifier` & `Style` inside `ArticleCell.xib` to match the prototype cell in `Main.storyboard`.
 
     <img src="images/new_cell_properties.png" title="ArticleCell.xib setting Identifier & Style" alt="ArticleCell.xib setting Identifier & Style">
 
-1. Now we can delete the prototype cell from `Main.storyboard` and fire up the app!
+1. Now we can fire up the app and see our custom cell!
 
     <img src="images/new_cell_not_registered.png" title="ArticleCell is not registered" alt="ArticleCell is not registered">
 
@@ -36,16 +36,48 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
         // Configure the TableView to use our class as the Data Source
         tableView.dataSource = self
+        // Register the cell we wish to use so that the system can reuse cells for memory efficiency
         tableView.register(ArticleCell.self, forCellReuseIdentifier: "ArticleCell")
         ...
     }
     ```
 
-1. Fire up the app and it should look same as before. Now let's get to the fun part. Let's try alternating the cell backgrounds so we can more easily tell them apart.
+1. Fire up the app and it should look same as before. It's all working perfectly, right? Not quite. Our article descriptions are missing. Why? We set the style of the cell to be `subtitle`, and we're still setting `detailTextLabel` in our `UITableViewDataSource` method... :think:
 
-THIS DOES NOT WORK YET
+    <img src="images/new_cell_no_subitle.png" title="ArticleCell is missing description" alt="ArticleCell is missing description">
 
-1.
+1. This problem is tricky to debug - Apple doesn't give us any hints this time. The issue is that we're only registering the `ArticleCell` _class_ in `ViewController`. Essentially, `ViewController` knows about `ArticleCell.swift`, but doesn't realise that `ArticleCell.xib` exists! :sweat-smile:
+
+1.  `ArticleCell.xib` is the place where we set the cell style to `subtitle`, so we need to ensure that `ViewController` knows about the `xib` file too. In order to do this, we register a `nib` rather than a `class`:
+
+    ```swift
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        ...
+
+        // Configure the TableView to use our class as the Data Source
+        tableView.dataSource = self
+        // Register the cell we wish to use so that the system can reuse cells for memory efficiency
+        // Since we're using a custom cell with custom .xib file, we need to register the cell with a nib
+        let cellNib = UINib(nibName: "ArticleCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "ArticleCell")
+        ...
+    }
+    ```
+    
+1. OK - what is the connection between `ArticleCell.xib` and `UINib(nibName: "ArticleCell", bundle: nil)`?!?
+ - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code. When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle.
+ - NIB stands for `NeXtStep Interface Builder`.
+ - XIB stands for `XML Interface Builder`.
+
+1. Enough theory! Fire up the app, make sure it's working, and then let's get back to the fun stuff.
+
+    <img src="images/new_cell_basic.png" title="ArticleCell is working" alt="ArticleCell is working">
+
+1. Let's try alternating the cell backgrounds so we can more easily tell them apart.
+
+1. 
 
 Add details that make the app beautiful:
 
