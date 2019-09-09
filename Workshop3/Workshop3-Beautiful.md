@@ -10,21 +10,21 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. In order to customize our cell, let's pull it out of the storyboard into it's own file. First, create a new `Cocoa Touch Class`:
 
-    <img src="images/create_cocoaTouchClass.png" title="Create a new Cocoa Touch Class" alt="Create a new Cocoa Touch Class">
+    <img src="images/xcode_create_cocoaTouchClass.png" title="Create a new Cocoa Touch Class" alt="Create a new Cocoa Touch Class">
 
 1. Name the file `ArticleCell`, make it a Subclass of `UITableViewCell` and check the box to `Also create XIB file`.
 
 1. Now we have two new files added to our project - `ArticleCell.swift` & `ArticleCell.xib`
 
-    <img src="images/new_cell_files.png" title="ArticleCell.swift & ArticleCell.xib" alt="ArticleCell.swift & ArticleCell.xib">
+    <img src="images/xcode_new_cell_files.png" title="ArticleCell.swift & ArticleCell.xib" alt="ArticleCell.swift & ArticleCell.xib">
 
 1. All we need to do is set the `Identifier` & `Style` inside `ArticleCell.xib` to match the prototype cell in `Main.storyboard`.
 
-    <img src="images/new_cell_properties.png" title="ArticleCell.xib setting Identifier & Style" alt="ArticleCell.xib setting Identifier & Style">
+    <img src="images/xcode_new_cell_properties.png" title="ArticleCell.xib setting Identifier & Style" alt="ArticleCell.xib setting Identifier & Style">
 
 1. Now we can fire up the app and see our custom cell!
 
-    <img src="images/new_cell_not_registered.png" title="ArticleCell is not registered" alt="ArticleCell is not registered">
+    <img src="images/simulator_new_cell_not_registered.png" title="ArticleCell is not registered" alt="ArticleCell is not registered">
 
 1. Oops - we forget to register our new `ArticleCell` inside `ViewController`. Let's do that:
 
@@ -44,7 +44,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Fire up the app and it should look same as before. It's all working perfectly, right? Not quite. Our article descriptions are missing. Why? We set the style of the cell to be `subtitle`, and we're still setting `detailTextLabel` in our `UITableViewDataSource` method... :thinking:
 
-    <img src="images/new_cell_no_subitle.png" title="ArticleCell is missing description" alt="ArticleCell is missing description">
+    <img src="images/simulator_new_cell_no_subitle.png" title="ArticleCell is missing description" alt="ArticleCell is missing description">
 
 1. This problem is tricky to debug - Apple doesn't give us any hints this time. The issue is that we're only registering the `ArticleCell` _class_ in `ViewController`. Essentially, `ViewController` knows about `ArticleCell.swift`, but doesn't realise that `ArticleCell.xib` exists! :sweat_smile:
 
@@ -74,7 +74,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Enough theory! Fire up the app, make sure it's working, and then let's get back to the fun stuff.
 
-    <img src="images/new_cell_basic.png" title="ArticleCell is working" alt="ArticleCell is working">
+    <img src="images/simulator_new_cell_basic.png" title="ArticleCell is working" alt="ArticleCell is working">
 
 1. Let's try alternating the cell backgrounds so we can more easily tell them apart. We do this by setting the `backgroundColor` depending on `indexPath.row`:
 
@@ -96,7 +96,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Run the app and scroll up and down. What is going on _now_?
 
-    <img src="images/alternating_color_no_prepare_for_reuse.png" title="Second cell has light gray background" alt="Second cell has light gray background">
+    <img src="images/simulator_alternating_color_no_prepare_for_reuse.png" title="Second cell has light gray background" alt="Second cell has light gray background">
 
 1. This issue appears because of cell reuse. Recall in `workshop 1` we explained how `UITableViewCells` are reused for memory efficiency. In this case, our light gray cell is being reused, so we need to ensure that we reset it each time it's reused. Luckily, there's a method for that in `UITableViewCell`:
 
@@ -111,6 +111,9 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Now run the app and marvel at our custom `ArticleCell` with alternating background colors. :tada:
 
+    <img src="images/simulator_alternating_color_working.png" title="Cells have alternating colors" alt="Cells have alternating colors">
+
+
 ## 2. Adding an Image
 
 1. Let's start by adding an image to each cell. Eventually we'll fetch an appropriate image from `newsapi.org`, but for now a static image will do.
@@ -119,21 +122,21 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Now open the `Assets.xcassets` folder in Xcode and drop the image into the large gray area:
 
-    ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/add_static_image.gif)
+    ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/xcode_add_static_image.gif)
 
 1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. But when we do this, we lose our `Title` and `Subtitle` labels!! :frowning_face:
 
 1. This means we need to recreate our view piece by piece. Let's do this by adding a vertical `UIStackView` filling our entire cell:
 
-    ![Animation showing a vertical UIStackView being added to our custom cell, and constrained to each edge](images/add_vertical_stack_view.gif)
+    ![Animation showing a vertical UIStackView being added to our custom cell, and constrained to each edge](images/xcode_add_vertical_stack_view.gif)
 
 1. Next we can re-add title and subtitle `UIlabels` to the stack view. The `UIStackView` takes care of all our layout automatically! :grinning:
 
-    ![Animation showing addition of two UILabels to a UIStackView](images/add_labels.gif)
+    ![Animation showing addition of two UILabels to a UIStackView](images/xcode_add_labels.gif)
 
 1. Run the app to see how things look using a UIStackView.
 
-    <img src="images/stack_view_without_outlets.png" title="UIStackView showing UILabels without IBOutlets set" alt="UIStackView showing UILabels without IBOutlets set">
+    <img src="images/simulator_stack_view_without_outlets.png" title="UIStackView showing UILabels without IBOutlets set" alt="UIStackView showing UILabels without IBOutlets set">
 
 1. We're not quite there yet. We forgot to hook up our new labels as `IBOutlets`. We can also override the methods that return `textLabel` & `detailTextLabel` so that we don't need to change the code in `ViewController`. :cool:
 
@@ -160,24 +163,24 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Let's run the app and see how it looks now!
 
-    <img src="images/stack_view_without_spacing.png" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
+    <img src="images/simulator_stack_view_without_spacing.png" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
 
 1. See how white space can really affect the look of an app? We can tweak a few fields on the `UIStackView` inside `ArticleCell.xib` to give it more white space:
     - Set `Spacing` property to `5`
     - Set the `Trailing` & `Leading` constraint constants to `15`
     - Set the `Bottom` & `Top` constraint constants to `8`
 
-      <img src="images/update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
+      <img src="images/xcode_update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
 
 1. Let's check how that looks:
 
-    <img src="images/stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
+    <img src="images/simulator_stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
 
 1. Now let's add a `UIImageView` to the stack view between `title` and `subtitle`. Ensure the UIImageView is configured as:
     - Set `Image` property to `placeholder-image`
     - Set `Content Mode` to `Aspect Fill`
 
-    <img src="images/image_added_to_stackview.png" title="UIStackView with a configured UIImageView" alt="UIStackView with a configured UIImageView">
+    <img src="images/xcode_image_added_to_stackview.png" title="UIStackView with a configured UIImageView" alt="UIStackView with a configured UIImageView">
     
 1. How is this looking in the simulator?
 
