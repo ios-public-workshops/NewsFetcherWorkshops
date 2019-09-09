@@ -26,8 +26,12 @@ class ArticleCell: UITableViewCell {
         return articleDescription
     }
     
+    var imageDownloadTask: URLSessionDataTask?
+    
     override func prepareForReuse() {
-        self.backgroundColor = .white
+        backgroundColor = .white
+        articleImage.image = UIImage(named: "placeholder-image")
+        imageDownloadTask?.cancel()
     }
     
     override func awakeFromNib() {
@@ -39,5 +43,20 @@ class ArticleCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+}
+
+extension ArticleCell {
+    func loadImage(at url: URL) {
+        imageDownloadTask = ImageDownloader().downloadImage(url: url) { result in
+            switch result {
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self.articleImage.image = image
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

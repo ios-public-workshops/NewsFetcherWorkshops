@@ -104,7 +104,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     class ArticleCell: UITableViewCell {
         ...
         override func prepareForReuse() {
-            self.backgroundColor = .white
+            backgroundColor = .white
         }
     }
     ```
@@ -152,7 +152,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
         }
     
         override func prepareForReuse() {
-            self.backgroundColor = .white
+            backgroundColor = .white
         }
         ...
     }
@@ -210,23 +210,181 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/simulator_image_with_rounded_corners.png" title="Cell showing image with rounded corners" alt="Cell showing image with rounded corners">
 
+## 2. Downloading an Image
 
-- Add image
-  - Adding a static UIImageView to our custom cell using autolayout
-    - Show the placeholder image for each cell (vertical alignment)
-    - Nest image + labels inside stack views
-    - Add a constraint to image to make it look consistent in each cell, irrespective of label number of lines
-    - Intentionally make mistakes to show different features of UIImageView
+1. Showing a placeholder image is a good start, but now let's download the image associated with each article from the `newsapi.org`. Like we did in `workshop 2`, we need to add the name of the field exactly as per the api. Here's a snippet from the `https://newsapi.org/` home page:
 
-- Download an Image
-    - need to parse image url from api by updating struct
-   - We write an extension of UIImageView & explain how extensions work
-   - We explain how our image downloader works at a high level
-   - We fire up the app -> mention the limitations of this simple implementation
-    - race conditions/cancellation
-    - loading state
-    - failure state
+   ```json
+   {
+        "status": "ok",
+        "totalResults": 1053,
+        "articles": [
+            {
+                ...
+                "title": "Where does the Apple Watch go next?",
+                "description": "Apple is widely expected to announce the latest iteration of the Apple Watch at its upcoming iPhone event.",
+                "url": "https://www.theverge.com/applewatch.html",
+                "urlToImage": "https://cdn.vox-cdn.com/thumbor/apple-watch.jpg",
+                "publishedAt": "2019-09-08T14:00:00Z",
+                ...
+            }
+        ]
+        ...
+    }
+   ```
 
-- Introduce COCOAPODS as a way to add dependencies
-  - Talk about workspaces
-  - Switch to using a cocoapod to download image (Kingfisher?)
+1. Add the field `urlToImage` to our `NewsItem` in `NewsFetching.swift`. We make it optional just in case `newsapi.org` returns a `null` URL (unfortunately this is possible):
+    
+    ```swift
+    struct NewsItem: Decodable {
+        let title: String
+        let description: String
+        let url: URL
+        let urlToImage: URL?
+    }
+    ```
+    
+1. Before we go further, let's modify our code so that we navigate to the article image when we tap on a cell:
+
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            ...
+            // Create a new screen for loading Web Content using SFSafariViewController
+            // Temporarily change this to urlToImage to test that URL is being parsed correctly
+            let articleViewController = SFSafariViewController(url: selectedArticle.urlToImage)
+        ...
+        }
+    }
+    ```
+
+1. Run the app and check that when you tap on a cell, you see the article's image!
+
+1. Now revert the `UITableViewDelegate` to again load `url` instead of `urlToImage`. (and remove the corresponding comment!)
+
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            ...
+            // Create a new screen for loading Web Content using SFSafariViewController
+            let articleViewController = SFSafariViewController(url: selectedArticle.url)
+        ...
+        }
+    }
+    ```
+
+1. Good, we're successfully fetching the URL of the image associated with each news article. Next we need to download it asynchronously and place it in our `UIImageView`. In order to do this, download [ImageDownloading.swift](./ImageDownloading.swift) and drag it into your Xcode project.
+
+1. `ImageDownloading.swift` contains a simple class for downloading an image for a given `URL`. It's quite similar to `NewsFetcher`, so feel free to have a look after the workshop.
+
+1. Now we need to add a function to `ArticleCell` that will load an image for us:
+
+    ```swift
+    func loadImage(at url: URL) {
+        ImageDownloader().downloadImage(url: url) { result in
+            switch result {
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self.articleImage.image = image
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    ```
+    
+1. Now we have all the pieces, it's simple to update our `UITableViewDataSource` inside `ViewController.swift`:
+
+    ```swift
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // This always fetches a cell of type UITableViewCell, even if we are using a custom subclass
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
+        ...        
+        if indexPath.row % 2 == 1 {
+            cell.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        }
+        
+        // We need to ensure that we actually have a cell of type ArticleCell
+        guard let articleCell = cell as? ArticleCell else {
+            return cell
+        }
+        
+        if let imageUrl = article.urlToImage {
+            articleCell.loadImage(at: imageUrl)
+        }
+        
+        return articleCell
+    }
+    ```
+
+1. Note that we have to unwrap our cell as an `ArticleCell`. This is possible because `ArticleCell` subclasses `UITableViewCell`. That is, we can treat cell as a `UITableViewCell` _or_ an `ArticleCell`. Since `tableView.dequeueReusableCell()` always returns the superclass `UITableViewCell`, we need to use a `guard unwrap` to get a strongly typed `ArticleCell`.
+
+1. Run the app in the simulator and watch as the images appear! Now quickly scroll up and down, then stop. What is going on? The images are flickering! :(
+
+    ![Animation showing a user scrolling quickly up and down. Old images appear, then are overridden by new images](images/simulator_scrolling_without_cleaning_imageView.gif)
+
+
+1. The issue here, once again, is cell reuse. We're recycling existing cells that already have an image. So rather than seeing the placeholder for a recycled cell, we see the last image that was downloaded. There is an easy fix for this in `ArticleCell.swift`:
+
+    ```swift
+    override func prepareForReuse() {
+        backgroundColor = .white
+        articleImage.image = UIImage(named: "placeholder-image")
+    }
+    ```
+
+1. Let's try again. Launch the app again and slowly scroll up and down. Now we see the placeholder when an image is being downloaded. What happens if we scroll quickly again? There are _still_ flickering images! :_(
+
+    ![Animation showing a user scrolling quickly up and down. Placeholder image appears, then wrong image, then correct image](images/simulator_scrolling_without_cancelling_download.gif)
+
+1. Now we're dealing with an even trickier issue. This behaviour is because of our asynchronous downloading. What's actually happening is:
+    1. `Cell A` is shown at `position 0` with placeholder image
+    1. `Cell A` requests to start downloading `image 0`
+    1. User quickly scrolls down so that `Cell A` is now being reused at `position 15`
+    1. `Cell A` is shown at `position 15` with placeholder image
+    1. `Cell A` start downloading `image 15`
+    1. Download of `image 0` completes, so `Cell A` is updated with `image 0`
+    1. User briefly sees `image 0` alongside `article 15` :red-cross:
+    1. Download of `image 15` completes, so `Cell A` is updated with `image 15`
+    1. User now sees `image 15` alongside `article 15` :green-check:
+
+1. The solution now is to ensure that we cancel any image downloads when we reuse a cell. In order to do this we need to save any image download task, and cancel it during `prepareForReuse()`:
+
+    ```swift
+    class ArticleCell: UITableViewCell { 
+       ...
+        var imageDownloadTask: URLSessionDataTask?
+    
+        override func prepareForReuse() {
+            backgroundColor = .white
+            articleImage.image = UIImage(named: "placeholder-image")
+            imageDownloadTask?.cancel()
+        }
+        ...
+    }
+    ```
+
+1. Start the app and try again! Is it fixed now?
+
+1. Oops. No. We forgot to save the `imageDownloadTask` in our `loadImage` function inside `ArticleCell`:
+
+    ```swift
+    func loadImage(at url: URL) {
+        imageDownloadTask = ImageDownloader().downloadImage(url: url) { result in
+            switch result {
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self.articleImage.image = image
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    ```
+
+1. Let's run the app again. Isn't it beautiful? :bashful-smile: It's getting there. Next workshop we'll make it **delightful**!!
+
+    <img src="images/simulator_workshop_2_complete.png" title="News reader with cells showing downloaded images" alt="News reader with cells showing downloaded images">

@@ -63,6 +63,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // This always fetches a cell of type UITableViewCell, even if we are using a custom subclass
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
         let article = articles[indexPath.row]
         
@@ -77,7 +78,16 @@ extension ViewController: UITableViewDataSource {
             cell.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         }
         
-        return cell
+        // We need to ensure that we actually have a cell of type ArticleCell
+        guard let articleCell = cell as? ArticleCell else {
+            return cell
+        }
+        
+        if let imageUrl = article.urlToImage {
+            articleCell.loadImage(at: imageUrl)
+        }
+        
+        return articleCell
     }
 }
 
