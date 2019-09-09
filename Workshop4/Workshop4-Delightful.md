@@ -3,6 +3,7 @@ Workshop 4 - Delight & Interaction
 - Customise navigation bar
   - Get a custom image from design team
   - Tint the navigation bar to a color of your choice
+  - Add a right hand item that is information button which when tapped shows the "data from newsapi.org" in a delightful way :awesome:
 
 - Add an alpha animation to cells
  - On cellWillAppear - animate something in?
