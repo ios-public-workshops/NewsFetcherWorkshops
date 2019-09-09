@@ -23,11 +23,17 @@
                         <rect key="frame" x="15" y="8" width="290" height="151.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDX-UZ-Ekr">
-                                <rect key="frame" x="0.0" y="0.0" width="290" height="132"/>
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="dxc-8K-4Db">
+                                <rect key="frame" x="0.0" y="32" width="290.00000000000011" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="s9Q-Hi-GUr"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd1-dW-M5b">
                                 <rect key="frame" x="0.0" y="137" width="290" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -52,4 +58,7 @@
             <point key="canvasLocation" x="47.826086956521742" y="105.13392857142857"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="placeholder-image" width="412" height="401"/>
+    </resources>
 </document>

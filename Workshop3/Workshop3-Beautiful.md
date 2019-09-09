@@ -173,7 +173,19 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
 
-1. 
+1. Now let's add a `UIImageView` to the stack view between `title` and `subtitle`. Ensure the UIImageView is configured as:
+  - Set `Image` property to `placeholder-image`
+  - Set `Content Mode` to `Aspect Fill`
+
+    <img src="images/image_added_to_stackview.png" title="UIStackView with a configured UIImageView" alt="UIStackView with a configured UIImageView">
+    
+1. How is this looking in the simulator?
+
+    <img src="images/simulator_large_image_added_to_cell.png" title="Cell showing large image" alt="Cell showing large image">
+    
+1. We're showing the image, but it doesn't look _beautiful_. Let's make it smaller so it fits more evenly with the text. Add a `Height` constraint with a constant vaue of `100`.
+
+    <img src="images/xcode_add_image_constraint.png" title="Add a height constraint to UIImageView" alt="Add a height constraint to UIImageView">
 
 - Add image
   - Adding a static UIImageView to our custom cell using autolayout
