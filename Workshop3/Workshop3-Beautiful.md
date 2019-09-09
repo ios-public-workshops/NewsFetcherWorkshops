@@ -67,9 +67,10 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     ```
     
 1. OK - what is the connection between `ArticleCell.xib` and `UINib(nibName: "ArticleCell", bundle: nil)`?!?
- - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code. When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle.
- - NIB stands for `NeXtStep Interface Builder`.
- - XIB stands for `XML Interface Builder`.
+ - NIB stands for `NeXtStep Interface Builder`
+ - XIB stands for `XML Interface Builder`
+ - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code
+ - When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle
 
 1. Enough theory! Fire up the app, make sure it's working, and then let's get back to the fun stuff.
 
@@ -109,6 +110,16 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     ```
 
 1. Now run the app and marvel at our custom `ArticleCell` with alternating background colors. :tada:
+
+## 2. Adding an Image
+
+1. Let's start by adding an image to each cell. Eventually we'll fetch an appropriate image from `newsapi.org`, but for now a static image will do.
+
+1. Download [placeholder-image.png](./placeholder-image.pdf) to your computer. We use this format as pdfs can be scaled without losing quality. Note that iOS doesn't actually render these images as pdf, Xcode converts them to png first.
+
+1. Now open the `Assets.xcassets` folder in Xcode and drop the image into the large gray area:
+
+    ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/add_static_image.gif)
 
 
 - Add image
