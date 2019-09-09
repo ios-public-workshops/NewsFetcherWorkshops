@@ -42,11 +42,11 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     }
     ```
 
-1. Fire up the app and it should look same as before. It's all working perfectly, right? Not quite. Our article descriptions are missing. Why? We set the style of the cell to be `subtitle`, and we're still setting `detailTextLabel` in our `UITableViewDataSource` method... :think:
+1. Fire up the app and it should look same as before. It's all working perfectly, right? Not quite. Our article descriptions are missing. Why? We set the style of the cell to be `subtitle`, and we're still setting `detailTextLabel` in our `UITableViewDataSource` method... :thinking:
 
     <img src="images/new_cell_no_subitle.png" title="ArticleCell is missing description" alt="ArticleCell is missing description">
 
-1. This problem is tricky to debug - Apple doesn't give us any hints this time. The issue is that we're only registering the `ArticleCell` _class_ in `ViewController`. Essentially, `ViewController` knows about `ArticleCell.swift`, but doesn't realise that `ArticleCell.xib` exists! :sweat-smile:
+1. This problem is tricky to debug - Apple doesn't give us any hints this time. The issue is that we're only registering the `ArticleCell` _class_ in `ViewController`. Essentially, `ViewController` knows about `ArticleCell.swift`, but doesn't realise that `ArticleCell.xib` exists! :sweat_smile:
 
 1.  `ArticleCell.xib` is the place where we set the cell style to `subtitle`, so we need to ensure that `ViewController` knows about the `xib` file too. In order to do this, we register a `nib` rather than a `class`:
 
@@ -121,13 +121,13 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/add_static_image.gif)
 
-1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. But when we do this, we lose our `Title` and `Subtitle` labels!! :(
+1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. But when we do this, we lose our `Title` and `Subtitle` labels!! :frowning_face:
 
 1. This means we need to recreate our view piece by piece. Let's do this by adding a vertical `UIStackView` filling our entire cell:
 
     ![Animation showing a vertical UIStackView being added to our custom cell, and constrained to each edge](images/add_vertical_stack_view.gif)
 
-1. Next we can re-add title and subtitle `UIlabels` to the stack view. The `UIStackView` takes care of all our layout automatically! :-D
+1. Next we can re-add title and subtitle `UIlabels` to the stack view. The `UIStackView` takes care of all our layout automatically! :grinning:
 
     ![Animation showing addition of two UILabels to a UIStackView](images/add_labels.gif)
 
@@ -135,7 +135,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/stack_view_without_outlets.png" title="UIStackView showing UILabels without IBOutlets set" alt="UIStackView showing UILabels without IBOutlets set">
 
-1. We're not quite there yet. We forgot to hook up our new labels as `IBOutlets`. We can also override the methods that return `textLabel` & `detailTextLabel` so that we don't need to change the code in `ViewController`. :nice:
+1. We're not quite there yet. We forgot to hook up our new labels as `IBOutlets`. We can also override the methods that return `textLabel` & `detailTextLabel` so that we don't need to change the code in `ViewController`. :cool:
 
     ```swift
     class ArticleCell: UITableViewCell {
@@ -321,7 +321,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Note that we have to unwrap our cell as an `ArticleCell`. This is possible because `ArticleCell` subclasses `UITableViewCell`. That is, we can treat cell as a `UITableViewCell` _or_ an `ArticleCell`. Since `tableView.dequeueReusableCell()` always returns the superclass `UITableViewCell`, we need to use a `guard unwrap` to get a strongly typed `ArticleCell`.
 
-1. Run the app in the simulator and watch as the images appear! Now quickly scroll up and down, then stop. What is going on? The images are flickering! :(
+1. Run the app in the simulator and watch as the images appear! Now quickly scroll up and down, then stop. What is going on? The images are flickering! :anguished:
 
     ![Animation showing a user scrolling quickly up and down. Old images appear, then are overridden by new images](images/simulator_scrolling_without_cleaning_imageView.gif)
 
@@ -335,7 +335,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     }
     ```
 
-1. Let's try again. Launch the app again and slowly scroll up and down. Now we see the placeholder when an image is being downloaded. What happens if we scroll quickly again? There are _still_ flickering images! :_(
+1. Let's try again. Launch the app again and slowly scroll up and down. Now we see the placeholder when an image is being downloaded. What happens if we scroll quickly again? There are _still_ flickering images! :sob:
 
     ![Animation showing a user scrolling quickly up and down. Placeholder image appears, then wrong image, then correct image](images/simulator_scrolling_without_cancelling_download.gif)
 
@@ -346,9 +346,9 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     1. `Cell A` is shown at `position 15` with placeholder image
     1. `Cell A` start downloading `image 15`
     1. Download of `image 0` completes, so `Cell A` is updated with `image 0`
-    1. User briefly sees `image 0` alongside `article 15` :red-cross:
+    1. User briefly sees `image 0` alongside `article 15` :x:
     1. Download of `image 15` completes, so `Cell A` is updated with `image 15`
-    1. User now sees `image 15` alongside `article 15` :green-check:
+    1. User now sees `image 15` alongside `article 15` :white_check_mark:
 
 1. The solution now is to ensure that we cancel any image downloads when we reuse a cell. In order to do this we need to save any image download task, and cancel it during `prepareForReuse()`:
 
@@ -385,6 +385,6 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     }
     ```
 
-1. Let's run the app again. Isn't it beautiful? :bashful-smile: It's getting there. Next workshop we'll make it **delightful**!!
+1. Let's run the app again. Isn't it beautiful? :relaxed: It's getting there. Next workshop we'll make it **delightful**!!
 
     <img src="images/simulator_workshop_2_complete.png" title="News reader with cells showing downloaded images" alt="News reader with cells showing downloaded images">
