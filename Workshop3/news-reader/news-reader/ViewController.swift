@@ -72,6 +72,11 @@ extension ViewController: UITableViewDataSource {
         cell.detailTextLabel?.text = article.description
         cell.detailTextLabel?.numberOfLines = 0
         
+        // Divide the row's index by 2 and if there's a remainder of 1, we have an odd index
+        if indexPath.row % 2 == 1 {
+            cell.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        }
+        
         return cell
     }
 }

@@ -75,18 +75,41 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     <img src="images/new_cell_basic.png" title="ArticleCell is working" alt="ArticleCell is working">
 
-1. Let's try alternating the cell backgrounds so we can more easily tell them apart.
+1. Let's try alternating the cell backgrounds so we can more easily tell them apart. We do this by setting the `backgroundColor` depending on `indexPath.row`:
 
-1. 
 
-Add details that make the app beautiful:
+    ```swift
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        ...        
+        cell.detailTextLabel?.text = article.description
+        cell.detailTextLabel?.numberOfLines = 0
+        
+        // Divide the row's index by 2 and if there's a remainder of 1, we have an odd index
+        if indexPath.row % 2 == 1 {
+            cell.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        }
+        
+        return cell
+    }
+    ```
 
-- Let's pull out our cell and make it it's own UITableViewCell
+1. Run the app and scroll up and down. What is going on _now_?
 
-- alternating table view cell backgrounds? (teach about transparency too)
-  - intentionally fuck it up by only changing background color if index == 0 or index == 1
-  - Then add prepareForReuse - show that's fixed
-  - Now do alternating color for every cell (ie not index == 0/1)
+    <img src="images/alternating_color_no_prepare_for_reuse.png" title="Second cell has light gray background" alt="Second cell has light gray background">
+
+1. This issue appears because of cell reuse. Recall in `workshop 1` we explained how `UITableViewCells` are reused for memory efficiency. In this case, our light gray cell is being reused, so we need to ensure that we reset it each time it's reused. Luckily, there's a method for that in `UITableViewCell`:
+
+    ```swift
+    class ArticleCell: UITableViewCell {
+        ...
+        override func prepareForReuse() {
+            self.backgroundColor = .white
+        }
+    }
+    ```
+
+1. Now run the app and marvel at our custom `ArticleCell` with alternating background colors. :tada:
+
 
 - Add image
   - Adding a static UIImageView to our custom cell using autolayout
