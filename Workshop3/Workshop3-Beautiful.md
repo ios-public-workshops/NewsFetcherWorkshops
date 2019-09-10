@@ -6,75 +6,35 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 - Complete the [workshop 2 tutorial](../Workshop2/Workshop2-Networking.md)
 
 ## 1. Alternating row colors
-1. Remember that our cell is defined as a `Prototype Cell` in our `Main.storyboard`. This is the quickest way to add a `UITableViewCell` into a table, however it doesn't provide many customization options.
+1. Remember that our cell is defined as a `Prototype Cell` in our `Main.storyboard`. This is the quickest way to add a `UITableViewCell` into a table and we are going to use it to customize our cell.
 
 1. In order to customize our cell, let's pull it out of the storyboard into it's own file. First, create a new `Cocoa Touch Class`:
 
     <img src="images/xcode_create_cocoaTouchClass.png" title="Create a new Cocoa Touch Class" alt="Create a new Cocoa Touch Class">
 
-1. Name the file `ArticleCell`, make it a Subclass of `UITableViewCell` and check the box to `Also create XIB file`.
+1. Name the file `ArticleCell`, make it a Subclass of `UITableViewCell`. Make sure to disable the checkbox to `Also create XIB file`.
 
-1. Now we have two new files added to our project - `ArticleCell.swift` & `ArticleCell.xib`
+    <img src="images/xcode_create_articleCellConfig.png" title="Create a new Cocoa Touch Class" alt="Configures a new Cocoa Touch Class">
 
-    <img src="images/xcode_new_cell_files.png" title="ArticleCell.swift & ArticleCell.xib" alt="ArticleCell.swift & ArticleCell.xib">
+1. Tap `next` and pick then `Create`. Make sure the `news-reader` checkbox is checked under `Targets`.
 
-1. All we need to do is set the `Identifier` & `Style` inside `ArticleCell.xib` to match the prototype cell in `Main.storyboard`.
+    <img src="images/xcode_create_finish.png" title="Create a new Cocoa Touch Class" alt="Create the file">
 
-    <img src="images/xcode_new_cell_properties.png" title="ArticleCell.xib setting Identifier & Style" alt="ArticleCell.xib setting Identifier & Style">
+1. Now we have the new file added to our project - `ArticleCell.swift`
+
+    <img src="images/xcode_new_cell_files.png" title="ArticleCell.swift" alt="ArticleCell.swift">
+
+1. The next step is to configure our prototype cell in Storyboard to use the newly added `ArticleCell` class. Open the storyboard file and select our prototype cell.
+    
+    <img src="images/xcode_selected_cell.png" title="Prototype cell selected in Storyboard" alt="ArticleCell selected">
+
+1. All we need to do now is set the `Class` under the `Custom Clss` section. Tap on the `Identity Inspector` button and type `ArticleCell` under `Class`.
+
+    <img src="images/xcode_cell_custom_class.png" title="Setting a custom class for a cell" alt="Cell Custom Class">
 
 1. Now we can fire up the app and see our custom cell!
 
-    <img src="images/simulator_new_cell_not_registered.png" title="ArticleCell is not registered" alt="ArticleCell is not registered">
-
-1. Oops - we forget to register our new `ArticleCell` inside `ViewController`. Let's do that:
-
-    ```swift
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        ...
-
-        // Configure the TableView to use our class as the Data Source
-        tableView.dataSource = self
-        // Register the cell we wish to use so that the system can reuse cells for memory efficiency
-        tableView.register(ArticleCell.self, forCellReuseIdentifier: "ArticleCell")
-        ...
-    }
-    ```
-
-1. Fire up the app and it should look same as before. It's all working perfectly, right? Not quite. Our article descriptions are missing. Why? We set the style of the cell to be `subtitle`, and we're still setting `detailTextLabel` in our `UITableViewDataSource` method... :thinking:
-
-    <img src="images/simulator_new_cell_no_subitle.png" title="ArticleCell is missing description" alt="ArticleCell is missing description">
-
-1. This problem is tricky to debug - Apple doesn't give us any hints this time. The issue is that we're only registering the `ArticleCell` _class_ in `ViewController`. Essentially, `ViewController` knows about `ArticleCell.swift`, but doesn't realise that `ArticleCell.xib` exists! :sweat_smile:
-
-1.  `ArticleCell.xib` is the place where we set the cell style to `subtitle`, so we need to ensure that `ViewController` knows about the `xib` file too. In order to do this, we register a `nib` rather than a `class`:
-
-    ```swift
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        ...
-
-        // Configure the TableView to use our class as the Data Source
-        tableView.dataSource = self
-        // Register the cell we wish to use so that the system can reuse cells for memory efficiency
-        // Since we're using a custom cell with custom .xib file, we need to register the cell with a nib
-        let cellNib = UINib(nibName: "ArticleCell", bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: "ArticleCell")
-        ...
-    }
-    ```
-    
-1. OK - what is the connection between `ArticleCell.xib` and `UINib(nibName: "ArticleCell", bundle: nil)`?!?
-    - NIB stands for `NeXtStep Interface Builder`
-    - XIB stands for `XML Interface Builder`
-    - In the same way that `.swift` files are compiled into machine code to run on a device, `.xib` files are compiled into `nibs` and _bundled_ alongside the machine code
-    - When we pass a `nil` bundle, iOS knows that we want to fetch a nib from the app's default (aka `main`) bundle
-
-1. Enough theory! Fire up the app, make sure it's working, and then let's get back to the fun stuff.
-
-    <img src="images/simulator_new_cell_basic.png" title="ArticleCell is working" alt="ArticleCell is working">
+    <img src="images/simulator_new_custom_cell.png" title="ArticleCell is working" alt="ArticleCell is working">
 
 1. Let's try alternating the cell backgrounds so we can more easily tell them apart. We do this by setting the `backgroundColor` depending on `indexPath.row`:
 
@@ -124,7 +84,11 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
     ![Animation showing an image being dragged from downloads and dropped into Assets.xcassets on Xcode](images/xcode_add_static_image.gif)
 
-1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. But when we do this, we lose our `Title` and `Subtitle` labels!! :frowning_face:
+1. The next part is tricky. In order to add a `UIImageView` to our custom `ArticleCell`, we need to change it's type from `Subtitle` to `Custom`. First go to the `Main.storyboard`. Select the `ArticleCell` and tap on the `Attributes Inspector` button. Then, change the cell style from `Subtitle` to `Custom`.
+
+    <img src="images/storyboard_style_custom.png" title="ArticleCell custom style" alt="Setting a custom style to ArticleCell">
+
+1. But when we do this, we lose our `Title` and `Subtitle` labels!! :frowning_face:
 
 1. This means we need to recreate our view piece by piece. Let's do this by adding a vertical `UIStackView` filling our entire cell:
 
@@ -133,6 +97,12 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 1. Next we can re-add title and subtitle `UIlabels` to the stack view. The `UIStackView` takes care of all our layout automatically! :grinning:
 
     ![Animation showing addition of two UILabels to a UIStackView](images/xcode_add_labels.gif)
+
+1. Note that Xcode notifies us that there is an issue with our layout. Let's make Xcode fix this for us.
+    
+    ![Animation showing how Xcode can fix some layout issues](images/xcode_fix_labels.gif)
+
+1. Xcode changed the `Content hugging priority` of the first Label to a value of `250`. Setting this value indicates that the first label may grow larger than its content. Those properties are necessary so Auto Layout can correctly calculate the size of our components based on the content they host.
 
 1. Run the app to see how things look using a UIStackView.
 
