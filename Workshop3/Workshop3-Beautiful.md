@@ -104,10 +104,6 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Xcode changed the `Content hugging priority` of the first Label to a value of `250`. Setting this value indicates that the first label may grow larger than its content. Those properties are necessary so Auto Layout can correctly calculate the size of our components based on the content they host.
 
-1. Run the app to see how things look using a UIStackView.
-
-    <img src="images/simulator_stack_view_without_outlets.png" title="UIStackView showing UILabels without IBOutlets set" alt="UIStackView showing UILabels without IBOutlets set">
-
 1. We're not quite there yet. We forgot to hook up our new labels as `IBOutlets`. We can also override the methods that return `textLabel` & `detailTextLabel` so that we don't need to change the code in `ViewController`. :cool:
 
     ```swift
@@ -137,10 +133,17 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. See how white space can really affect the look of an app? We can tweak a few fields on the `UIStackView` inside `ArticleCell.xib` to give it more white space:
     - Set `Spacing` property to `5`
-    - Set the `Trailing` & `Leading` constraint constants to `15`
-    - Set the `Bottom` & `Top` constraint constants to `8`
 
-      <img src="images/xcode_update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
+    <img src="images/xcode_update_stack_view_spacing.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
+
+    - Set the `Trailing` & `Leading` constraint constants to `15`
+    - Set the `Bottom` & `Top` constraint constants to `8`    
+    
+    <img src="images/xcode_update_stack_view_constraints.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
+
+1. Notice that our label are now getting cut. This only happens in the storyboard, so let's just increase the height of our cell. Select the `ArticleCell` and set its `Row Height` to `60`.
+
+    <img src="images/xcode_update_cell_height.png" title="Update  UIStackView constraints" alt="Update  UIStackView constraints">
 
 1. Let's check how that looks:
 
@@ -150,15 +153,16 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     - Set `Image` property to `placeholder-image`
     - Set `Content Mode` to `Aspect Fill`
 
-    <img src="images/xcode_image_added_to_stackview.png" title="UIStackView with a configured UIImageView" alt="UIStackView with a configured UIImageView">
+    ![Animation showing addition of UIImageView to a UIStackView](images/xcode_image_added_to_stackview.gif)
     
 1. How is this looking in the simulator?
 
     <img src="images/simulator_large_image_added_to_cell.png" title="Cell showing large image" alt="Cell showing large image">
     
-1. We're showing the image, but it doesn't look _beautiful_. Let's make it smaller so it fits more evenly with the text. Add a `Height` constraint with a constant vaue of `100`.
+1. We're showing the image, but it doesn't look _beautiful_. Let's make it smaller so it fits more evenly with the text. First, change the `Height` of the `ArticleCell` from `60` to `180`, so we can have some room to design our cell. 
+Next, Add a `Height` constraint with a constant vaue of `100`.
 
-    <img src="images/xcode_add_image_constraint.png" title="Add a height constraint to UIImageView" alt="Add a height constraint to UIImageView">
+    ![Animation showing addition of height constraint to UIImageView](images/xcode_add_image_constraint.gif)
 
 1. It's also easy to round the corners of our image, so let's do that for a more polished look. First we need to connect the image to an `IBOutet` in `ArticleCell.swift`.
 

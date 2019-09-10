@@ -35,7 +35,7 @@ struct NewsItem: Decodable {
 
 class NewsFetcher {
     private let baseURL = "https://newsapi.org"
-    private let apiKey = "1df340f0c0a1437bbb00f3970ca42a4c"
+    private let apiKey = "d617892bff1f4fd88d62deb71bb74d52"
     private let session = URLSession.shared
 
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {

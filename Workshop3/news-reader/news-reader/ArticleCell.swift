@@ -18,9 +18,9 @@ class ArticleCell: UITableViewCell {
     }
     @IBOutlet weak var articleDescription: UILabel!
     
-    override var textLabel: UILabel? {
-        return articleTitle
-    }
+//    override var textLabel: UILabel? {
+//        return articleTitle
+//    }
     
     override var detailTextLabel: UILabel? {
         return articleDescription
