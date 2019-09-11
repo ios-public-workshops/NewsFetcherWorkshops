@@ -34,7 +34,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Now we can fire up the app and see our custom cell!
 
-    <img src="images/simulator_new_custom_cell.png" title="ArticleCell is working" alt="ArticleCell is working">
+    <img src="images/simulator_new_custom_cell.png" height="600" title="ArticleCell is working" alt="ArticleCell is working">
 
 1. Let's try alternating the cell backgrounds so we can more easily tell them apart. We do this by setting the `backgroundColor` depending on `indexPath.row`:
 
@@ -56,7 +56,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Run the app and scroll up and down. What is going on _now_?
 
-    <img src="images/simulator_alternating_color_no_prepare_for_reuse.png" title="Second cell has light gray background" alt="Second cell has light gray background">
+    <img src="images/simulator_alternating_color_no_prepare_for_reuse.png" height="600" title="Second cell has light gray background"  height="600" alt="Second cell has light gray background">
 
 1. This issue appears because of cell reuse. Recall in `workshop 1` we explained how `UITableViewCells` are reused for memory efficiency. In this case, our light gray cell is being reused, so we need to ensure that we reset it each time it's reused. Luckily, there's a method for that in `UITableViewCell`:
 
@@ -71,7 +71,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Now run the app and marvel at our custom `ArticleCell` with alternating background colors. :tada:
 
-    <img src="images/simulator_alternating_color_working.png" title="Cells have alternating colors" alt="Cells have alternating colors">
+    <img src="images/simulator_alternating_color_working.png" height="600" title="Cells have alternating colors" alt="Cells have alternating colors">
 
 
 ## 2. Adding an Image
@@ -129,7 +129,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Let's run the app and see how it looks now!
 
-    <img src="images/simulator_stack_view_without_spacing.png" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
+    <img src="images/simulator_stack_view_without_spacing.png" height="600" title="UIStackView showing labels without spacing" alt="UIStackView showing labels without spacing">
 
 1. See how white space can really affect the look of an app? We can tweak a few fields on the `UIStackView` inside `ArticleCell.xib` to give it more white space:
     - Set `Spacing` property to `5`
@@ -147,7 +147,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
 
 1. Let's check how that looks:
 
-    <img src="images/simulator_stack_view_with_spacing.png" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
+    <img src="images/simulator_stack_view_with_spacing.png" height="600" title="UIStackView showing labels with nice spacing" alt="UIStackView showing labels with nice spacing">
 
 1. Now let's add a `UIImageView` to the stack view between `title` and `subtitle`. Ensure the UIImageView is configured as:
     - Set `Image` property to `placeholder-image`
@@ -157,7 +157,7 @@ Today we are going to make our app _beautiful_. Fetching data from the internet 
     
 1. How is this looking in the simulator?
 
-    <img src="images/simulator_large_image_added_to_cell.png" title="Cell showing large image" alt="Cell showing large image">
+    <img src="images/simulator_large_image_added_to_cell.png" height="600" title="Cell showing large image" alt="Cell showing large image">
     
 1. We're showing the image, but it doesn't look _beautiful_. Let's make it smaller so it fits more evenly with the text. First, change the `Height` of the `ArticleCell` from `60` to `180`, so we can have some room to design our cell. 
 Next, Add a `Height` constraint with a constant vaue of `100`.
@@ -185,7 +185,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. Run the app now to see each article with our beautiful placeholder image!!
 
-    <img src="images/simulator_image_with_rounded_corners.png" title="Cell showing image with rounded corners" alt="Cell showing image with rounded corners">
+    <img src="images/simulator_image_with_rounded_corners.png" height="600" title="Cell showing image with rounded corners" alt="Cell showing image with rounded corners">
 
 ## 3. Downloading an Image
 
@@ -300,8 +300,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. Run the app in the simulator and watch as the images appear! Now quickly scroll up and down, then stop. What is going on? The images are flickering! :anguished:
 
-    ![Animation showing a user scrolling quickly up and down. Old images appear, then are overridden by new images](images/simulator_scrolling_without_cleaning_imageView.gif)
-
+    <img src="images/simulator_scrolling_without_cleaning_imageView.gif" height="600" title="Animation showing a user scrolling quickly up and down. Old images appear, then are overridden by new images" alt="Animation showing a user scrolling quickly up and down. Old images appear, then are overridden by new images">
 
 1. The issue here, once again, is cell reuse. We're recycling existing cells that already have an image. So rather than seeing the placeholder for a recycled cell, we see the last image that was downloaded. There is an easy fix for this in `ArticleCell.swift`:
 
@@ -314,7 +313,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. Let's try again. Launch the app again and slowly scroll up and down. Now we see the placeholder when an image is being downloaded. What happens if we scroll quickly again? There are _still_ flickering images! :sob:
 
-    ![Animation showing a user scrolling quickly up and down. Placeholder image appears, then wrong image, then correct image](images/simulator_scrolling_without_cancelling_download.gif)
+    <img src="images/simulator_scrolling_without_cancelling_download.gif" height="600" title="Animation showing a user scrolling quickly up and down. Placeholder image appears, then wrong image, then correct image" alt="Animation showing a user scrolling quickly up and down. Placeholder image appears, then wrong image, then correct image">
 
 1. Now we're dealing with an even trickier issue. This behaviour is because of our asynchronous downloading. What's actually happening is:
     1. `Cell A` is shown at `position 0` with placeholder image
@@ -364,4 +363,4 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. Let's run the app again. Isn't it beautiful? :relaxed: It's getting there. Next workshop we'll make it **delightful**!!
 
-    <img src="images/simulator_workshop_2_complete.png" title="News reader with cells showing downloaded images" alt="News reader with cells showing downloaded images">
+    <img src="images/simulator_workshop_2_complete.png" height="600" title="News reader with cells showing downloaded images" alt="News reader with cells showing downloaded images">
