@@ -164,7 +164,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
     ![Animation showing addition of height constraint to UIImageView](images/xcode_add_image_constraint.gif)
 
-1. It's also easy to round the corners of our image, so let's do that for a more polished look. First we need to connect the image to an `IBOutet` in `ArticleCell.swift`.
+1. It's also easy to round the corners of our image, so let's do that for a more polished look. First we need to connect the image to an `IBOutlet` in `ArticleCell.swift`.
 
 1. Next we set the `cornerRadius` property on the view's `layer`:
 
@@ -237,7 +237,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. Run the app and check that when you tap on a cell, you see the article's image!
 
-1. Now revert the `UITableViewDelegate` to again load `url` instead of `urlToImage`. (and remove the corresponding comment!)
+1. Now revert the `UITableViewDelegate` to again load `url` instead of `urlToImage`. And remove the corresponding comment!
 
     ```swift
     extension ViewController: UITableViewDelegate {
