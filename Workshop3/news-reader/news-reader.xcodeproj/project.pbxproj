@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		37E25175232655510067DFE6 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E25173232655510067DFE6 /* ArticleCell.swift */; };
-		37E25176232655510067DFE6 /* ArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E25174232655510067DFE6 /* ArticleCell.xib */; };
 		37E2517A23269DA70067DFE6 /* ImageDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E2517923269DA70067DFE6 /* ImageDownloading.swift */; };
 		D4DF84B722CA5D5300395971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DF84B622CA5D5300395971 /* AppDelegate.swift */; };
 		D4DF84B922CA5D5300395971 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DF84B822CA5D5300395971 /* ViewController.swift */; };
@@ -20,7 +19,6 @@
 
 /* Begin PBXFileReference section */
 		37E25173232655510067DFE6 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
-		37E25174232655510067DFE6 /* ArticleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCell.xib; sourceTree = "<group>"; };
 		37E2517923269DA70067DFE6 /* ImageDownloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownloading.swift; path = ../../ImageDownloading.swift; sourceTree = "<group>"; };
 		D4DF84B322CA5D5300395971 /* news-reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4DF84B622CA5D5300395971 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 				D4DF84BF22CA5D5400395971 /* LaunchScreen.storyboard */,
 				D4DF84C222CA5D5400395971 /* Info.plist */,
 				37E25173232655510067DFE6 /* ArticleCell.swift */,
-				37E25174232655510067DFE6 /* ArticleCell.xib */,
 			);
 			path = "news-reader";
 			sourceTree = "<group>";
@@ -134,7 +131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E25176232655510067DFE6 /* ArticleCell.xib in Resources */,
 				D4DF84C122CA5D5400395971 /* LaunchScreen.storyboard in Resources */,
 				D4DF84BE22CA5D5400395971 /* Assets.xcassets in Resources */,
 				D4DF84BC22CA5D5300395971 /* Main.storyboard in Resources */,
