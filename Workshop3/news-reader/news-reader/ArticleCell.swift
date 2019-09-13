@@ -14,6 +14,7 @@ class ArticleCell: UITableViewCell {
     @IBOutlet weak var articleImage: UIImageView! {
         didSet {
             articleImage.layer.cornerRadius = 12.0
+            articleImage.layer.masksToBounds = true
         }
     }
     @IBOutlet weak var articleDescription: UILabel!

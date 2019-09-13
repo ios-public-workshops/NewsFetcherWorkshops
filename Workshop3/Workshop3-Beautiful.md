@@ -166,7 +166,7 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
 
 1. It's also easy to round the corners of our image, so let's do that for a more polished look. First we need to connect the image to an `IBOutlet` in `ArticleCell.swift`.
 
-1. Next we set the `cornerRadius` property on the view's `layer`:
+1. Next we set the `cornerRadius` & `masksToBounds` properties on the view's `layer`:
 
 
     ```swift
@@ -176,6 +176,8 @@ Next, Add a `Height` constraint with a constant vaue of `100`.
         @IBOutlet weak var articleImage: UIImageView! {
             didSet {
                 articleImage.layer.cornerRadius = 12.0
+                articleImage.layer.masksToBounds = true
+
             }
         }
         @IBOutlet weak var articleDescription: UILabel!
