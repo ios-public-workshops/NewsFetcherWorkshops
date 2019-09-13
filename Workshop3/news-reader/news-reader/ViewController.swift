@@ -92,8 +92,13 @@ extension ViewController: UITableViewDelegate {
         // Get the selected article using the tapped row
         let selectedArticle = articles[indexPath.row]
         
+        // Ensure that the selected article has a valid url
+        guard let url = selectedArticle.url else {
+            return
+        }
+        
         // Create a new screen for loading Web Content using SFSafariViewController
-        let articleViewController = SFSafariViewController(url: selectedArticle.url)
+        let articleViewController = SFSafariViewController(url: url)
         
         // Present the screen on the Navigation Controller
         navigationController?.present(articleViewController, animated: true, completion: nil)

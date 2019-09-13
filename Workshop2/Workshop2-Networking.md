@@ -314,9 +314,11 @@ Remember in `Workshop1` we talked about completion blocks? The issue here is tha
     struct NewsItem: Decodable {
         let title: String
         let description: String
-        let url: URL
+        let url: URL?
     }
     ```
+Note: the url is _optional_ - sometimes `newsapi.org` returns an incompatible value for `url` that we can't load. Making it optional means the `url` can be empty in that case.
+
 1. iOS is easy, huh? :joy: When the user taps on the cell, we are informed by the `delegation` pattern. This effectively means the `UITableView` is saying "Hey! The user interacted with me! Do something about it, NOW!!". We should make our `ViewController` the delegate:
     ```swift
     override func viewDidLoad() {
@@ -353,8 +355,13 @@ Remember in `Workshop1` we talked about completion blocks? The issue here is tha
             // Get the selected article using the tapped row
             let selectedArticle = articles[indexPath.row]
 
+            // Ensure that the selected article has a valid url
+            guard let url = selectedArticle.url else {
+                return
+            }
+
             // Create a new screen for loading Web Content using SFSafariViewController
-            let articleViewController = SFSafariViewController(url: selectedArticle.url)
+            let articleViewController = SFSafariViewController(url: url)
         }
     }
     ```
@@ -382,9 +389,14 @@ Remember in `Workshop1` we talked about completion blocks? The issue here is tha
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             // Get the selected article using the tapped row
             let selectedArticle = articles[indexPath.row]
+            
+            // Ensure that the selected article has a valid url
+            guard let url = selectedArticle.url else {
+                return
+            }
 
             // Create a new screen for loading Web Content using SFSafariViewController
-            let articleViewController = SFSafariViewController(url: selectedArticle.url)
+            let articleViewController = SFSafariViewController(url: url)
 
             // Present the screen on the Navigation Controller
             navigationController?.present(articleViewController, animated: true, completion: nil)
