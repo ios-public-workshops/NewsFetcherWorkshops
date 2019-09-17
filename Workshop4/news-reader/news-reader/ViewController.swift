@@ -103,4 +103,19 @@ extension ViewController: UITableViewDelegate {
         // Present the screen on the Navigation Controller
         navigationController?.present(articleViewController, animated: true, completion: nil)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let parallaxCell = cell as? ParallaxingView {
+            tableView.applyParallax(to: parallaxCell)
+        }
+    }
+    
+    // This func is called every time user scrolls the table up or down
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        for cell in tableView.visibleCells {
+            if let parallaxCell = cell as? ParallaxingView {
+                scrollView.applyParallax(to: parallaxCell)
+            }
+        }
+    }
 }

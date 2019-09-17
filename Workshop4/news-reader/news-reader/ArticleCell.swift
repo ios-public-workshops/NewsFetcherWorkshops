@@ -9,14 +9,15 @@
 import UIKit
 
 class ArticleCell: UITableViewCell {
-
     @IBOutlet weak var articleTitle: UILabel!
-    @IBOutlet weak var articleImage: UIImageView! {
+    @IBOutlet weak var imageCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageContainer: UIView! {
         didSet {
-            articleImage.layer.cornerRadius = 12.0
-            articleImage.layer.masksToBounds = true
+            imageContainer.layer.cornerRadius = 12.0
+            imageContainer.layer.masksToBounds = true
         }
     }
+    @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleDescription: UILabel!
     
     override var textLabel: UILabel? {
@@ -33,6 +34,7 @@ class ArticleCell: UITableViewCell {
         backgroundColor = .white
         articleImage.image = UIImage(named: "placeholder-image")
         imageDownloadTask?.cancel()
+        imageCenterConstraint.constant = 0
     }
     
     override func awakeFromNib() {
@@ -59,5 +61,20 @@ extension ArticleCell {
                 print(error)
             }
         }
+    }
+}
+
+extension ArticleCell: ParallaxingView {
+    struct ParallaxConstants {
+        static let min: CGFloat = -25
+        static let max: CGFloat = 25
+        static var range: CGFloat {
+            return max - min
+        }
+    }
+
+    func applyParallax(normalizedValue: CGFloat) {
+        let parallaxOffset = ParallaxConstants.max - (normalizedValue * ParallaxConstants.range)
+        imageCenterConstraint.constant = parallaxOffset
     }
 }

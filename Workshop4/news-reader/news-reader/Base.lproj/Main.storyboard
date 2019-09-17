@@ -46,12 +46,22 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="uwf-I2-WQe">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHR-v0-r5J">
                                                             <rect key="frame" x="0.0" y="44" width="384" height="100"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="uwf-I2-WQe">
+                                                                    <rect key="frame" x="0.0" y="-50" width="384" height="200"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="100" id="tNa-ua-ZBv"/>
+                                                                <constraint firstAttribute="height" constant="100" id="HEn-LD-CZg"/>
+                                                                <constraint firstItem="uwf-I2-WQe" firstAttribute="centerY" secondItem="bHR-v0-r5J" secondAttribute="centerY" id="ICf-5A-rfH"/>
+                                                                <constraint firstItem="uwf-I2-WQe" firstAttribute="height" secondItem="bHR-v0-r5J" secondAttribute="height" multiplier="2" id="XZF-uR-NpN"/>
+                                                                <constraint firstItem="uwf-I2-WQe" firstAttribute="leading" secondItem="bHR-v0-r5J" secondAttribute="leading" id="foL-cU-qOf"/>
+                                                                <constraint firstAttribute="trailing" secondItem="uwf-I2-WQe" secondAttribute="trailing" id="rnN-dP-IA2"/>
                                                             </constraints>
-                                                        </imageView>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9y-mk-CdW">
                                                             <rect key="frame" x="0.0" y="149" width="384" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -72,6 +82,8 @@
                                             <outlet property="articleDescription" destination="c9y-mk-CdW" id="RYP-aV-KBN"/>
                                             <outlet property="articleImage" destination="uwf-I2-WQe" id="U7y-eO-tNg"/>
                                             <outlet property="articleTitle" destination="Sui-tb-MCd" id="afp-Ar-zoE"/>
+                                            <outlet property="imageCenterConstraint" destination="ICf-5A-rfH" id="Sql-9b-wrC"/>
+                                            <outlet property="imageContainer" destination="bHR-v0-r5J" id="T7D-dk-LiG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

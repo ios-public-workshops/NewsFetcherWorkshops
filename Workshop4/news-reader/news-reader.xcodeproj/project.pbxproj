@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37484FB22331170D008A585B /* UIScrollView+Parallax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37484FB12331170D008A585B /* UIScrollView+Parallax.swift */; };
 		37E25175232655510067DFE6 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E25173232655510067DFE6 /* ArticleCell.swift */; };
 		37E2517A23269DA70067DFE6 /* ImageDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E2517923269DA70067DFE6 /* ImageDownloading.swift */; };
 		D4DF84B722CA5D5300395971 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DF84B622CA5D5300395971 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37484FB12331170D008A585B /* UIScrollView+Parallax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Parallax.swift"; sourceTree = "<group>"; };
 		37E25173232655510067DFE6 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		37E2517923269DA70067DFE6 /* ImageDownloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownloading.swift; path = ../../ImageDownloading.swift; sourceTree = "<group>"; };
 		D4DF84B322CA5D5300395971 /* news-reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				37E2517923269DA70067DFE6 /* ImageDownloading.swift */,
 				D4DF84B622CA5D5300395971 /* AppDelegate.swift */,
 				D4DF84B822CA5D5300395971 /* ViewController.swift */,
+				37484FB12331170D008A585B /* UIScrollView+Parallax.swift */,
 				D4DF84BA22CA5D5300395971 /* Main.storyboard */,
 				D4DF84BD22CA5D5400395971 /* Assets.xcassets */,
 				D4DF84BF22CA5D5400395971 /* LaunchScreen.storyboard */,
@@ -146,6 +149,7 @@
 			files = (
 				37E25175232655510067DFE6 /* ArticleCell.swift in Sources */,
 				D4DF84B922CA5D5300395971 /* ViewController.swift in Sources */,
+				37484FB22331170D008A585B /* UIScrollView+Parallax.swift in Sources */,
 				D4DF84B722CA5D5300395971 /* AppDelegate.swift in Sources */,
 				D4DF84C922CA6BDF00395971 /* NewsFetching.swift in Sources */,
 				37E2517A23269DA70067DFE6 /* ImageDownloading.swift in Sources */,
