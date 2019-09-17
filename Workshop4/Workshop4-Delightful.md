@@ -5,12 +5,22 @@ Workshop 4 - Delight & Interaction
   - Tint the navigation bar to a color of your choice
   - Add a right hand item that is information button which when tapped shows the "data from newsapi.org" in a delightful way :awesome:
 
+- Add parallax effect to images
+   - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
+   - Create a function that gets the proportion scrolled of a cell in ViewController
+   - Add UIScrollViewDelegate to update ArticleCell offset on UIScrollViewDelegate didScroll
+   - Add a dampening so the image scrolls slower than the scroll view
+
+ - Implement pull to refresh?
+
+<!--
 - Add an alpha animation to cells
  - On cellWillAppear - animate something in?
  - Make a UIEffectView blur disappear without animation
  - Add an animation so user can appreciate what is going on
   - Tweak the animation duration until it feels right
 - Remind of cell reuse to clean up
+-->
 
 <!-- - Add a 'read' state to each article
  - When user taps an article, save that index path
