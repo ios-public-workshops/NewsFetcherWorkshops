@@ -64,17 +64,20 @@ extension ArticleCell {
     }
 }
 
-extension ArticleCell: ParallaxingView {
-    struct ParallaxConstants {
-        static let min: CGFloat = -25
-        static let max: CGFloat = 25
-        static var range: CGFloat {
-            return max - min
-        }
+extension ArticleCell: ParallaxingChildView {
+    var minimumChildValue: CGFloat {
+        return -25.0
+    }
+    
+    var maximumChildValue: CGFloat {
+        return 25.0
     }
 
     func applyParallax(normalizedValue: CGFloat) {
-        let parallaxOffset = ParallaxConstants.max - (normalizedValue * ParallaxConstants.range)
-        imageCenterConstraint.constant = parallaxOffset
+        imageCenterConstraint.constant = childValue(normalizedValue: normalizedValue)
+    }
+    
+    func childValue(normalizedValue: CGFloat) -> CGFloat {
+        return maximumChildValue - (normalizedValue * childValueRange)
     }
 }

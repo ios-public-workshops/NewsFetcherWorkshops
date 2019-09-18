@@ -105,17 +105,38 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let parallaxCell = cell as? ParallaxingView {
-            tableView.applyParallax(to: parallaxCell)
+        if let parallaxCell = cell as? ParallaxingChildView {
+            tableView.updateParallax(for: parallaxCell)
         }
     }
     
     // This func is called every time user scrolls the table up or down
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         for cell in tableView.visibleCells {
-            if let parallaxCell = cell as? ParallaxingView {
-                scrollView.applyParallax(to: parallaxCell)
+            if let parallaxCell = cell as? ParallaxingChildView {
+                tableView.updateParallax(for: parallaxCell)
             }
         }
+    }
+}
+
+extension UIScrollView: ParallaxingParentView {
+    var minimumParentValue: CGFloat {
+        return 0.0
+    }
+    
+    var maximumParentValue: CGFloat {
+        return frame.size.height
+    }
+    
+    func normalizedChildValue(_ child: ParallaxingChildView) -> CGFloat {
+        let childValue = child.frame.origin.y
+        let relativeChildValue = childValue - contentOffset.y
+        let normalizedChildValue = relativeChildValue.normalized(betweenMin: minimumParentValue, max: maximumParentValue)
+        return normalizedChildValue
+    }
+    
+    func updateParallax(for child: ParallaxingChildView) {
+        child.applyParallax(normalizedValue: normalizedChildValue(child))
     }
 }
