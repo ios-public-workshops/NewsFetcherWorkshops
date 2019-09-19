@@ -15,6 +15,11 @@ class ChildView: UIView {
     
     var pauseParallax: Bool = false
     var parallaxStrength: CGFloat = 1.0
+    
+    override func awakeFromNib() {
+        layer.borderColor = #colorLiteral(red: 0.2623201609, green: 0.7688918114, blue: 0.3556385934, alpha: 1)
+        layer.borderWidth = 4.0
+    }
 }
 
 extension ChildView: ParallaxingChildView {
