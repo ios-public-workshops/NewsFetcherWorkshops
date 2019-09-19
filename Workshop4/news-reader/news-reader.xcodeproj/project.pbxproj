@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		37484FB3233235A6008A585B /* ParallaxingChildView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxingChildView.swift; sourceTree = "<group>"; };
-		37484FB4233235A6008A585B /* ParallaxingParentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxingParentView.swift; sourceTree = "<group>"; };
+		37484FB3233235A6008A585B /* ParallaxingChildView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallaxingChildView.swift; path = ../../ParallaxingChildView.swift; sourceTree = "<group>"; };
+		37484FB4233235A6008A585B /* ParallaxingParentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallaxingParentView.swift; path = ../../ParallaxingParentView.swift; sourceTree = "<group>"; };
 		37E25173232655510067DFE6 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		37E2517923269DA70067DFE6 /* ImageDownloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownloading.swift; path = ../../ImageDownloading.swift; sourceTree = "<group>"; };
 		D4DF84B322CA5D5300395971 /* news-reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
