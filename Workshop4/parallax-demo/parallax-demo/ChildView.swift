@@ -24,11 +24,11 @@ class ChildView: UIView {
 
 extension ChildView: ParallaxingChildView {
     var minimumChildValue: CGFloat {
-        return -parallaxStrength * frame.size.height
+        return -parallaxStrength * 0.5 * frame.size.height
     }
     
     var maximumChildValue: CGFloat {
-        return parallaxStrength * frame.size.height
+        return parallaxStrength * 0.5 * frame.size.height
     }
     
     func applyParallax(normalizedValue: CGFloat) {
@@ -42,10 +42,12 @@ extension ChildView: ParallaxingChildView {
 
     func updateDiagnostics(normalizedValue: CGFloat) {
         let normalizedText = String(format: "Normalized Parallax = %0.4f", normalizedValue)
+        let strengthText = String(format: "Parallax Multiplier = %0.2f", parallaxStrength)
         let offsetText = String(format: "circleOffsetFromCenter = %0.2f", circleImageVerticalCenter.constant)
         diagnosticLabel.text = """
                                   ParallaxingChildView
                                   \(normalizedText)
+                                  \(strengthText)
                                   \(offsetText)
                                """
     }
