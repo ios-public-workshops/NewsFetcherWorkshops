@@ -17,8 +17,8 @@ class ChildView: UIView {
     var parallaxStrength: CGFloat = 1.0
     
     override func awakeFromNib() {
-        layer.borderColor = #colorLiteral(red: 0.2623201609, green: 0.7688918114, blue: 0.3556385934, alpha: 1)
-        layer.borderWidth = 4.0
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 0.5
     }
 }
 
