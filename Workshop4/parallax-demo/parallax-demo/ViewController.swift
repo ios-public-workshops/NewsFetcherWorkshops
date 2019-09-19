@@ -65,6 +65,15 @@ class ViewController: UIViewController {
         
         parallaxingChildView.pauseParallax = parallaxSwitch.isOn
     }
+    
+    @IBAction func parallaxEffectStrength(_ sender: Any) {
+        guard let strengthSlider = sender as? UISlider else {
+            return
+        }
+        
+        parallaxingChildView.parallaxStrength = CGFloat(strengthSlider.value)
+        scrollViewDidScroll(parallaxingParentView)
+    }
 }
 
 extension ViewController: UIScrollViewDelegate {

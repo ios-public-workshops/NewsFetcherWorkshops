@@ -14,15 +14,16 @@ class ChildView: UIView {
     @IBOutlet weak var diagnosticLabel: UILabel!
     
     var pauseParallax: Bool = false
+    var parallaxStrength: CGFloat = 1.0
 }
 
 extension ChildView: ParallaxingChildView {
     var minimumChildValue: CGFloat {
-        return -1.0 * frame.size.height
+        return -parallaxStrength * frame.size.height
     }
     
     var maximumChildValue: CGFloat {
-        return 1.0 * frame.size.height
+        return parallaxStrength * frame.size.height
     }
     
     func applyParallax(normalizedValue: CGFloat) {
