@@ -13,6 +13,10 @@
 		37484FCB233365A1008A585B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37484FCA233365A1008A585B /* Assets.xcassets */; };
 		37484FCE233365A1008A585B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37484FCC233365A1008A585B /* LaunchScreen.storyboard */; };
 		37484FD9233365A1008A585B /* parallax_demoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37484FD8233365A1008A585B /* parallax_demoTests.swift */; };
+		37B0324F23337F1C00385216 /* ChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0324E23337F1C00385216 /* ChildView.swift */; };
+		37B0325223337FC100385216 /* ParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0325123337FC100385216 /* ParentView.swift */; };
+		37E51F0B2333B26B006C733F /* ParallaxingParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E51F092333B26B006C733F /* ParallaxingParentView.swift */; };
+		37E51F0C2333B26B006C733F /* ParallaxingChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E51F0A2333B26B006C733F /* ParallaxingChildView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,10 @@
 		37484FD4233365A1008A585B /* parallax-demoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "parallax-demoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37484FD8233365A1008A585B /* parallax_demoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parallax_demoTests.swift; sourceTree = "<group>"; };
 		37484FDA233365A1008A585B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37B0324E23337F1C00385216 /* ChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildView.swift; sourceTree = "<group>"; };
+		37B0325123337FC100385216 /* ParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentView.swift; sourceTree = "<group>"; };
+		37E51F092333B26B006C733F /* ParallaxingParentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallaxingParentView.swift; path = ../../ParallaxingParentView.swift; sourceTree = "<group>"; };
+		37E51F0A2333B26B006C733F /* ParallaxingChildView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParallaxingChildView.swift; path = ../../ParallaxingChildView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +85,12 @@
 		37484FC22333659B008A585B /* parallax-demo */ = {
 			isa = PBXGroup;
 			children = (
+				37E51F0A2333B26B006C733F /* ParallaxingChildView.swift */,
+				37E51F092333B26B006C733F /* ParallaxingParentView.swift */,
 				37484FC32333659B008A585B /* AppDelegate.swift */,
 				37484FC52333659B008A585B /* ViewController.swift */,
+				37B0324E23337F1C00385216 /* ChildView.swift */,
+				37B0325123337FC100385216 /* ParentView.swift */,
 				37484FC72333659B008A585B /* Main.storyboard */,
 				37484FCA233365A1008A585B /* Assets.xcassets */,
 				37484FCC233365A1008A585B /* LaunchScreen.storyboard */,
@@ -197,8 +209,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E51F0B2333B26B006C733F /* ParallaxingParentView.swift in Sources */,
 				37484FC62333659B008A585B /* ViewController.swift in Sources */,
 				37484FC42333659B008A585B /* AppDelegate.swift in Sources */,
+				37E51F0C2333B26B006C733F /* ParallaxingChildView.swift in Sources */,
+				37B0325223337FC100385216 /* ParentView.swift in Sources */,
+				37B0324F23337F1C00385216 /* ChildView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

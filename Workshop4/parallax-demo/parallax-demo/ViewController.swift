@@ -10,14 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var parentParallaxingView: UIScrollView!
-    @IBOutlet weak var childParallaxingView: UIView! {
+    @IBOutlet weak var parallaxingParentView: ParentView! {
         didSet {
-            // Ensure that childParallaxingView is behind spacer views
-            childParallaxingView.layer.zPosition = -1
+            parallaxingParentView.delegate = self
+            parallaxingParentView.layer.cornerRadius = 12.0
         }
     }
+    @IBOutlet weak var parallaxingChildView: ChildView! {
+        didSet {
+            // Ensure that childParallaxingView is behind spacer views
+            parallaxingChildView.layer.zPosition = -1
+        }
+    }
+    @IBOutlet weak var diagnostic: UILabel!
     @IBOutlet var spacerViews: [UIView]!
+    @IBOutlet var diagnosticLabels: [UILabel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +32,10 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let initialScrollRect = CGRect(x: 0, y: parentParallaxingView.contentSize.height * 0.25,
+        let initialScrollRect = CGRect(x: 0, y: parallaxingParentView.contentSize.height * 0.25,
                                        width: 1,
-                                       height: parentParallaxingView.frame.size.height)
-        parentParallaxingView.scrollRectToVisible(initialScrollRect, animated: false)
+                                       height: parallaxingParentView.frame.size.height)
+        parallaxingParentView.scrollRectToVisible(initialScrollRect, animated: false)
     }
     
     @IBAction func showHiddenValuesToggled(_ sender: Any) {
@@ -40,5 +47,43 @@ class ViewController: UIViewController {
             view.alpha = hiddenValuesSwitch.isOn ? 0.6 : 1.0
         }
     }
+    
+    @IBAction func showDiagnosticDataToggled(_ sender: Any) {
+        guard let diagnosticDataSwitch = sender as? UISwitch else {
+            return
+        }
+
+        for view in diagnosticLabels {
+            view.alpha = diagnosticDataSwitch.isOn ? 1.0 : 0.0
+        }
+    }
+    
+    @IBAction func pauseParallaxToggled(_ sender: Any) {
+        guard let parallaxSwitch = sender as? UISwitch else {
+            return
+        }
+        
+        parallaxingChildView.pauseParallax = parallaxSwitch.isOn
+    }
 }
 
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        parallaxingParentView.updateParallax(for: parallaxingChildView)
+        updateDiagnostics()
+    }
+
+    func updateDiagnostics() {
+        let normalizedText = String(format: "Normalized Parallax = %0.4f",
+                                    parallaxingParentView.normalizedChildValue(parallaxingChildView))
+        let offsetText = String(format: "scrollOffset = %0.2f", parallaxingParentView.contentOffset.y)
+        let relativeChildText = String(format: "relative child offset = %0.2f",
+                                       parallaxingParentView.relativeChildCenterY(parallaxingChildView))
+        diagnostic.text = """
+                             ParallaxingParentView
+                             \(normalizedText)
+                             \(offsetText)
+                             \(relativeChildText)
+                          """
+    }
+}
