@@ -121,22 +121,16 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension UIScrollView: ParallaxingParentView {
-    var minimumParentValue: CGFloat {
-        return 0.0
+    func parentValueRange(given child: ParallaxingChildView) -> CGFloat {
+        return frame.size.height + child.frame.size.height
     }
     
-    var maximumParentValue: CGFloat {
-        return frame.size.height
-    }
-    
-    func normalizedChildValue(_ child: ParallaxingChildView) -> CGFloat {
-        let childValue = child.frame.origin.y
-        let relativeChildValue = childValue - contentOffset.y
-        let normalizedChildValue = relativeChildValue.normalized(betweenMin: minimumParentValue, max: maximumParentValue)
-        return normalizedChildValue
-    }
-    
-    func updateParallax(for child: ParallaxingChildView) {
-        child.applyParallax(normalizedValue: normalizedChildValue(child))
+    func normalizedChildOffset(_ child: ParallaxingChildView) -> CGFloat {
+        let bottomY = child.frame.origin.y + child.frame.size.height
+        let bottomYOffset = bottomY - contentOffset.y
+        let range = parentValueRange(given: child)
+        
+        let normalized = bottomYOffset / range
+        return normalized
     }
 }

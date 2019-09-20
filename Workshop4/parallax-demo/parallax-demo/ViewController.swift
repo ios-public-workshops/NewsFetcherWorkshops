@@ -84,10 +84,10 @@ extension ViewController: UIScrollViewDelegate {
 
     func updateDiagnostics() {
         let normalizedText = String(format: "Normalized Parallax = %0.4f",
-                                    parallaxingParentView.normalizedChildValue(parallaxingChildView))
+                                    parallaxingParentView.normalizedChildOffset(parallaxingChildView))
         let offsetText = String(format: "scrollOffset = %0.2f", parallaxingParentView.contentOffset.y)
-        let relativeChildText = String(format: "relative child offset = %0.2f",
-                                       parallaxingParentView.relativeChildCenterY(parallaxingChildView))
+        let relativeChildText = String(format: "relative offset of child bottom = %0.2f",
+                                       parallaxingParentView.visibleOffsetOfButtom(for: parallaxingChildView))
         diagnostic.text = """
                              ParallaxingParentView
                              \(normalizedText)

@@ -1,9 +1,14 @@
 import UIKit
 
 protocol ParallaxingChildView: UIView {
-    var minimumChildValue: CGFloat { get }
-    var maximumChildValue: CGFloat { get }
+    /// Magnitude of possible parallax values for child:
     var childValueRange: CGFloat { get }
+    
+    /// Minimum value for child parallax (ie child contents appears to be pulled back from center)
+    var minimumChildValue: CGFloat { get }
+
+    /// Maximum value for child parallax (ie child contents appears to be pushed away from center)
+    var maximumChildValue: CGFloat { get }
     
     /// The parallax effect to apply to the child between `minimumChildValue` and `maximumChildValue`
     ///
@@ -17,11 +22,17 @@ protocol ParallaxingChildView: UIView {
 }
 
 extension ParallaxingChildView {
-    var childValueRange: CGFloat {
-        return maximumChildValue - minimumChildValue
+    var minimumChildValue: CGFloat {
+        return -0.5 * childValueRange
+    }
+    
+    var maximumChildValue: CGFloat {
+        return 0.5 * childValueRange
     }
     
     func childValue(normalizedValue: CGFloat) -> CGFloat {
+        // When normalizedValue == 0.0, childValue = minimumChildValue
+        // When normalizedValue == 1.0, childValue = maximumChildValue
         return minimumChildValue + (normalizedValue * childValueRange)
     }
 }

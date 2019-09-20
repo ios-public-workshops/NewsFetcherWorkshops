@@ -85,12 +85,12 @@
 		37484FC22333659B008A585B /* parallax-demo */ = {
 			isa = PBXGroup;
 			children = (
-				37E51F0A2333B26B006C733F /* ParallaxingChildView.swift */,
 				37E51F092333B26B006C733F /* ParallaxingParentView.swift */,
+				37E51F0A2333B26B006C733F /* ParallaxingChildView.swift */,
 				37484FC32333659B008A585B /* AppDelegate.swift */,
 				37484FC52333659B008A585B /* ViewController.swift */,
-				37B0324E23337F1C00385216 /* ChildView.swift */,
 				37B0325123337FC100385216 /* ParentView.swift */,
+				37B0324E23337F1C00385216 /* ChildView.swift */,
 				37484FC72333659B008A585B /* Main.storyboard */,
 				37484FCA233365A1008A585B /* Assets.xcassets */,
 				37484FCC233365A1008A585B /* LaunchScreen.storyboard */,
