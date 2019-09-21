@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ArticleCell: UITableViewCell {
-
+    
     @IBOutlet weak var articleTitle: UILabel!
     @IBOutlet weak var articleImage: UIImageView! {
         didSet {
@@ -42,20 +43,27 @@ class ArticleCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 }
 
 extension ArticleCell {
     func loadImage(at url: URL) {
-        imageDownloadTask = ImageDownloader().downloadImage(url: url) { result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    self.articleImage.image = image
-                }
-            case .failure(let error):
+        
+        // Show an indicator while image is being fetched
+        articleImage.kf.indicatorType = .activity
+        articleImage.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder-image"),
+            options: [
+                // Fade image in so it's delightful!
+                .transition(.fade(1)),
+                // Enable line below to disable image caching
+                .cacheMemoryOnly, .memoryCacheExpiration(.expired)
+            ])
+        { result in
+            if case let .failure(error) = result  {
                 print(error)
             }
         }

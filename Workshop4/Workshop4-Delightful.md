@@ -121,9 +121,75 @@ If this step fails, try running `pod repo update` first. This ensures that the `
      
      - Tip: The Kingfisher code should be considered read only. If you want to change how Kingfisher works, you would need to create a fork of Kingfisher on Github, make your changes in the fork, and point your `Podfile` to that fork.  
 
-1. 
+1. We've successfully added Kingfisher to our project. Time to use it! From Xcode, delete `ImageDownloading.swift`. Xcode asks whether you want to `Remove Reference` or `Move to Trash`. Choose `Move to Trash` then smile to yourself. Deleting code should _always_ feel good. :joy:
 
-- Add Cocoa Pods pod for easier image downloading 
+1. Now when we compile, `ArticleCell` complains that `ImageDownloader` cannot be found. Let's change `ArticleCell` to use Kingfisher instead!
+
+    ```swift
+    import UIKit
+    import Kingfisher
+    
+    class ArticleCell: UITableViewCell {
+        ...
+    }
+    
+    extension ArticleCell {
+        func loadImage(at url: URL) {
+            
+            articleImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "placeholder-image"),
+                options: [])
+            { result in
+                if case let .failure(error) = result  {
+                    print(error)
+                }
+            }
+        }
+    }
+    ```
+
+1. Let's run the app and see how things look now with Kingfisher!
+
+    <img src="images/simulator_images_loaded_by_kingfisher_basic.gif" height="600"  title="Cells loading from placeholder image using Kingfisher" alt="Cells loading from placeholder image using Kingfisher">
+
+1. They look....exactly the same! But now we can add a little flair with virtually no effort:
+
+    ```swift    
+    extension ArticleCell {
+        func loadImage(at url: URL) {
+            
+            // Show an indicator while image is being fetched
+            articleImage.kf.indicatorType = .activity
+            articleImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "placeholder-image"),
+                options: [
+                    // Fade image in so it's delightful!
+                    .transition(.fade(1))
+                    // Remove comment below to disable automatic image caching
+                    // .cacheMemoryOnly, .memoryCacheExpiration(.expired)
+                ])
+            { result in
+                if case let .failure(error) = result  {
+                    print(error)
+                }
+            }
+        }
+    }
+    ```
+1. Run the app again to check out our new loading indicator and fade animation provided effortlessly by Kingfisher:
+
+    <img src="images/simulator_images_loaded_by_kingfisher_delightful.gif" height="600"  title="Cells animating from placeholder image using Kingfisher" alt="Cells animating from placeholder image using Kingfisher">
+
+1. There's one thing last to note here. What happens when you scroll up and down? After loading once, each image loads **instantly** the second time. Kingfisher enables caching automatically. Here's an example of what the app looks like when caching is disabled:
+
+    <img src="images/simulator_images_loaded_by_kingfisher_no_caching.gif" height="600"  title="Cells reloading without cache using Kingfisher" alt="Cells reloading without cache using Kingfisher">
+
+1. It's clear that Kingfisher gives us a lot of delight for very few lines of code. This example shows the joys of using 3rd party libraries. However there are risks too. The owners of Kingfisher could change it's functionality at any time and a simple `pod install` inside Terminal would pull those changes into your app. 
+
+    :warning: **It's important to write lots of regression tests when 
+               using 3rd party libraries!!!** :warning:
 
 - Customise navigation bar
   - Get a custom image from design team
