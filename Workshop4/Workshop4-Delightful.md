@@ -6,18 +6,32 @@ Last workshop we focussed on making our app more visually appealing with images.
 - Complete the [workshop 1 tutorial](../Workshop1/Workshop1-Creation.md)
 - Complete the [workshop 2 tutorial](../Workshop2/Workshop2-Networking.md)
 - Complete the [workshop 3 tutorial](../Workshop3/Workshop3-Beautiful.md)
+- Admin access to your laptop
+    - Type `sudo date` in the `Terminal` app
+    - You will be prompted for a password
+    - Enter your Mac's current user password
+    - If you see a date like `Sat 21 Sep 2019 13:55:40 CEST`, you have Admin access :check:
+    - If you see something like `<user> is not in the sudoers file. This incident will be reported.` try logging into a different user account on your Mac
 
 ## 1. Better image downloading
 1. Let's start by improving our image downloading. Last workshop we used the file `ImageDownloading.swift` to download our images. We used a placeholder image that shows while an image is downloading, or when an image fails to load:
 
     <img src="images/simulator_image_placeholders.png" height="600"  title="Cells with placeholder image" alt="Cells with placeholder image">
 
-1. This doesn't give the user much feedback on what is happening. They don't know whether the image is currently downloaded, or whether the image failed to load for some reason. Also, we redownload the image every time the user scrolls. Rather than add a whole lot of functionality to `ImageDownloading.swift`, let's consider using a `Pod` instead.
+1. This works, but has some fairly basic flaws:
+    - User doesn't know whether the image is currently downloading, or whether the image failed to load 
+    - We redownload the image every time the user scrolls
 
-1. [CocoaPods](https://www.cocoapods.org) is an industry standard package manager used in the iOS development community. A package manager allows us to quickly add 3rd party (not written by Apple) packages or libraries to our app. CocoaPods refers these libraries as `Pods`.
-    - In 2019 Apple released its own [Swift Package Manager](https://github.com/apple/swift-package-manager). Apple's  Swift Package Manager is owned by Apple which is an important consideration for iOS. Apple can and does make changes that break 3rd party tools, but CocoaPods is well supported and still has a larger library of available packages, so we will use it for this example.
+1. Rather than add a whole lot of functionality to `ImageDownloading.swift`, let's consider using an existing library instead.
 
-1. We're going to add the Pod `Kingfisher` to our app.
+1. As in most development environments, iOS has multiple package managers that can be used to quickly add 3rd party (not written by Apple) libraries (also known as packages) to our app.
+    - [CocoaPods](https://www.cocoapods.org) is one of the most popular package manager used in the iOS community. CocoaPods refers to libraries as `Pods` and most iOS libraries on GitHub have CocaoPod support.
+    - In 2019 Apple released the [Swift Package Manager](https://github.com/apple/swift-package-manager). Swift Package Manager is owned by Apple which is an important consideration for iOS. Apple can and does break functionality required by 3rd party tools from time to time. Swift Package Manager is still quite new, so the number of packages available does not yet match CocoaPods
+
+1. We're going to add the Pod `Kingfisher` to our app using CocoaPods.
+
+1. First we need to install the CocoaPods tool as a [ruby gem](https://guides.rubygems.org/what-is-a-gem/). Type the command `sudo gem install cocoapods` in the Terminal app. The Terminal will ask for your password, then start downloading and installing lot of files.
+
 
 - Add Cocoa Pods pod for easier image downloading 
 
