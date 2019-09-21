@@ -85,6 +85,43 @@ Last workshop we focussed on making our app more visually appealing with images.
       pod 'Kingfisher', '~> 5.7'
     end
     ```
+    
+1. We need another command `pod install` to enable CocoaPods within our app:
+
+    ```
+    user@MacBook-Pro ~ % pod install 
+    Analyzing dependencies
+    Downloading dependencies
+    Installing Kingfisher (5.7.1)
+    Generating Pods project
+    Integrating client project
+
+    [!] Please close any current Xcode sessions and use `news-reader.xcworkspace` for this project from now on.
+    Sending stats
+    Pod installation complete! There is 1 dependency from the Podfile and 1 total pod installed.
+    ```
+If this step fails, try running `pod repo update` first. This ensures that the `pod` tool installed on your computer knows about the latest version of each library.
+
+1. After running `pod install`, our news-reader folder should now have the following additions:
+
+    - **news-reader.xcworkspace** which bundles our `news-reader` project together with our new `Pods` project
+    - **Podfile.lock** which tells CocoaPods what version of each `Pod` we're using
+    - **Pods folder** which contains a `Pods` project that builds each `Pod` we're using
+
+    <img src="images/finder_news_reader_with_pods.png" title="Finder window showing news-reader contents after pod install" alt="Finder window showing news-reader contents after pod install">
+
+1. As explained by the output of `pod install`, we now load our project by opening `news-reader.xcworkspace`. An `xcworkspace` allows us to create a group of `xcprojects` which depend on each other.
+
+1. Our project looks a little different in Xcode now:
+
+     - `news-reader` project contains all of our original code
+     - `Pods` project contains the code for the Kingfisher library
+
+    <img src="images/xcode_project_with_pods.png" title="Xcode showing two projects inside a workspace" alt="Xcode showing two projects inside a workspace">
+     
+     - Tip: The Kingfisher code should be considered read only. If you want to change how Kingfisher works, you would need to create a fork of Kingfisher on Github, make your changes in the fork, and point your `Podfile` to that fork.  
+
+1. 
 
 - Add Cocoa Pods pod for easier image downloading 
 
