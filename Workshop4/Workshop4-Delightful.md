@@ -30,8 +30,61 @@ Last workshop we focussed on making our app more visually appealing with images.
 
 1. We're going to add the Pod `Kingfisher` to our app using CocoaPods.
 
-1. First we need to install the CocoaPods tool as a [ruby gem](https://guides.rubygems.org/what-is-a-gem/). Type the command `sudo gem install cocoapods` in the Terminal app. The Terminal will ask for your password, then start downloading and installing lot of files.
+1. First we need to install the CocoaPods tool as a [ruby gem](https://guides.rubygems.org/what-is-a-gem/). Type the command `sudo gem install cocoapods` in the Terminal app. The Terminal will ask for your password, then start downloading and installing lot of files. This should look similar to: (it's OK if the version numbers or specific gems installed are different)
 
+    ```
+    Last login: Sat Sep 21 14:26:47 on ttys001
+    user@MacBook-Pro ~ % sudo gem install cocoapods
+    Password:
+    Fetching thread_safe-0.3.6.gem
+    …
+    Fetching cocoapods-1.7.5.gem
+    Successfully installed thread_safe-0.3.6
+    …
+    Successfully installed cocoapods-1.7.5
+    Parsing documentation for thread_safe-0.3.6
+    Installing ri documentation for thread_safe-0.3.6
+    …
+    Parsing documentation for cocoapods-1.7.5
+    Installing ri documentation for cocoapods-1.7.5
+    Done installing documentation for thread_safe, tzinfo, concurrent-ruby, i18n, activesupport, nap, fuzzy_match, cocoapods-core, claide, cocoapods-deintegrate, cocoapods-downloader, cocoapods-plugins, cocoapods-search, cocoapods-stats, netrc, cocoapods-trunk, cocoapods-try, molinillo, atomos, colored2, nanaimo, xcodeproj, escape, fourflusher, gh_inspector, ruby-macho, cocoapods after 16 seconds
+    27 gems installed
+    ```
+    
+1. To ensure that installation was successful, type the command `which pod` in Terminal and ensure that the ruby gem `pod` now exists at `/usr/local/bin/pod`:
+
+    ```
+    user@MacBook-Pro ~ % which pod 
+    /usr/local/bin/pod
+    ```
+    
+1. Now we can add CocoaPod support to our app. Navigate to the `news-reader` directory that contains `news-reader.xcodeproj` and type `pod init`. This will create a file named `Podfile`:
+
+    ```
+    user@MacBook-Pro ~ % cd /Users/user/Desktop/NewsFetcherWorkshops/Workshop4/news-reader
+    user@MacBook-Pro news-reader % ls
+    news-reader		news-reader.xcodeproj
+    user@MacBook-Pro news-reader % pod init
+    user@MacBook-Pro news-reader %  ls
+    Podfile			news-reader		news-reader.xcodeproj
+    user@MacBook-Pro news-reader % 
+
+    ```
+    
+1. Open the new file `Podfile` and edit to add Kingfisher as a dependency:
+
+    ```
+    # Uncomment the next line to define a global platform for     your project
+    # platform :ios, '9.0'
+    
+    target 'news-reader' do
+      # Comment the next line if you don't want to use dynamic     frameworks
+      use_frameworks!
+    
+      # Pods for news-reader
+      pod 'Kingfisher', '~> 5.7'
+    end
+    ```
 
 - Add Cocoa Pods pod for easier image downloading 
 
