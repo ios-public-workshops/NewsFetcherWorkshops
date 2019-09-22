@@ -19,7 +19,7 @@ Last workshop we focussed on making our app more visually appealing with images.
     <img src="images/simulator_image_placeholders.png" height="600"  title="Cells with placeholder image" alt="Cells with placeholder image">
 
 1. This works, but has some fairly basic flaws:
-    - User doesn't know whether the image is currently downloading, or whether the image failed to load 
+    - User doesn't know whether the image is currently downloading, or whether the image failed to load
     - We redownload the image every time the user scrolls
 
 1. Rather than add a whole lot of functionality to `ImageDownloading.swift`, let's consider using an existing library instead.
@@ -50,14 +50,14 @@ Last workshop we focussed on making our app more visually appealing with images.
     Done installing documentation for thread_safe, tzinfo, concurrent-ruby, i18n, activesupport, nap, fuzzy_match, cocoapods-core, claide, cocoapods-deintegrate, cocoapods-downloader, cocoapods-plugins, cocoapods-search, cocoapods-stats, netrc, cocoapods-trunk, cocoapods-try, molinillo, atomos, colored2, nanaimo, xcodeproj, escape, fourflusher, gh_inspector, ruby-macho, cocoapods after 16 seconds
     27 gems installed
     ```
-    
+
 1. To ensure that installation was successful, type the command `which pod` in Terminal and ensure that the ruby gem `pod` now exists at `/usr/local/bin/pod`:
 
     ```
-    user@MacBook-Pro ~ % which pod 
+    user@MacBook-Pro ~ % which pod
     /usr/local/bin/pod
     ```
-    
+
 1. Now we can add CocoaPod support to our app. Navigate to the `news-reader` directory that contains `news-reader.xcodeproj` and type `pod init`. This will create a file named `Podfile`:
 
     ```
@@ -67,29 +67,29 @@ Last workshop we focussed on making our app more visually appealing with images.
     user@MacBook-Pro news-reader % pod init
     user@MacBook-Pro news-reader %  ls
     Podfile			news-reader		news-reader.xcodeproj
-    user@MacBook-Pro news-reader % 
+    user@MacBook-Pro news-reader %
 
     ```
-    
+
 1. Open the new file `Podfile` and edit to add Kingfisher as a dependency:
 
     ```
     # Uncomment the next line to define a global platform for     your project
     # platform :ios, '9.0'
-    
+
     target 'news-reader' do
       # Comment the next line if you don't want to use dynamic     frameworks
       use_frameworks!
-    
+
       # Pods for news-reader
       pod 'Kingfisher', '~> 5.7'
     end
     ```
-    
+
 1. We need another command `pod install` to enable CocoaPods within our app:
 
     ```
-    user@MacBook-Pro ~ % pod install 
+    user@MacBook-Pro ~ % pod install
     Analyzing dependencies
     Downloading dependencies
     Installing Kingfisher (5.7.1)
@@ -118,7 +118,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
      - `Pods` project contains the code for the Kingfisher library
 
     <img src="images/xcode_project_with_pods.png" title="Xcode showing two projects inside a workspace" alt="Xcode showing two projects inside a workspace">
-     
+
      - Tip: The Kingfisher code should be considered read only. If we wanted to change how Kingfisher worked, we would need to create a fork of Kingfisher on Github, make our changes in the fork, and then point our `Podfile` to that fork.  
 
 1. We've successfully added Kingfisher to our project. Time to use it! From Xcode, delete `ImageDownloading.swift`. Xcode asks whether you want to `Remove Reference` or `Move to Trash`. Choose `Move to Trash` then smile to yourself. Deleting code should _always_ feel good. :joy:
@@ -128,14 +128,14 @@ If this step fails, try running `pod repo update` first. This ensures that the `
     ```swift
     import UIKit
     import Kingfisher
-    
+
     class ArticleCell: UITableViewCell {
         ...
     }
-    
+
     extension ArticleCell {
         func loadImage(at url: URL) {
-            
+
             articleImage.kf.setImage(
                 with: url,
                 placeholder: UIImage(named: "placeholder-image"),
@@ -158,7 +158,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
     ```swift    
     extension ArticleCell {
         func loadImage(at url: URL) {
-            
+
             // Show an indicator while image is being fetched
             articleImage.kf.indicatorType = .activity
             articleImage.kf.setImage(
@@ -186,9 +186,9 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_images_loaded_by_kingfisher_no_caching.gif" height="600"  title="Cells reloading without cache using Kingfisher" alt="Cells reloading without cache using Kingfisher">
 
-1. It's clear that Kingfisher gives us a lot of delight for very few lines of code. This example shows the joys of using 3rd party libraries. However there are risks too. The owners of Kingfisher could change it's functionality at any time and a simple `pod install` inside Terminal would pull those changes into our app. 
+1. It's clear that Kingfisher gives us a lot of delight for very few lines of code. This example shows the joys of using 3rd party libraries. However there are risks too. The owners of Kingfisher could change it's functionality at any time and a simple `pod install` inside Terminal would pull those changes into our app.
 
-    :warning: **It's important to write lots of regression tests when 
+    :warning: **It's important to write lots of regression tests when
                using 3rd party libraries!!!** :warning:
 
 ## 2. Customize the Navigation Bar
@@ -197,7 +197,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_navigation_bar_default.png" height="600"  title="Navigation bar has default look" alt="Navigation bar has default look">
 
-1. Start by adding the image [navigation-bar-title](./navigation-bar-title.pdf) to the `Assets.xcassets` folder in Xcode. Once added, drag the image from the `1x` space to the `2x` space. This is because our image is provided at double size. 
+1. Start by adding the image [navigation-bar-title](./navigation-bar-title.pdf) to the `Assets.xcassets` folder in Xcode. Once added, drag the image from the `1x` space to the `2x` space. This is because our image is provided at double size.
 
     ![Animation showing an image being dragged from project and dropped into Assets.xcassets on Xcode](images/xcode_add_navigation_title_image.gif)
 
@@ -206,19 +206,19 @@ If this step fails, try running `pod repo update` first. This ensures that the `
     ```swift
     class ViewController: UIViewController {
         @IBOutlet var tableView: UITableView!
-    
+
         var articles = [NewsItem]()
-    
+
         func customizeNavigationBar() {
             // Replace the default title with a custom image
             navigationItem.titleView = UIImageView(image: UIImage(named: "navigation-bar-title"))
         }
-    
+
         override func viewDidLoad() {
             super.viewDidLoad()
             // Customize the navigation bar title
             customizeNavigationBar()
-        
+
             // Configure the TableView to use our class as the Delegate
             tableView.delegate = self
             ...
@@ -241,13 +241,19 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
 1. Now that we've made our navigation bar delightful, the "Data from newsapi.org" header is looking a bit bland. Tap on the label in `Main.storyboard`and update:
     - **Background** to match our navigation bar
-    - Contents to something more fun like "_...from newsapi.org_ :newspaper:"
+    - **Text** to something more fun like "_...from newsapi.org :newspaper:_"
 
 1. Let's run our app and check how that looks...
 
     <img src="images/simulator_navigation_bar_delightful.png" height="600"  title="Navigation bar with colored background and matching newsapi.org disclaimer" alt="Navigation bar with colored background and matching newsapi.org disclaimer">
 
 1. Perfect - our app is starting to look like something polished that could ship on the App Store!
+
+## 3. The Parallax Effect
+
+1. OK, so far we've made our app more polished. Now let's add some animation that will delight our users **so much** they will need to lie down.
+
+1. The parallax effect can be very subtle, but it just.... _feels so good_. What is the parallax effect? Broadly speaking it is when two moving images move in the same direction, but at different speeds. In our app, we will animate the image vertically as a user scrolls up and down.
 
 - Add parallax effect to images
    - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
@@ -273,7 +279,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
    - Learn about UIViewController life cycle
    - learn about UIAnimations + alpha levels -->
 
-<!-- 
+<!--
 - Add a filter/search function
   - Nest disclaimer label within a vertical stack view
   - Add a UITextField to stack view (Mention safe areas?!)
