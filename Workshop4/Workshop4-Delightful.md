@@ -191,6 +191,48 @@ If this step fails, try running `pod repo update` first. This ensures that the `
     :warning: **It's important to write lots of regression tests when 
                using 3rd party libraries!!!** :warning:
 
+## 2. Customize the Navigation Bar
+
+1. Now let's make our navigation bar more appealing. Right now it's quite plain, but we can customize it relatively easily.
+
+    <img src="images/simulator_navigation_bar_default.png" height="600"  title="Navigation bar has default look" alt="Navigation bar has default look">
+
+1. Start by adding the image [navigation-bar-title](./navigation-bar-title.pdf) to your `Assets.xcassets` folder in Xcode. Once added, drag the image from the `1x` space to the `2x` space. This is because our image is provided at double size. 
+
+    ![Animation showing an image being dragged from project and dropped into Assets.xcassets on Xcode](images/xcode_add_navigation_title_image.gif)
+
+1. Now that we've added a cool navigation bar title image, we need to use it as our navigation bar's title. This is done inside `ViewController`:
+
+    ```swift
+    class ViewController: UIViewController {
+        @IBOutlet var tableView: UITableView!
+    
+        var articles = [NewsItem]()
+    
+        func customizeNavigationBar() {
+            // Replace the default title with a custom image
+            navigationItem.titleView = UIImageView(image: UIImage(named: "navigation-bar-title"))
+        }
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            // Customize the navigation bar title
+            customizeNavigationBar()
+        
+            // Configure the TableView to use our class as the Delegate
+            tableView.delegate = self
+            ...
+        }
+        ...
+    }
+
+    ```
+1. Let's run the app and see how that looks! Great - now our app has some brand identity. When users open our app and see our custom "News Fetcher" title, they know they're in the right place.
+
+    <img src="images/simulator_navigation_bar_custom_title.png" height="600"  title="Navigation bar has custom title" alt="Navigation bar has custom title">
+
+
+
 - Customise navigation bar
   - Get a custom image from design team
   - Tint the navigation bar to a color of your choice

@@ -14,10 +14,15 @@ class ViewController: UIViewController {
     
     var articles = [NewsItem]()
     
+    func customizeNavigationBar() {
+        // Replace the default title with a custom image
+        navigationItem.titleView = UIImageView(image: UIImage(named: "navigation-bar-title"))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Sets a title the current screen
-        title = "News Fetcher"
+        // Customize the navigation bar title
+        customizeNavigationBar()
         
         // Configure the TableView to use our class as the Delegate
         tableView.delegate = self
