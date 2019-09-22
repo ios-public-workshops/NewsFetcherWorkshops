@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="parallax_demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aUf-FP-HcS">
+                                <rect key="frame" x="8" y="28" width="359" height="108"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VlN-Kc-U47" userLabel="Parallax Effect Strength">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strength of parallax effect:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmj-p5-bzX">
+                                                <rect key="frame" x="0.0" y="0.0" width="204" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="t1C-Nk-au2">
+                                                <rect key="frame" x="210" y="0.0" width="151" height="31"/>
+                                                <connections>
+                                                    <action selector="parallaxEffectStrength:" destination="BYZ-38-t0r" eventType="valueChanged" id="NZ0-Od-Qgf"/>
+                                                </connections>
+                                            </slider>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3PD-8N-cD0" userLabel="Pause Parallax Effect">
+                                        <rect key="frame" x="0.0" y="38" width="359" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pause parallax effect?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSu-j8-WsF">
+                                                <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jLG-Eg-eIY">
+                                                <rect key="frame" x="310" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="pauseParallaxToggled:" destination="BYZ-38-t0r" eventType="valueChanged" id="Pwq-o4-2kK"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxn-sc-xhl" userLabel="Show Hidden Views">
+                                        <rect key="frame" x="0.0" y="77" width="359" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show hidden part of circle?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQU-w4-Ker">
+                                                <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mtJ-bz-7g0">
+                                                <rect key="frame" x="310" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="showHiddenValuesToggled:" destination="BYZ-38-t0r" eventType="valueChanged" id="KUR-5B-Epy"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLg-Y0-O4A" customClass="BackgroundView" customModule="parallax_demo" customModuleProvider="target">
+                                <rect key="frame" x="8" y="144" width="359" height="515"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bqk-rY-8f1">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="1209.5"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aeb-6i-dI6" userLabel="Top Spacer">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="515"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qr-mr-VhO" customClass="ForegroundView" customModule="parallax_demo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="515" width="359" height="179.5"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Circle" translatesAutoresizingMaskIntoConstraints="NO" id="pCL-3s-Gfr" userLabel="Circle Image">
+                                                        <rect key="frame" x="0.0" y="-179.5" width="359" height="538.5"/>
+                                                    </imageView>
+                                                    <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkD-sr-B9O">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="179.5"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JO-w3-r90">
+                                                        <rect key="frame" x="71" y="76" width="217" height="28"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iLe-N4-rUG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="217" height="28"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ParallaxingForegroundView" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mt-Wx-qLd" userLabel="Foreground Label">
+                                                                    <rect key="frame" x="4" y="4" width="208.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="0mt-Wx-qLd" firstAttribute="top" secondItem="iLe-N4-rUG" secondAttribute="top" constant="4" id="V8c-NC-wi3"/>
+                                                                <constraint firstItem="0mt-Wx-qLd" firstAttribute="leading" secondItem="iLe-N4-rUG" secondAttribute="leading" constant="4" id="cJK-ql-1pE"/>
+                                                                <constraint firstAttribute="bottom" secondItem="0mt-Wx-qLd" secondAttribute="bottom" constant="4" id="doF-Ra-92H"/>
+                                                                <constraint firstAttribute="trailing" secondItem="0mt-Wx-qLd" secondAttribute="trailing" constant="4" id="ywN-qP-eia"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <blurEffect style="dark"/>
+                                                    </visualEffectView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="pCL-3s-Gfr" firstAttribute="centerY" secondItem="3qr-mr-VhO" secondAttribute="centerY" id="3DF-Qo-Wen"/>
+                                                    <constraint firstAttribute="width" secondItem="3qr-mr-VhO" secondAttribute="height" multiplier="2:1" id="4Xu-3a-HD6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="FkD-sr-B9O" secondAttribute="trailing" id="EeC-4R-VuD"/>
+                                                    <constraint firstAttribute="bottom" secondItem="FkD-sr-B9O" secondAttribute="bottom" id="Eeo-ob-Fu3"/>
+                                                    <constraint firstItem="pCL-3s-Gfr" firstAttribute="height" secondItem="3qr-mr-VhO" secondAttribute="height" multiplier="3" id="MPq-ma-r7y"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pCL-3s-Gfr" secondAttribute="trailing" id="ajg-Em-njV"/>
+                                                    <constraint firstItem="1JO-w3-r90" firstAttribute="centerY" secondItem="3qr-mr-VhO" secondAttribute="centerY" id="f43-k7-sJI"/>
+                                                    <constraint firstItem="FkD-sr-B9O" firstAttribute="top" secondItem="3qr-mr-VhO" secondAttribute="top" id="o6V-5I-2kF"/>
+                                                    <constraint firstItem="pCL-3s-Gfr" firstAttribute="leading" secondItem="3qr-mr-VhO" secondAttribute="leading" id="ol6-bt-DBR"/>
+                                                    <constraint firstItem="FkD-sr-B9O" firstAttribute="leading" secondItem="3qr-mr-VhO" secondAttribute="leading" id="t4i-fj-mjE"/>
+                                                    <constraint firstItem="1JO-w3-r90" firstAttribute="centerX" secondItem="3qr-mr-VhO" secondAttribute="centerX" id="tK1-os-Ig4"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="circleImageVerticalCenter" destination="3DF-Qo-Wen" id="ymZ-TS-Y0I"/>
+                                                    <outlet property="diagnosticLabel" destination="0mt-Wx-qLd" id="4Qn-Hj-ySW"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9L-OT-6kT" userLabel="Bottom Spacer">
+                                                <rect key="frame" x="0.0" y="694.5" width="359" height="515"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="u9L-OT-6kT" firstAttribute="height" secondItem="bLg-Y0-O4A" secondAttribute="height" id="4sm-8v-z8k"/>
+                                    <constraint firstItem="Aeb-6i-dI6" firstAttribute="height" secondItem="bLg-Y0-O4A" secondAttribute="height" id="HhE-Rh-ZMX"/>
+                                    <constraint firstItem="bqk-rY-8f1" firstAttribute="top" secondItem="bLg-Y0-O4A" secondAttribute="top" id="UZR-pU-0Og"/>
+                                    <constraint firstItem="bqk-rY-8f1" firstAttribute="leading" secondItem="bLg-Y0-O4A" secondAttribute="leading" id="Vmy-ss-lYN"/>
+                                    <constraint firstAttribute="trailing" secondItem="bqk-rY-8f1" secondAttribute="trailing" id="cp8-tJ-HDV"/>
+                                    <constraint firstItem="bqk-rY-8f1" firstAttribute="width" secondItem="bLg-Y0-O4A" secondAttribute="width" id="nYG-3T-7X5"/>
+                                    <constraint firstAttribute="bottom" secondItem="bqk-rY-8f1" secondAttribute="bottom" id="nyf-IK-Z8n"/>
+                                </constraints>
+                            </scrollView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7YJ-lG-j8o">
+                                <rect key="frame" x="138" y="152" width="99" height="28.5"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="63R-gs-k2O">
+                                    <rect key="frame" x="0.0" y="0.0" width="99" height="28.5"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="background" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PzC-hj-9zi" userLabel="Background Label">
+                                            <rect key="frame" x="4" y="4" width="91.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="PzC-hj-9zi" secondAttribute="trailing" constant="4" id="7Ap-6t-Xgw"/>
+                                        <constraint firstItem="PzC-hj-9zi" firstAttribute="leading" secondItem="63R-gs-k2O" secondAttribute="leading" constant="4" id="goh-Hr-T9Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="PzC-hj-9zi" secondAttribute="bottom" constant="4" id="kym-Kb-Bwz"/>
+                                        <constraint firstItem="PzC-hj-9zi" firstAttribute="top" secondItem="63R-gs-k2O" secondAttribute="top" constant="4" id="sHc-c0-G4j"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <constraints>
+                            <constraint firstItem="7YJ-lG-j8o" firstAttribute="top" secondItem="bLg-Y0-O4A" secondAttribute="top" constant="8" id="ChN-te-0SX"/>
+                            <constraint firstItem="aUf-FP-HcS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="IJR-MU-s2r"/>
+                            <constraint firstItem="7YJ-lG-j8o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OM6-Ka-XoC"/>
+                            <constraint firstItem="bLg-Y0-O4A" firstAttribute="top" secondItem="aUf-FP-HcS" secondAttribute="bottom" constant="8" id="cnF-3g-ZFW"/>
+                            <constraint firstItem="bLg-Y0-O4A" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="e4T-eT-ryj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aUf-FP-HcS" secondAttribute="trailing" constant="8" id="eca-qW-Eer"/>
+                            <constraint firstItem="aUf-FP-HcS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="gH6-3h-A9e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bLg-Y0-O4A" secondAttribute="bottom" constant="8" id="w2Z-o8-YhG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bLg-Y0-O4A" secondAttribute="trailing" constant="8" id="xzQ-gz-c2p"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="diagnostic" destination="PzC-hj-9zi" id="mSz-9b-vcy"/>
+                        <outlet property="parallaxingBackgroundView" destination="bLg-Y0-O4A" id="EL6-4p-OcL"/>
+                        <outlet property="parallaxingForegroundView" destination="3qr-mr-VhO" id="uOP-Sg-TqE"/>
+                        <outletCollection property="spacerViews" destination="u9L-OT-6kT" collectionClass="NSMutableArray" id="X1R-v3-L88"/>
+                        <outletCollection property="spacerViews" destination="Aeb-6i-dI6" collectionClass="NSMutableArray" id="GxK-H8-Qai"/>
+                        <outletCollection property="diagnosticLabels" destination="PzC-hj-9zi" collectionClass="NSMutableArray" id="Bfs-42-Hye"/>
+                        <outletCollection property="diagnosticLabels" destination="0mt-Wx-qLd" collectionClass="NSMutableArray" id="AAa-yU-Fbk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Circle" width="1000" height="1000"/>
+    </resources>
+</document>

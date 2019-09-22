@@ -257,17 +257,17 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_parallax_example.gif" height="600"  title="A foreground image moving more slowly than a background scroll view" alt="A foreground image moving more slowly than a background scroll view">
 
-1. In the example above can see that the foreground and background both move, but at different rates. In the time that background scrolls through `575.0` points, foreground animates `200.0` points:
+1. In the example above we can see that the foreground and background both move, but at different rates. In the time that background scrolls through `781.7` points, foreground animates `179.6` points:
     ```
-    foreground.minimum = -100.0
-    foreground.maximum = +100.0
     background.minimum = +000.0
-    background.maximum = +575.0
+    background.maximum = +781.7
+    foreground.minimum = -89.8
+    foreground.maximum = +89.8
     ```
 
-1. Parallax animations could warrant a workshop series of their own, so we'll use some template code that does the heavy lifting for us. Check out the parallax demo later ([ParallaxDemo.xccodeproject](./parallax-demo/ParallaxDemo.xccodeproject)) for a detailed implementation.
+1. Parallax animations could warrant a workshop series of their own, so we'll use some template code that does the heavy lifting for us. Check out the parallax demo later ([parallax-demo.xccodeproject](./parallax-demo/parallax-demo.xccodeproject)) for a detailed implementation.
 
-1. In order to implement 
+1. In order to implement
 
 - Add parallax effect to images
    - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
