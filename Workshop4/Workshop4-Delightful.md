@@ -30,7 +30,7 @@ Last workshop we focussed on making our app more visually appealing with images.
 
 1. We're going to add the Pod `Kingfisher` to our app using CocoaPods.
 
-1. First we need to install the CocoaPods tool as a [ruby gem](https://guides.rubygems.org/what-is-a-gem/). Type the command `sudo gem install cocoapods` in the Terminal app. The Terminal will ask for your password, then start downloading and installing lot of files. This should look similar to: (it's OK if the version numbers or specific gems installed are different)
+1. First we need to install the CocoaPods tool as a [ruby gem](https://guides.rubygems.org/what-is-a-gem/). Type the command `sudo gem install cocoapods` in the Terminal app. The Terminal will ask for a user password, then start downloading and installing lot of files. This should look similar to: (it's OK if the version numbers or specific gems installed are different)
 
     ```
     Last login: Sat Sep 21 14:26:47 on ttys001
@@ -100,7 +100,7 @@ Last workshop we focussed on making our app more visually appealing with images.
     Sending stats
     Pod installation complete! There is 1 dependency from the Podfile and 1 total pod installed.
     ```
-If this step fails, try running `pod repo update` first. This ensures that the `pod` tool installed on your computer knows about the latest version of each library.
+If this step fails, try running `pod repo update` first. This ensures that the `pod` tool installed on our computer knows about the latest version of each library.
 
 1. After running `pod install`, our news-reader folder should now have the following additions:
 
@@ -119,7 +119,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/xcode_project_with_pods.png" title="Xcode showing two projects inside a workspace" alt="Xcode showing two projects inside a workspace">
      
-     - Tip: The Kingfisher code should be considered read only. If you want to change how Kingfisher works, you would need to create a fork of Kingfisher on Github, make your changes in the fork, and point your `Podfile` to that fork.  
+     - Tip: The Kingfisher code should be considered read only. If we wanted to change how Kingfisher worked, we would need to create a fork of Kingfisher on Github, make our changes in the fork, and then point our `Podfile` to that fork.  
 
 1. We've successfully added Kingfisher to our project. Time to use it! From Xcode, delete `ImageDownloading.swift`. Xcode asks whether you want to `Remove Reference` or `Move to Trash`. Choose `Move to Trash` then smile to yourself. Deleting code should _always_ feel good. :joy:
 
@@ -182,11 +182,11 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_images_loaded_by_kingfisher_delightful.gif" height="600"  title="Cells animating from placeholder image using Kingfisher" alt="Cells animating from placeholder image using Kingfisher">
 
-1. There's one thing last to note here. What happens when you scroll up and down? After loading once, each image loads **instantly** the second time. Kingfisher enables caching automatically. Here's an example of what the app looks like when caching is disabled:
+1. There's one thing last to note here. What happens when we scroll up and down? After loading once, each image loads **instantly** the second time. Kingfisher enables caching automatically. Here's an example of what the app looks like when caching is disabled:
 
     <img src="images/simulator_images_loaded_by_kingfisher_no_caching.gif" height="600"  title="Cells reloading without cache using Kingfisher" alt="Cells reloading without cache using Kingfisher">
 
-1. It's clear that Kingfisher gives us a lot of delight for very few lines of code. This example shows the joys of using 3rd party libraries. However there are risks too. The owners of Kingfisher could change it's functionality at any time and a simple `pod install` inside Terminal would pull those changes into your app. 
+1. It's clear that Kingfisher gives us a lot of delight for very few lines of code. This example shows the joys of using 3rd party libraries. However there are risks too. The owners of Kingfisher could change it's functionality at any time and a simple `pod install` inside Terminal would pull those changes into our app. 
 
     :warning: **It's important to write lots of regression tests when 
                using 3rd party libraries!!!** :warning:
@@ -197,7 +197,7 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_navigation_bar_default.png" height="600"  title="Navigation bar has default look" alt="Navigation bar has default look">
 
-1. Start by adding the image [navigation-bar-title](./navigation-bar-title.pdf) to your `Assets.xcassets` folder in Xcode. Once added, drag the image from the `1x` space to the `2x` space. This is because our image is provided at double size. 
+1. Start by adding the image [navigation-bar-title](./navigation-bar-title.pdf) to the `Assets.xcassets` folder in Xcode. Once added, drag the image from the `1x` space to the `2x` space. This is because our image is provided at double size. 
 
     ![Animation showing an image being dragged from project and dropped into Assets.xcassets on Xcode](images/xcode_add_navigation_title_image.gif)
 
@@ -231,7 +231,13 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     <img src="images/simulator_navigation_bar_custom_title.png" height="600"  title="Navigation bar has custom title" alt="Navigation bar has custom title">
 
+1. Another simple change to help give our app a unique identity is to color the navigation bar. Open `Main.storyboard` and select the `Navigation Bar` element inside the `Navigation Controller Scene`.
 
+1. Select `Bar Tint` from the properties and choose `custom...` which will show Apple's detailed color picking window. The 4th tab `Pencils` makes it easy to choose a color.
+
+    <img src="images/xcode_navigation_bar_color.png" title="Xcode editing Bar Tint property of Navigation Bar" alt="Xcode editing Bar Tint property of Navigation Bar">
+
+1. Run the app again and see that our navigation bar now has a unique background color.
 
 - Customise navigation bar
   - Get a custom image from design team
