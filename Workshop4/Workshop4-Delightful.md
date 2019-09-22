@@ -239,14 +239,15 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
 1. Run the app again and see that our navigation bar now has a unique background color.
 
-- Customise navigation bar
-  - Get a custom image from design team
-  - Tint the navigation bar to a color of your choice
-  - Add a right hand item that is information button which when tapped shows the "data from newsapi.org" in a delightful way :awesome:
-      - Transition to an InfoViewController that just shows static text?
-          - newsapi.org
-          - Cocoapod used
-          - Information about the author :)
+1. Now that we've made our navigation bar delightful, the "Data from newsapi.org" header is looking a bit bland. Tap on the label in `Main.storyboard`and update:
+    - **Background** to match our navigation bar
+    - Contents to something more fun like "_...from newsapi.org_ :newspaper:"
+
+1. Let's run our app and check how that looks...
+
+    <img src="images/simulator_navigation_bar_delightful.png" height="600"  title="Navigation bar with colored background and matching newsapi.org disclaimer" alt="Navigation bar with colored background and matching newsapi.org disclaimer">
+
+1. Perfect - our app is starting to look like something polished that could ship on the App Store!
 
 - Add parallax effect to images
    - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
