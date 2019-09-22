@@ -253,7 +253,21 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
 1. OK, so far we've made our app more polished. Now let's add some animation that will delight our users **so much** they will need to lie down.
 
-1. The parallax effect can be very subtle, but it just.... _feels so good_. What is the parallax effect? Broadly speaking it is when two moving images move in the same direction, but at different speeds. In our app, we will animate the image vertically as a user scrolls up and down.
+1. The parallax effect can be very subtle, but it just.... _feels so good_. What is the parallax effect? Broadly speaking it is when two images (a background and a foreground) move in the same direction, but at different speeds. In our app, the background will be our scrolling table view, and the foreground will be the image in each table view cell. Similar to this example:
+
+    <img src="images/simulator_parallax_example.gif" height="600"  title="A foreground image moving more slowly than a background scroll view" alt="A foreground image moving more slowly than a background scroll view">
+
+1. In the example above can see that the foreground and background both move, but at different rates. In the time that background scrolls through `575.0` points, foreground animates `200.0` points:
+    ```
+    foreground.minimum = -100.0
+    foreground.maximum = +100.0
+    background.minimum = +000.0
+    background.maximum = +575.0
+    ```
+
+1. Parallax animations could warrant a workshop series of their own, so we'll use some template code that does the heavy lifting for us. Check out the parallax demo later ([ParallaxDemo.xccodeproject](./parallax-demo/ParallaxDemo.xccodeproject)) for a detailed implementation.
+
+1. In order to implement 
 
 - Add parallax effect to images
    - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
