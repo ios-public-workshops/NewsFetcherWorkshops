@@ -267,43 +267,14 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
 1. Parallax animations could warrant a workshop series of their own, so we'll use some template code that does the heavy lifting for us. Check out the parallax demo later ([parallax-demo.xccodeproject](./parallax-demo/parallax-demo.xccodeproject)) for a detailed implementation.
 
-1. In order to implement
+1. We can start by adding these two files to our Xcode project:
+    1. [ParallaxingBackgroundView.swift](./ParallaxingBackgroundView.swift)
+    1. [ParallaxingForegroundView.swift](./ParallaxingForegroundView.swift)
 
-- Add parallax effect to images
-   - Create method on ArticleCell to arbitrarily offset the image vertically within a container view
-   - Create a function that gets the proportion scrolled of a cell in ViewController
-   - Add UIScrollViewDelegate to update ArticleCell offset on UIScrollViewDelegate didScroll
-   - Add a dampening so the image scrolls slower than the scroll view
+    ![Animation showing parallax files being dragged into Xcode](images/xcode_add_parallaxing_files.gif)
 
- - Implement pull to refresh?
+1.These files provide the interfaces necessary to make parallax work. Let's start by making ArticleCell implement ParallaxingForegroundView:
 
-<!--
-- Add an alpha animation to cells
- - On cellWillAppear - animate something in?
- - Make a UIEffectView blur disappear without animation
- - Add an animation so user can appreciate what is going on
-  - Tweak the animation duration until it feels right
-- Remind of cell reuse to clean up
--->
-
-<!-- - Add a 'read' state to each article
- - When user taps an article, save that index path
-  - Learn about saving state in a UIViewController
- - When viewDidAppear occurs, use alpha animation to show blur EffectView + green check over article image
-   - Learn about UIViewController life cycle
-   - learn about UIAnimations + alpha levels -->
-
-<!--
-- Add a filter/search function
-  - Nest disclaimer label within a vertical stack view
-  - Add a UITextField to stack view (Mention safe areas?!)
-    - Explain UITextField delegate
-  - As the user types, perform a .filter{} to articles to create a new array filteredArticles
-  - Update dataSource to use filteredArticles instead
-  - Return key of keyboard dismisses keyboard (does not remove filter)
-  - If de-blur animation is annoying while filtering, add a `isFiltering` bool and don't animate when `isFiltering` == true
--->
-
- <!-- - Add a show more to each article
-    - Button in the bottom of cell that says read more.
-    - When tap, -->
+    ```swift
+    
+    ```
