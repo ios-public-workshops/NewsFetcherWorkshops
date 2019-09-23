@@ -311,3 +311,11 @@ _Hint: Tap on the red circle at the left of the compilation error and hit the `F
     ```
 
 1. We've satisfied the compiler, but we need to do something with `parallaxOffset` when the `applyParallax` function is called. The easiest way to shift a view up and down is to center it in a container and then add an offset. Let's do that. Start by embedding ArticleCell's image inside another `UIView`:
+
+    ![Animation showing embedding ArticleCell UIImageView inside a UIView](images/xcode_embed_articleCell_imageView.gif)
+
+1. Xcode may show an error with our layout, but we will fix that now. As mentioned before, we want to ensure that the UIImageView is vertically centered inside it's container.
+
+<img src="images/xcode_vertically_center_imageView.png" title="Xcode vertically centering UIImageView inside UIView" alt="Xcode vertically centering UIImageView inside UIView">
+
+1. 
