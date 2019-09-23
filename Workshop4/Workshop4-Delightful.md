@@ -350,4 +350,18 @@ _Hint: Tap on the red circle at the left of the compilation error and hit the `F
 
 1. Run the app again to check how it looks:
 
-<img src="images/simulator_image_contained.png" height="600"  title="Cells with regular height images inside container" alt="Cells with regular height images inside container">
+    <img src="images/simulator_image_contained.png" height="600"  title="Cells with regular height images inside container" alt="Cells with regular height images inside container">
+
+1. We're getting close! We have an image that is double height contained inside another view. In order to adjust the position of the image for parallax we need to be able to update the `Align Center Y to: Superview` constraint. Luckily, it's easy to create an `@IBOutlet` for a constraint too!
+
+    ![Animation showing creation of an @IBOutlet from a constraint](images/xcode_outlet_for_centerY_constraint.gif)
+
+1. Now we can complete the parallax code for our Foreground view:
+
+    ```swift
+    func applyParallax(normalizedValue: CGFloat) {
+          let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
+          // Shift the center constraint up or down by parallaxOffset
+          imageCenterYConstraint.constant = parallaxOffset
+    }
+    ```

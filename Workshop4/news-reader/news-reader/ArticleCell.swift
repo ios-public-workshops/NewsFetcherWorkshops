@@ -20,6 +20,7 @@ class ArticleCell: UITableViewCell {
     }
     @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleDescription: UILabel!
+    @IBOutlet weak var imageCenterYConstraint: NSLayoutConstraint!
     
     override var textLabel: UILabel? {
         return articleTitle
@@ -61,7 +62,8 @@ extension ArticleCell: ParallaxingForegroundView {
     
     func applyParallax(normalizedValue: CGFloat) {
         let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
-        // We need a way to move image up and down by parallaxOffset
+        // Shift the center constraint up or down by parallaxOffset
+        imageCenterYConstraint.constant = parallaxOffset
     }
 }
 

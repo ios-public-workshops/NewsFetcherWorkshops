@@ -84,6 +84,7 @@
                                             <outlet property="articleDescription" destination="c9y-mk-CdW" id="RYP-aV-KBN"/>
                                             <outlet property="articleImage" destination="uwf-I2-WQe" id="eCf-ac-Qfh"/>
                                             <outlet property="articleTitle" destination="Sui-tb-MCd" id="afp-Ar-zoE"/>
+                                            <outlet property="imageCenterYConstraint" destination="gt6-5d-M50" id="hHz-8P-yTR"/>
                                             <outlet property="imageContainer" destination="p4Y-8c-Yh2" id="Dm9-So-JqC"/>
                                         </connections>
                                     </tableViewCell>
