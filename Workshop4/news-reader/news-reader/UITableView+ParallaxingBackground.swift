@@ -42,6 +42,13 @@ extension UITableView: ParallaxingBackgroundView {
         // We want to know the position of the ArticleCell relative to the *visible* part of the UITableView.
         // The contentOffset of the UITableView tells us where the *visible* part currently begins
         let bottomYPosition = bottomY - contentOffset.y
-        return bottomYPosition
+        
+        // In order to normalize we need to know the range of possible values for background
+        let range = backgroundValueRange(given: foreground)
+
+        // Normalize the bottomYPosition because parallax should depend on ArticleCell's position in background as a ratio.
+        // Otherwise the height of UITableView on different devices would lead to more/less parallax effect
+        let normalized = bottomYPosition / range
+        return normalized
     }
 }

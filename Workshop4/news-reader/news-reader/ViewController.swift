@@ -108,4 +108,16 @@ extension ViewController: UITableViewDelegate {
         // Present the screen on the Navigation Controller
         navigationController?.present(articleViewController, animated: true, completion: nil)
     }
+    
+    // This func is called every time user scrolls the table up or down
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Only care about cells that are visible to the user
+        for cell in tableView.visibleCells {
+            // Every visible cell _will_ be an ArticleCell, but compiler always needs to check first
+            if let parallaxCell = cell as? ParallaxingForegroundView {
+                // Tell tableView to update parallax effect on parallaxCell
+                tableView.updateParallax(for: parallaxCell)
+            }
+        }
+    }
 }

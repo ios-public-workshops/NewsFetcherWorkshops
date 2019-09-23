@@ -431,6 +431,85 @@ _Hint: Tap on the red circle at the left of the compilation error and hit the `F
             // We want to know the position of the ArticleCell relative to the *visible* part of the UITableView.
             // The contentOffset of the UITableView tells us where the *visible* part currently begins
             let bottomYPosition = bottomY - contentOffset.y
+            return bottomYPosition
         }
     }
     ```
+
+1. Now let's try that out. Fire up the simulator then scroll up and down. Are we parallaxing?
+
+1. No. :worried: We forgot to call `udpateParallax` somewhere. What we want to do is update the parallax effect on our `ArticleCell` each time that the user scrolls. Luckily `UITableViewDelegate` already has a delegate method for exactly this. Let's add it to `UIViewController`:
+
+    ```swift
+    extension ViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            ...
+        }
+
+        // This func is called every time user scrolls the table up or down
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            // Only care about cells that are visible to the user
+            for cell in tableView.visibleCells {
+                // Every visible cell _will_ be an ArticleCell, but compiler always needs to check first
+                if let parallaxCell = cell as? ParallaxingForegroundView {
+                    // Tell tableView to update parallax effect on parallaxCell
+                    tableView.updateParallax(for: parallaxCell)
+                }
+            }
+        }
+    }
+    ```
+
+1. OK - now we should finally see the fruits of our labour. Fire up the app!!
+
+    <img src="images/simulator_images_disappear.gif" height="600"  title="Images disappear as soon as user scrolls" alt="Images disappear as soon as user scrolls">
+
+1. Argh. :dizzy_face: What's going on here. Let's add a good old `print` statement to our ArticleCell and see what parallax effect we're applying:
+
+    ```swift
+    func applyParallax(normalizedValue: CGFloat) {
+        let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
+        // Shift the center constraint up or down by parallaxOffset
+        imageCenterYConstraint.constant = parallaxOffset
+        print("parallaxOffset = \(parallaxOffset)")
+    }
+    ```
+
+1. Run the app again and see what kind of values we're getting. `parallaxOffset = 42550.0`?!!? Given that our range is `100.0`, this parallax _is too damn high!!_ Although we see the symptoms inside `ArticleCell` the cause actually lies with `UITableView`. We forgot to **normalize** the foreground offset in `UITableView+ParallaxingBackground` :see_no_evil::
+
+    ```swift
+    extension UITableView: ParallaxingBackgroundView {
+        ...
+        func backgroundValueRange(given foreground: ParallaxingForegroundView) -> CGFloat {
+            return frame.size.height + foreground.frame.size.height
+        }
+
+        func normalizedForegroundOffset(_ foreground: ParallaxingForegroundView) -> CGFloat {
+            // Get the bottom coordinate of the foreground = origin + height
+            let bottomY = foreground.frame.origin.y + foreground.frame.size.height
+
+            // UITableViews are complex. They're actually one super long list of ArticleCells stacked on top of each other.
+            // We want to know the position of the ArticleCell relative to the *visible* part of the UITableView.
+            // The contentOffset of the UITableView tells us where the *visible* part currently begins
+            let bottomYPosition = bottomY - contentOffset.y
+
+            // In order to normalize we need to know the range of possible values for background
+            let range = backgroundValueRange(given: foreground)
+
+            // Normalize the bottomYPosition because parallax should depend on ArticleCell's position in background as a ratio.
+            // Otherwise the height of UITableView on different devices would lead to more/less parallax effect
+            let normalized = bottomYPosition / range
+            return normalized
+        }
+    }
+    ```
+
+1. Now run the app again and see what parallaxOffset values we're getting. They should all be within the range of `-50.0` to `+50.0`. :thumbsup:
+
+1. How does our parallax effect _feel_? There's no right or wrong answer! We can play with the `foregroundValueRange` in `ArticleCell` to tweak it. Here's an example with `foregroundValueRange` returning `75.0`:
+
+    <img src="images/simulator_parallax_at75.gif" height="600"  title="Images move with parallax effect of range 75.0" alt="Images move with parallax effect of range 75.0">
+
+**This brings us to the end of the final workshop in this series. Thank you for participating and making your first networked, beautiful, delightful app. Take a bow and celebrate!! :tada: :confetti_ball: :balloon:**
+
+**If you found any bugs or potential improvements, please raise a pull request on Github so we can improve these workshops for everyone.**
