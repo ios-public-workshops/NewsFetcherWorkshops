@@ -273,8 +273,41 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     ![Animation showing parallax files being dragged into Xcode](images/xcode_add_parallaxing_files.gif)
 
-1.These files provide the interfaces necessary to make parallax work. Let's start by making ArticleCell implement ParallaxingForegroundView:
+1. These files provide the interfaces necessary to make parallax work. Let's start by making ArticleCell implement ParallaxingForegroundView:
 
     ```swift
-    
+    class ArticleCell: UITableViewCell {
+        ...
+    }
+
+    extension ArticleCell: ParallaxingForegroundView {
+    }
+
+    extension ArticleCell {
+        func loadImage(at url: URL) {
+            ...
+        }
+    }
     ```
+
+1. Build the app again. The compiler complains that we haven't implemented the ParallaxingForegroundView protocol, so let's do that.  
+_Hint: Tap on the red circle at the left of the compilation error and hit the `Fix` button that appears._
+
+    ```swift
+    extension ArticleCell: ParallaxingForegroundView {
+        var foregroundValueRange: CGFloat {
+            // Range of values from minimum parallax to maximum parallax
+            // If we choose 100.0:
+            //  - at minimum parallax, image will be 50.0 points higher than normal
+            //  - at maximum parallax, image will be 50.0 points lower than normal
+            return 100.0
+        }
+
+        func applyParallax(normalizedValue: CGFloat) {
+              let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
+              // We need a way to move image up and down by parallaxOffset
+        }
+    }
+    ```
+
+1. We've satisfied the compiler, but we need to do something with `parallaxOffset` when the `applyParallax` function is called. The easiest way to shift a view up and down is to center it in a container and then add an offset. Let's do that. Start by embedding ArticleCell's image inside another `UIView`:

@@ -41,17 +41,23 @@
                                                     <rect key="frame" x="15" y="8" width="384" height="163.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sui-tb-MCd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="39"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="uwf-I2-WQe">
-                                                            <rect key="frame" x="0.0" y="44" width="384" height="100"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="100" id="tNa-ua-ZBv"/>
-                                                            </constraints>
-                                                        </imageView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4Y-8c-Yh2">
+                                                            <rect key="frame" x="0.0" y="25.5" width="384" height="118.5"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="uwf-I2-WQe">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="100"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="100" id="tNa-ua-ZBv"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9y-mk-CdW">
                                                             <rect key="frame" x="0.0" y="149" width="384" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>

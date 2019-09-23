@@ -48,6 +48,22 @@ class ArticleCell: UITableViewCell {
     }
 }
 
+
+extension ArticleCell: ParallaxingForegroundView {
+    var foregroundValueRange: CGFloat {
+        // Range of values from minimum parallax to maximum parallax
+        // If we choose 100.0:
+        //  - at minimum parallax, image will be 50.0 points higher than normal
+        //  - at maximum parallax, image will be 50.0 points lower than normal
+        return 100.0
+    }
+    
+    func applyParallax(normalizedValue: CGFloat) {
+        let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
+        // We need a way to move image up and down by parallaxOffset
+    }
+}
+
 extension ArticleCell {
     func loadImage(at url: URL) {
         
