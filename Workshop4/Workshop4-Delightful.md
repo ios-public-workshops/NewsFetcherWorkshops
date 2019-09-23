@@ -356,12 +356,81 @@ _Hint: Tap on the red circle at the left of the compilation error and hit the `F
 
     ![Animation showing creation of an @IBOutlet from a constraint](images/xcode_outlet_for_centerY_constraint.gif)
 
-1. Now we can complete the parallax code for our Foreground view:
+1. Now we can complete the parallax code for our foreground view (`ArticleCell`):
 
     ```swift
     func applyParallax(normalizedValue: CGFloat) {
           let parallaxOffset = foregroundValue(normalizedValue: normalizedValue)
           // Shift the center constraint up or down by parallaxOffset
           imageCenterYConstraint.constant = parallaxOffset
+    }
+    ```
+
+1. There's nothing to see yet as we're not actually calling `applyParallax` anywhere. In order to do that we need to also implement `ParallaxingBackgroundView`. As mentioned in the start of this workshop section, our `UITableView` is going to act as the parallax background. Let's create a new file `UITableView+ParallaxingBackgroundView.swift`.
+
+1. Now let's make `UITableView` implement `ParallaxingBackgroundView`. Essentially we're saying that _any_ `UITableView` instance will be able to act as a background for parallax.
+
+    ```swift
+    import UIKit
+
+    extension UITableView: ParallaxingBackgroundView {
+    }
+    ```
+
+1. The compiler isn't happy - we haven't satisfied the contract that `ParallaxingBackgroundView` requires. Let's start by implementing the  `backgroundValueRange` function. The comments explain the implementation in **detail** :sweat_smile:.
+
+    ```swift
+    extension UITableView: ParallaxingBackgroundView {
+        /// - For the background, range of possible values should be:
+        ///   - **min** when bottom of foreground is equal to top of background
+        ///   - **max** when top of foreground is equal to bottom of background
+        /// - This gives a range = background.height + foreground.height
+        ///                      = UITableView.height + ArticleCell.height
+        /// ```
+        /// Visual Example of ArticleCell as foreground & UITablleView as background:
+        ///
+        ///    min Parallax                             max Parallax
+        ///
+        /// +----cell top----+\
+        /// |                | |
+        /// |  ArticleCell   |  > NOT VISIBLE (OFFSCREEN)
+        /// |                | /
+        /// +--cell bottom---+ - -top of visible part - - +----------------+
+        /// |                |                            |                |
+        /// |                |                            |                |
+        /// |  Visible part  |                            |  Visible part  |
+        /// | of UITableView |                            | of UITableView |
+        /// |                |                            |                |
+        /// |                |                            |                |
+        /// +----------------+ - bottom of visible part - +----cell top----+
+        ///                                              /|                |
+        ///                    NOT VISIBLE (OFFSCREEN) <  |  ArticleCell   |
+        ///                                             | |                |
+        ///                                              \+--cell bottom---+
+        /// ```
+        func backgroundValueRange(given foreground: ParallaxingForegroundView) -> CGFloat {
+            return frame.size.height + foreground.frame.size.height
+        }
+    }
+    ```
+
+1. Now we need to implement the other missing method for `ParallaxingBackgroundView` which is `normalizedForegroundOffset`. Again, the comments explain how this implementation works:
+
+    ```swift
+    extension UITableView: ParallaxingBackgroundView {
+        ...
+        func backgroundValueRange(given foreground: ParallaxingForegroundView) -> CGFloat {
+            return frame.size.height + foreground.frame.size.height
+        }
+
+        func normalizedForegroundOffset(_ foreground: ParallaxingForegroundView) -> CGFloat {
+            // Get the bottom coordinate of the foreground = origin + height
+            let bottomY = foreground.frame.origin.y + foreground.frame.size.height
+
+            // UITableViews are complex. They're actually one super long list of ArticleCells stacked on top of each other.
+            // We want to know the position of the ArticleCell relative to the *visible* part of the UITableView.
+            // The contentOffset of the UITableView tells us where the *visible* part currently begins
+            let bottomYPosition = bottomY - contentOffset.y
+        }
     }
     ```
