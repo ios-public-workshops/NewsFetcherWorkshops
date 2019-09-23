@@ -316,6 +316,38 @@ _Hint: Tap on the red circle at the left of the compilation error and hit the `F
 
 1. Xcode may show an error with our layout, but we will fix that now. As mentioned before, we want to ensure that the UIImageView is vertically centered inside it's container.
 
-<img src="images/xcode_vertically_center_imageView.png" title="Xcode vertically centering UIImageView inside UIView" alt="Xcode vertically centering UIImageView inside UIView">
+    <img src="images/xcode_vertically_center_imageView.png" title="Xcode vertically centering UIImageView inside UIView" alt="Xcode vertically centering UIImageView inside UIView">
 
-1. 
+1. We're going to move our UIImageView up and down to create the parallax effect; at minimum we'll be seeing the upper half and at maximum we'll be seeing the lower half. In order to show only a portion of the UIImageView, we should constrain it to be twice as big as the container view:
+
+    ![Animation showing constraints for UIImageView twice as big as container](images/xcode_image_twice_view_size.gif)
+
+1.  The layout is still not complete as Xcode doesn't know how wide to make our UIImageView. Add two more constraints:
+    - `Trailing Space == Superview Trailing Space`
+    - `Leading Space == Superview Leading Space`
+
+1. Let's fire up our app and see if everything looks normal!
+
+    <img src="images/simulator_image_not_contained.png" height="600"  title="Cells with double height images" alt="Cells with double height images">
+
+1. Not quite. We forgot to tell the container view to crop our image. We also need to make sure the edges are still rounded. Inside `ArticleCell`, create a new `@IBOutlet` named `imageContainer` and move the corner rounding from `articeImage` to `imageContainer`. Don't forget to connect the new `@IBOutlet` to the `Main.storyboard`!
+
+    ```swift
+    class ArticleCell: UITableViewCell {
+
+        @IBOutlet weak var articleTitle: UILabel!
+        @IBOutlet weak var imageContainer: UIView! {
+            didSet {
+                imageContainer.layer.cornerRadius = 12.0
+                imageContainer.layer.masksToBounds = true
+            }
+        }
+        @IBOutlet weak var articleImage: UIImageView!
+        @IBOutlet weak var articleDescription: UILabel!
+            ...
+    }
+    ```
+
+1. Run the app again to check how it looks:
+
+<img src="images/simulator_image_contained.png" height="600"  title="Cells with regular height images inside container" alt="Cells with regular height images inside container">

@@ -12,12 +12,13 @@ import Kingfisher
 class ArticleCell: UITableViewCell {
     
     @IBOutlet weak var articleTitle: UILabel!
-    @IBOutlet weak var articleImage: UIImageView! {
+    @IBOutlet weak var imageContainer: UIView! {
         didSet {
-            articleImage.layer.cornerRadius = 12.0
-            articleImage.layer.masksToBounds = true
+            imageContainer.layer.cornerRadius = 12.0
+            imageContainer.layer.masksToBounds = true
         }
     }
+    @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleDescription: UILabel!
     
     override var textLabel: UILabel? {
