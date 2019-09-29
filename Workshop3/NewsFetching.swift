@@ -35,12 +35,12 @@ struct NewsItem: Decodable {
 
 class NewsFetcher {
     private let baseURL = "https://newsapi.org"
-    private let apiKey = "d617892bff1f4fd88d62deb71bb74d52"
+    private let apiKey = "ed36eebe7e504521aa50083debfbb5af"
     private let session = URLSession.shared
 
     func getLatestArticles(_ completion: @escaping (Result<[NewsItem], NewsFetcherError>) -> Void) {
         let endpoint = "/v2/top-headlines"
-        let parameters = ["q":"apple"]
+        let parameters = ["sources":"techcrunch"]
         
         guard let url = createURL(baseURL: baseURL, endpoint: endpoint, parameters: parameters) else {
             completion(.failure(.invalidURL))
