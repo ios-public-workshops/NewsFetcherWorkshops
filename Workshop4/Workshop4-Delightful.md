@@ -201,6 +201,12 @@ If this step fails, try running `pod repo update` first. This ensures that the `
 
     ![Animation showing an image being dragged from project and dropped into Assets.xcassets on Xcode](images/xcode_add_navigation_title_image.gif)
 
+1. Next, set the image scale to be `Single scale`, like the image below. 
+
+    <img src="images/xcode_add_navigation_title_image_scale.png" height="600"  title="Image scales" alt="Image has Single Scale">
+
+1. This will make Xcode automatically generate images for all scales for us.
+
 1. Now that we've added a cool navigation bar title image, we need to use it as our navigation bar's title. This is done inside `ViewController`:
 
     ```swift
@@ -210,8 +216,13 @@ If this step fails, try running `pod repo update` first. This ensures that the `
         var articles = [NewsItem]()
 
         func customizeNavigationBar() {
+            // Creates a new Image View with the image from the Assets.xcassets file
+            let titleImage = UIImageView(image: UIImage(named: "navigation-bar-title"))
+            // Configures the scaling of the image to be aspect fit
+            titleImage.contentMode = .scaleAspectFit
+            
             // Replace the default title with a custom image
-            navigationItem.titleView = UIImageView(image: UIImage(named: "navigation-bar-title"))
+            navigationItem.titleView = titleImage
         }
 
         override func viewDidLoad() {
